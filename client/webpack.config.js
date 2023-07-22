@@ -4,6 +4,7 @@ const path = require("path");
 const HtmlWebpackplugin = require("html-webpack-plugin");
 const config = () => {
   return {
+    mode: "development",
     entry: "./src/index.js",
     output: {
       path: path.resolve(__dirname, "build"),
