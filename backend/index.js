@@ -10,6 +10,7 @@ const logger = require("./util/logger");
 const requestLogger = require("./middleware/requestLogger");
 const programRouter = require("./routers/programRouter");
 const errorHandler = require("./middleware/errorHandler");
+const unknownEndpoint = require("./middleware/unknownEndpoint");
 
 const app = express();
 
@@ -24,6 +25,8 @@ app.use(express.json());
 app.use(requestLogger);
 
 app.use("/api/programs", programRouter);
+
+app.use(unknownEndpoint);
 
 app.use(errorHandler);
 
