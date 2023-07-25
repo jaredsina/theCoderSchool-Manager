@@ -4,11 +4,17 @@ const mongoose = require("mongoose");
 // no try/catch blocks for aync/await
 require("express-async-errors");
 
-// setup port and mongodb uri for the app
+// setup modules for app
 const config = require("./util/config");
 const logger = require("./util/logger");
 const requestLogger = require("./middleware/requestLogger");
+
+// setup routers
 const programRouter = require("./routers/programRouter");
+const userRouter = require("./routers/userRouter");
+const loginRouter = require("./routers/loginRouter");
+
+// setup error middleware
 const errorHandler = require("./middleware/errorHandler");
 const unknownEndpoint = require("./middleware/unknownEndpoint");
 
@@ -24,10 +30,13 @@ app.use(express.json());
 // log requests made to the app
 app.use(requestLogger);
 
+// setup routes
+app.use("/api/login", loginRouter);
+app.use("/api/users", userRouter);
 app.use("/api/programs", programRouter);
 
+// setup middleware for handling unknown endpoints and errors
 app.use(unknownEndpoint);
-
 app.use(errorHandler);
 
 // dont listen for requests until routes and middleware are set
