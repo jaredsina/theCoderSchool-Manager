@@ -1,16 +1,17 @@
-//allows us to make requests to our express app
+// allows us to make requests to our express app
 const supertest = require("supertest");
 const { app, server } = require("../index");
+
 const api = supertest(app);
 
-//to close the connection to the database
+// to close the connection to the database
 const mongoose = require("mongoose");
 
 const Program = require("../models/program");
 
 const { testDataList, dataInDb } = require("./testHelper_program_api");
 
-//reset test db for consistent results
+// reset test db for consistent results
 beforeEach(async () => {
   await Program.deleteMany({});
   const uploadedUser = await Program.create(testDataList[0]);
@@ -30,6 +31,22 @@ describe("get route", () => {
       .expect(404)
       .expect("Content-Type", /application\/json/);
     expect(response.body).toHaveProperty("error", "unknown endpoint");
+  });
+  test("should return a single program", async () => {
+    const programsAtStart = await dataInDb();
+    const foundProgram = programsAtStart[0];
+    const response = await api
+      .get(`/api/programs/${foundProgram.id}`)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    expect(response.body).toHaveProperty("name", "Math Program");
+  });
+  test("should return an error when trying to get a program that doesnt exist", async () => {
+    const response = await api
+      .get("/api/programs/64bd2e5ee9849c40cdb84199")
+      .expect(404)
+      .expect("Content-Type", /application\/json/);
+    expect(response.body).toHaveProperty("error", "Program was not found");
   });
 });
 
@@ -125,10 +142,18 @@ describe("delete route", () => {
       .expect(404)
       .expect("Content-Type", /application\/json/);
   });
+  test("should return cast error when trying to delete a program with invalid id", async () => {
+    // test response for cast error
+    const response = await api
+      .delete("/api/programs/64bd2e5ee9849c4")
+      .expect(400)
+      .expect("Content-Type", /application\/json/);
+    expect(response.body).toHaveProperty("error", "malformatted id");
+  });
 });
 
 afterAll(async () => {
-  //remove any open handles so jest will shutdown properly
+  // remove any open handles so jest will shutdown properly
   await mongoose.connection.close();
   server.close();
 });
