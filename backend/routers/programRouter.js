@@ -4,6 +4,9 @@ const programController = require("../controllers/programController");
 // get all programs
 programRouter.get("/", programController.getAll);
 
+// get a single program
+programRouter.get("/:id", programController.getOne);
+
 // post a new program
 programRouter.post("/", programController.postNew);
 
