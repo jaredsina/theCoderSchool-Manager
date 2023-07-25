@@ -5,12 +5,28 @@ const getAll = async (request, response) => {
   response.status(200).json(programs);
 };
 
+// fetches a single resource from the collection
+const getOne = async (request, response) => {
+  const { id } = request.params;
+  const program = await Program.findById(id);
+  if (program) {
+    response.status(200).json(program);
+  }
+  if (!program) {
+    response.status(404).json({ error: "Program was not found" });
+    const error = new Error("Program does not exist");
+    error.status = 404;
+    throw error;
+  }
+};
+
 // creates a new resource based on the request data
 const postNew = async (request, response) => {
   const newProgram = request.body;
   const addedProgram = await Program.create(newProgram);
   response.status(200).json(addedProgram);
 };
+
 // replaces the entire identified resource with the request data
 const replace = async (request, response) => {
   const newProgram = request.body;
@@ -31,6 +47,7 @@ const replace = async (request, response) => {
     throw error;
   }
 };
+
 // let's you update a resource with the request data
 const update = async (request, response) => {
   const newProgram = request.body;
@@ -69,4 +86,4 @@ const deleteProgram = async (request, response) => {
   }
 };
 
-module.exports = { getAll, postNew, replace, update, deleteProgram };
+module.exports = { getAll, postNew, replace, update, deleteProgram, getOne };
