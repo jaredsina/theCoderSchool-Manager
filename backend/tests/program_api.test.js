@@ -8,19 +8,44 @@ const api = supertest(app);
 const mongoose = require("mongoose");
 
 const Program = require("../models/program");
-
+const User = require("../models/user");
 const { testDataList, dataInDb } = require("./testHelper_program_api");
 
+// token for authentication
+let token;
+
 // reset test db for consistent results
+// in these tests the user has successfully logged in and has a token
 beforeEach(async () => {
   await Program.deleteMany({});
-  const uploadedUser = await Program.create(testDataList[0]);
+  const uploadedProgram = await Program.create(testDataList[0]);
+  await User.deleteMany({});
+
+  // create user
+  await api
+    .post("/api/users")
+    .send({
+      username: "testUser",
+      name: "Test User",
+      password: "testPassword",
+    })
+    .expect(200)
+    .expect("Content-Type", /application\/json/);
+
+  // login user
+  const response = await api
+    .post("/api/login")
+    .send({ username: "testUser", password: "testPassword" })
+    .expect(200)
+    .expect("Content-Type", /application\/json/);
+  token = response.body.token;
 });
 
 describe("get route", () => {
   test("should return a program", async () => {
     const response = await api
       .get("/api/programs/")
+      .set("Authorization", `bearer ${token}`)
       .expect(200)
       .expect("Content-Type", /application\/json/);
     expect(response.body).toHaveLength(1);
@@ -28,6 +53,7 @@ describe("get route", () => {
   test("should return an error with incorrect endpoint", async () => {
     const response = await api
       .get("/api/program/")
+      .set("Authorization", `bearer ${token}`)
       .expect(404)
       .expect("Content-Type", /application\/json/);
     expect(response.body).toHaveProperty("error", "unknown endpoint");
@@ -37,6 +63,7 @@ describe("get route", () => {
     const foundProgram = programsAtStart[0];
     const response = await api
       .get(`/api/programs/${foundProgram.id}`)
+      .set("Authorization", `bearer ${token}`)
       .expect(200)
       .expect("Content-Type", /application\/json/);
     expect(response.body).toHaveProperty("name", "Math Program");
@@ -44,6 +71,7 @@ describe("get route", () => {
   test("should return an error when trying to get a program that doesnt exist", async () => {
     const response = await api
       .get("/api/programs/64bd2e5ee9849c40cdb84199")
+      .set("Authorization", `bearer ${token}`)
       .expect(404)
       .expect("Content-Type", /application\/json/);
     expect(response.body).toHaveProperty("error", "Program was not found");
@@ -59,6 +87,7 @@ describe("put route", () => {
     const oldProgramId = oldProgram.id;
     const response = await api
       .put(`/api/programs/${oldProgramId}`)
+      .set("Authorization", `bearer ${token}`)
       .send({ ...oldProgram, name: "SCAP" })
       .expect(200)
       .expect("Content-Type", /application\/json/);
@@ -69,6 +98,7 @@ describe("put route", () => {
   test("should return error when trying to replace a program that doesnt exist", async () => {
     const response = await api
       .put("/api/programs/dsfsdfs")
+      .set("Authorization", `bearer ${token}`)
       .send({
         name: "joe",
       })
@@ -81,6 +111,7 @@ describe("post route", () => {
   test("should be able to create a new program", async () => {
     const response = await api
       .post("/api/programs/")
+      .set("Authorization", `bearer ${token}`)
       .send(testDataList[1])
       .expect(200)
       .expect("Content-Type", /application\/json/);
@@ -91,6 +122,7 @@ describe("post route", () => {
   test("should return an error when not putting in required fields of a program", async () => {
     const response = await api
       .post("/api/programs/")
+      .set("Authorization", `bearer ${token}`)
       .send({ ...testDataList[0], name: "" })
       .expect(400)
       .expect("Content-Type", /application\/json/);
@@ -106,6 +138,7 @@ describe("patch route", () => {
     const oldProgramId = oldProgram.id;
     const response = await api
       .patch(`/api/programs/${oldProgramId}`)
+      .set("Authorization", `bearer ${token}`)
       .send({ ...oldProgram, name: "SCAP" })
       .expect(200)
       .expect("Content-Type", /application\/json/);
@@ -116,6 +149,7 @@ describe("patch route", () => {
   test("should return error when trying to update a program that doesnt exist", async () => {
     const response = await api
       .patch("/api/programs/dsfsdfs")
+      .set("Authorization", `bearer ${token}`)
       .send({ name: "joe" })
       .expect(404)
       .expect("Content-Type", /application\/json/);
@@ -131,6 +165,7 @@ describe("delete route", () => {
     const oldProgramId = oldProgram.id;
     const response = await api
       .delete(`/api/programs/${oldProgramId}`)
+      .set("Authorization", `bearer ${token}`)
       .expect(200)
       .expect("Content-Type", /application\/json/);
     const programs = await dataInDb();
@@ -139,6 +174,7 @@ describe("delete route", () => {
   test("should return error when trying to delete a program that doesnt exist", async () => {
     const response = await api
       .delete("/api/programs/64bd2e5ee9849c40cdb84199")
+      .set("Authorization", `bearer ${token}`)
       .expect(404)
       .expect("Content-Type", /application\/json/);
   });
@@ -146,6 +182,7 @@ describe("delete route", () => {
     // test response for cast error
     const response = await api
       .delete("/api/programs/64bd2e5ee9849c4")
+      .set("Authorization", `bearer ${token}`)
       .expect(400)
       .expect("Content-Type", /application\/json/);
     expect(response.body).toHaveProperty("error", "malformatted id");
