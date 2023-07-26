@@ -7,7 +7,12 @@ require("express-async-errors");
 // setup modules for app
 const config = require("./util/config");
 const logger = require("./util/logger");
+
+// setup middleware
 const requestLogger = require("./middleware/requestLogger");
+const userExtractor = require("./middleware/userExtractor");
+const tokenExtractor = require("./middleware/tokenExtractor");
+const tokenValidator = require("./middleware/tokenValidator");
 
 // setup routers
 const programRouter = require("./routers/programRouter");
@@ -30,10 +35,16 @@ app.use(express.json());
 // log requests made to the app
 app.use(requestLogger);
 
-// setup routes
+// setup different endpoints for the app
 app.use("/api/login", loginRouter);
 app.use("/api/users", userRouter);
-app.use("/api/programs", programRouter);
+app.use(
+  "/api/programs",
+  tokenExtractor,
+  tokenValidator,
+  userExtractor,
+  programRouter,
+);
 
 // setup middleware for handling unknown endpoints and errors
 app.use(unknownEndpoint);
