@@ -9,7 +9,7 @@ const validateLogin = async (request, response) => {
 
   // find user with the username
   const user = await User.findOne({ username });
-  console.log(user);
+
   // check if password is correct
   const passwordCorrect =
     user === null ? false : await bcrypt.compare(password, user.passwordHash);
@@ -25,7 +25,9 @@ const validateLogin = async (request, response) => {
     username: user.username,
     id: user._id,
   };
-  const token = jwt.sign(userForToken, process.env.SECRET);
+  const token = jwt.sign(userForToken, process.env.SECRET, {
+    expiresIn: 60 * 60,
+  });
 
   // return token and user info
   response
