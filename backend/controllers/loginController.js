@@ -31,6 +31,8 @@ const validateLogin = async (request, response) => {
   response
     .status(200)
     .send({ token, username: user.username, name: user.name });
+
+  return null;
 };
 
 module.exports = { validateLogin };
