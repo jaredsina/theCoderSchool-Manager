@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 // no try/catch blocks for aync/await
 require("express-async-errors");
 
+// cors allows requests from other origins
+const cors = require("cors");
+
 // setup modules for app
 const config = require("./util/config");
 const logger = require("./util/logger");
@@ -31,6 +34,9 @@ mongoose.connect(config.MONGODB_URI);
 
 // parse json data in request body and convert to js object
 app.use(express.json());
+
+// setup cors
+app.use(cors());
 
 // log requests made to the app
 app.use(requestLogger);
