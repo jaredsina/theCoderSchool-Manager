@@ -24,7 +24,6 @@ export const attemptLogin = (username, password) => async (dispatch) => {
     }
   } catch (err) {
     dispatch(displayMessage("Invalid username or password", "error", 5));
-    console.error(err);
   }
 };
 
