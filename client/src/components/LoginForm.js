@@ -8,8 +8,8 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const username = event.target.username.value;
-    const password = event.target.password.value;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
     dispatch(attemptLogin(username, password));
   };
   return (
