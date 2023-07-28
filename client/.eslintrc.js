@@ -31,6 +31,7 @@ module.exports = {
       jsx: true,
     },
   },
+  ignorePatterns: ["**/*.test.js"],
   rules: {
     "react/jsx-filename-extension": ["error", { extensions: [".js", ".jsx"] }],
     "react/function-component-definition": [
