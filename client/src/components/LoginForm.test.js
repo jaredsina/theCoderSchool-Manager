@@ -55,3 +55,22 @@ test("renders notification on successful login", async () => {
     expect(screen.getByText("Welcome test")).toBeInTheDocument();
   });
 });
+test("renders notification on failed login", async () => {
+  server.use(
+    rest.post("http://localhost:3000/api/login", (req, res, ctx) => {
+      return res(ctx.status(401), ctx.json({ error: "Invalid credentials" }));
+    }),
+  );
+  renderWithProviders(<LoginForm />);
+  const usernameInput = screen.getByPlaceholderText("username");
+  const passwordInput = screen.getByPlaceholderText("password");
+  const submitButton = screen.getByText("Login");
+  fireEvent.change(usernameInput, { target: { value: "test" } });
+  fireEvent.change(passwordInput, { target: { value: "password" } });
+  fireEvent.click(submitButton);
+  await waitFor(() => {
+    expect(
+      screen.getByText("Invalid username or password"),
+    ).toBeInTheDocument();
+  });
+});
