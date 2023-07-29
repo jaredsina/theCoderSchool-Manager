@@ -56,6 +56,8 @@ test("renders notification on successful login", async () => {
   });
 });
 test("renders notification on failed login", async () => {
+  // We use msw to intercept the network request during the test,
+  // and return the response { error: "Invalid credentials" } after 150ms
   server.use(
     rest.post("http://localhost:3000/api/login", (req, res, ctx) => {
       return res(ctx.status(401), ctx.json({ error: "Invalid credentials" }));
