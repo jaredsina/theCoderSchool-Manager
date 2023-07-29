@@ -12,6 +12,7 @@ import "@testing-library/jest-dom";
 export const handlers = [
   rest.post("http://localhost:3000/api/login", (req, res, ctx) => {
     return res(
+      ctx.status(200),
       ctx.json({ username: "test", token: "12345", name: "Test User" }),
       ctx.delay(150),
     );
@@ -41,4 +42,16 @@ test("calls onSubmit with correct details", async () => {
   fireEvent.change(usernameInput, { target: { value: "test" } });
   fireEvent.change(passwordInput, { target: { value: "password" } });
   fireEvent.click(submitButton);
+});
+test("renders notification on successful login", async () => {
+  renderWithProviders(<LoginForm />);
+  const usernameInput = screen.getByPlaceholderText("username");
+  const passwordInput = screen.getByPlaceholderText("password");
+  const submitButton = screen.getByText("Login");
+  fireEvent.change(usernameInput, { target: { value: "test" } });
+  fireEvent.change(passwordInput, { target: { value: "password" } });
+  fireEvent.click(submitButton);
+  await waitFor(() => {
+    expect(screen.getByText("Welcome test")).toBeInTheDocument();
+  });
 });
