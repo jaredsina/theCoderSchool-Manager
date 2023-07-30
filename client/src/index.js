@@ -5,18 +5,27 @@ import App from "./App";
 import "core-js/stable/index";
 import "regenerator-runtime/runtime";
 import store from "./utils/store";
-import { BrowserRouter } from "react-router-dom";
+import {
+  BrowserRouter,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <Provider store={store}>
+        <App />
+      </Provider>
+    ),
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const renderApp = () => {
-  root.render(
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>,
-  );
+  root.render(<RouterProvider router={router} />);
 };
 
 renderApp();
