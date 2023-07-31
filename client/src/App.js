@@ -12,9 +12,7 @@ const App = () => {
   // when the app is first rendered, we want to check if the user is logged in
   useEffect(() => {
     dispatch(initializeUser());
-    if (user) {
-      dispatch(initializePrograms());
-    }
+    dispatch(initializePrograms());
   }, [dispatch]);
 
   return (
