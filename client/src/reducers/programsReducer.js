@@ -22,6 +22,7 @@ export const initializePrograms = () => async (dispatch) => {
     const programs = await ProgramService.getAll();
     dispatch(setPrograms(programs));
   } catch (err) {
+    // if the token has expired, log the user out
     dispatch(logout());
     dispatch(displayMessage("Session expired, please login again", "error", 5));
   }
