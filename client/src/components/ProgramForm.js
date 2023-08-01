@@ -39,7 +39,7 @@ const ProgramForm = () => {
           Name
           <input
             type="text"
-            placeholder="name"
+            placeholder="Name of program"
             id="name"
             name="name"
             required
