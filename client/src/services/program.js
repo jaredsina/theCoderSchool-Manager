@@ -19,4 +19,11 @@ const getAll = async () => {
   return response.data;
 };
 
-export default { getAll, setToken };
+// The create function sends a POST request to the /api/programs endpoint with the program data.
+// If the request is successful, the function returns the response data.
+const create = async (newProgram) => {
+  const response = await axios.post(baseUrl, newProgram, config);
+  return response.data;
+};
+
+export default { getAll, setToken, create };
