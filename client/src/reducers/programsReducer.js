@@ -7,38 +7,45 @@ const programsSlice = createSlice({
   name: "programs",
   initialState: [],
   reducers: {
-    setPrograms: (state, action) => {
+    setProgramsState: (state, action) => {
       return action.payload;
     },
-    appendProgram: (state, action) => {
+    appendProgramState: (state, action) => {
       return [...state, action.payload];
     },
-    removeAllPrograms: (state, action) => {
+    removeAllProgramsState: (state, action) => {
       return [];
+    },
+    deleteProgramState: (state, action) => {
+      return state.filter((program) => program.id !== action.payload);
     },
   },
 });
 
-export const { setPrograms, appendProgram, removeAllPrograms } =
-  programsSlice.actions;
+export const {
+  setProgramsState,
+  appendProgramState,
+  removeAllProgramsState,
+  deleteProgramState,
+} = programsSlice.actions;
 
 export default programsSlice.reducer;
 
 export const initializePrograms = () => async (dispatch) => {
   try {
     const programs = await ProgramService.getAll();
-    dispatch(setPrograms(programs));
+    dispatch(setProgramsState(programs));
   } catch (err) {
     if (err.response.data.error === "token expired") {
       // if the token has expired, log the user out
       dispatch(logout());
-      dispatch(removeAllPrograms());
+      dispatch(removeAllProgramsState());
       dispatch(
         displayMessage("Session expired, please login again", "error", 5),
       );
     } else {
       dispatch(logout());
-      dispatch(removeAllPrograms());
+      dispatch(removeAllProgramsState());
     }
   }
 };
@@ -47,8 +54,18 @@ export const addProgram = (program) => async (dispatch) => {
   try {
     const newProgram = await ProgramService.create(program);
     dispatch(displayMessage(`Added ${newProgram.name}`, "success", 5));
-    dispatch(appendProgram(newProgram));
+    dispatch(appendProgramState(newProgram));
   } catch (err) {
     dispatch(displayMessage("Error adding program", "error", 5));
+  }
+};
+
+export const removeProgram = (id) => async (dispatch) => {
+  try {
+    await ProgramService.deleteProgram(id);
+    dispatch(displayMessage("Program deleted", "success", 5));
+    dispatch(deleteProgramState(id));
+  } catch (err) {
+    dispatch(displayMessage("Error deleting program", "error", 5));
   }
 };
