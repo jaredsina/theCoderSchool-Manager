@@ -13,7 +13,7 @@ const LoginForm = () => {
     event.preventDefault();
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    await dispatch(attemptLogin(username, password));
+    dispatch(attemptLogin(username, password));
     if (user) {
       navigate("/dashboard");
     }
