@@ -1,8 +1,10 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useMatch } from "react-router-dom";
+import { removeProgram } from "../reducers/programsReducer";
 
 const Program = () => {
+  const dispatch = useDispatch();
   const match = useMatch("/dashboard/:id");
   const programs = useSelector((state) => state.programs);
 
@@ -26,6 +28,9 @@ const Program = () => {
       <p>Assigned Staff: {program.staff}</p>
       <p>Task Alerts: </p>
       <p>Files: </p>
+      <button type="button" onClick={() => dispatch(removeProgram(program.id))}>
+        Delete
+      </button>
     </div>
   );
 };

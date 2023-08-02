@@ -26,4 +26,11 @@ const create = async (newProgram) => {
   return response.data;
 };
 
-export default { getAll, setToken, create };
+// The delete function sends a DELETE request to the /api/programs/:id endpoint.
+// If the request is successful, the function returns the response data.
+const deleteProgram = async (id) => {
+  const response = await axios.delete(`${baseUrl}/${id}`, config);
+  return response.data;
+};
+
+export default { getAll, setToken, create, deleteProgram };
