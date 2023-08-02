@@ -6,7 +6,7 @@ const Sidebar = () => {
   const programs = useSelector((state) => state.programs);
   const programList = programs.map((program) => (
     <li key={program.id}>
-      <Link to={`/programs/${program.id}`}>{program.name}</Link>
+      <Link to={`/dashboard/${program.id}`}>{program.name}</Link>
     </li>
   ));
 

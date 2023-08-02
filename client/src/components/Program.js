@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useMatch } from "react-router-dom";
 
 const Program = () => {
-  const match = useMatch("/programs/:id");
+  const match = useMatch("/dashboard/:id");
   const programs = useSelector((state) => state.programs);
 
   const program = match ? programs.find((p) => p.id === match.params.id) : null;
