@@ -11,6 +11,7 @@ const App = () => {
   const user = useSelector((state) => state.user);
 
   // when the app is first rendered, we want to check if the user is logged in
+  // and if so, we want to fetch the programs from the server to validate the token
   useEffect(() => {
     dispatch(initializeUser());
     dispatch(initializePrograms());
@@ -19,6 +20,7 @@ const App = () => {
   return (
     <div className="App">
       <Routes>
+        <Route path="/programs/:id" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<LoginForm />} />
         <Route
