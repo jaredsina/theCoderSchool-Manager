@@ -14,6 +14,8 @@ const config = () => ({
     static: path.resolve(__dirname, "build"),
     compress: true,
     port: 3001,
+    historyApiFallback: true,
+    hot: true,
   },
   plugins: [
     new HtmlWebpackplugin({
