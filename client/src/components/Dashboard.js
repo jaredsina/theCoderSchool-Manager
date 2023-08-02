@@ -5,6 +5,7 @@ import Sidebar from "./Sidebar";
 import { logout } from "../reducers/authReducer";
 import ProgramForm from "./ProgramForm";
 import Program from "./Program";
+import Notification from "./Notification";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const Dashboard = () => {
         Logout
       </button>
       <ProgramForm />
+      <Notification />
       <h1>Dashboard</h1>
       <Sidebar />
       <div className="main">
