@@ -13,10 +13,14 @@ const programsSlice = createSlice({
     appendProgram: (state, action) => {
       return [...state, action.payload];
     },
+    removeAllPrograms: (state, action) => {
+      return [];
+    },
   },
 });
 
-export const { setPrograms, appendProgram } = programsSlice.actions;
+export const { setPrograms, appendProgram, removeAllPrograms } =
+  programsSlice.actions;
 
 export default programsSlice.reducer;
 
@@ -25,9 +29,17 @@ export const initializePrograms = () => async (dispatch) => {
     const programs = await ProgramService.getAll();
     dispatch(setPrograms(programs));
   } catch (err) {
-    // if the token has expired, log the user out
-    dispatch(logout());
-    dispatch(displayMessage("Session expired, please login again", "error", 5));
+    if (err.response.data.error === "token expired") {
+      // if the token has expired, log the user out
+      dispatch(logout());
+      dispatch(removeAllPrograms());
+      dispatch(
+        displayMessage("Session expired, please login again", "error", 5),
+      );
+    } else {
+      dispatch(logout());
+      dispatch(removeAllPrograms());
+    }
   }
 };
 
