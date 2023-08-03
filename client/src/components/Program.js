@@ -24,6 +24,14 @@ const Program = () => {
     const staff = document.getElementById("editStaff").value;
     const weeks = document.getElementById("editWeeks").value;
     const students = document.getElementById("editStudents").value;
+
+    // make sure all the required values are there
+    if (!name || !students || !pricing) {
+      alert(
+        "Please fill out all the required fields (name, students, pricing)",
+      );
+      return;
+    }
     const newProgram = {
       name,
       status,
