@@ -1,4 +1,5 @@
 const Program = require("../models/program");
+const Partner = require("../models/partner");
 // fetches all resources in the collection
 const getAll = async (request, response) => {
   const programs = await Program.find({});
@@ -24,6 +25,14 @@ const getOne = async (request, response) => {
 const postNew = async (request, response) => {
   const newProgram = request.body;
   const addedProgram = await Program.create(newProgram);
+
+  // if a partner is assigned to the program, add the program to the partner's programs array
+  if (addedProgram.partner) {
+    const partner = await Partner.findById(addedProgram.partner);
+    partner.programs = partner.programs.concat(addedProgram._id);
+    await partner.save();
+  }
+
   response.status(200).json(addedProgram);
 };
 
