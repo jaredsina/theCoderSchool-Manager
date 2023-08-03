@@ -162,6 +162,14 @@ describe("put route", () => {
       .expect(400)
       .expect("Content-Type", /application\/json/);
   });
+  test("should return an error if partner not found", async () => {
+    await api
+      .put(`/api/partners/5f9f9f9f9f9f9f9f9f9f9f9f`)
+      .set("Authorization", `bearer ${token}`)
+      .send({ name: "Partner 2" })
+      .expect(404)
+      .expect("Content-Type", /application\/json/);
+  });
 });
 
 describe("delete route", () => {
@@ -199,6 +207,44 @@ describe("delete route", () => {
     await api
       .delete(`/api/partners/5f9f9f9f9f9f9f9f9f9f9f9f`)
       .set("Authorization", `bearer ${token}`)
+      .expect(404)
+      .expect("Content-Type", /application\/json/);
+  });
+});
+
+describe("patch route", () => {
+  test("should update a partner", async () => {
+    const newPartner = {
+      name: "Partner 2",
+    };
+    // get existing partner
+    const response = await api
+      .get("/api/partners/")
+      .set("Authorization", `bearer ${token}`)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    const { id } = response.body[0];
+    // update the partner
+    await api
+      .patch(`/api/partners/${id}`)
+      .set("Authorization", `bearer ${token}`)
+      .send({ ...newPartner, id })
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    // check that the partner was updated
+    const updatedResponse = await api
+      .get("/api/partners/")
+      .set("Authorization", `bearer ${token}`)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    expect(updatedResponse.body[0].name).toBe("Partner 2");
+  });
+  test("should return an error if program is not found", async () => {
+    // update the partner
+    await api
+      .patch(`/api/partners/5f9f9f9f9f9f9f9f9f9f9f9f`)
+      .set("Authorization", `bearer ${token}`)
+      .send({ name: "Partner 2" })
       .expect(404)
       .expect("Content-Type", /application\/json/);
   });

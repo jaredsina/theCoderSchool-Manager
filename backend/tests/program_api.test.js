@@ -10,6 +10,7 @@ const mongoose = require("mongoose");
 const Program = require("../models/program");
 const User = require("../models/user");
 const { testDataList, dataInDb } = require("./testHelper_program_api");
+const Partner = require("../models/partner");
 
 // token for authentication
 let token;
@@ -17,8 +18,16 @@ let token;
 // reset test db for consistent results
 // in these tests the user has successfully logged in and has a token
 beforeEach(async () => {
+  // setup partners for testing
+  await Partner.deleteMany({});
+  const uploadedPartner = await Partner.create({ name: "Test Partner" });
+  testDataList[0].partner = uploadedPartner.id;
+
+  // setup programs for testing
   await Program.deleteMany({});
   const uploadedProgram = await Program.create(testDataList[0]);
+
+  // set up users for testing
   await User.deleteMany({});
 
   // create user
@@ -105,6 +114,38 @@ describe("put route", () => {
       .expect(404)
       .expect("Content-Type", /application\/json/);
   });
+  test("should properly update the partner of a program", async () => {
+    const programsAtStart = await dataInDb();
+    const oldProgram = programsAtStart.find(
+      (program) => program.name === "Math Program",
+    );
+    const oldProgramId = oldProgram.id;
+    const response = await api
+      .put(`/api/programs/${oldProgramId}`)
+      .set("Authorization", `bearer ${token}`)
+      .send({ ...oldProgram, partner: "5f9f9b6a5e4b0d3e0c9a3e4b" })
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    expect(response.body.partner).toContain("5f9f9b6a5e4b0d3e0c9a3e4b");
+  });
+  test("should properly add the program to the partners program list", async () => {
+    // lets grab the existing partners
+    const partnersAtStart = await Partner.find({});
+    // let grab the id of the first partner
+    const partnerId = partnersAtStart[0].id;
+    // lets post a new program with the partner id
+    const response = await api
+      .post("/api/programs/")
+      .set("Authorization", `bearer ${token}`)
+      .send({ ...testDataList[0], partner: partnerId })
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    // lets grab the partner again
+    const partnerAtEnd = await Partner.findById(partnerId);
+
+    // lets check if the program was added to the partners program list
+    expect(partnerAtEnd.programs[0].toString()).toBe(response.body.id);
+  });
 });
 
 describe("post route", () => {
@@ -126,6 +167,15 @@ describe("post route", () => {
       .send({ ...testDataList[0], name: "" })
       .expect(400)
       .expect("Content-Type", /application\/json/);
+  });
+  test("should properly save a partner to a program", async () => {
+    const response = await api
+      .post("/api/programs/")
+      .set("Authorization", `bearer ${token}`)
+      .send(testDataList[0])
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    expect(response.body.partner).toBeDefined();
   });
 });
 
@@ -153,6 +203,20 @@ describe("patch route", () => {
       .send({ name: "joe" })
       .expect(404)
       .expect("Content-Type", /application\/json/);
+  });
+  test("should properly update the partner of a program", async () => {
+    const programsAtStart = await dataInDb();
+    const oldProgram = programsAtStart.find(
+      (program) => program.name === "Math Program",
+    );
+    const oldProgramId = oldProgram.id;
+    const response = await api
+      .patch(`/api/programs/${oldProgramId}`)
+      .set("Authorization", `bearer ${token}`)
+      .send({ ...oldProgram, partner: "5f9f9b6a5e4b0d3e0c9a3e4b" })
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    expect(response.body.partner).toBe("5f9f9b6a5e4b0d3e0c9a3e4b");
   });
 });
 
