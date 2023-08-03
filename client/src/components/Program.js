@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useMatch } from "react-router-dom";
-import { removeProgram } from "../reducers/programsReducer";
+import { removeProgram, updateProgram } from "../reducers/programsReducer";
 
 const Program = () => {
   const [editMode, setEditMode] = useState(false);
@@ -13,7 +13,34 @@ const Program = () => {
   if (!program) {
     return null;
   }
-
+  const saveChanges = () => {
+    // grab all the values from the form
+    const name = document.getElementById("editName").value;
+    const status = document.getElementById("editStatus").checked;
+    const description = document.getElementById("editDescription").value;
+    const invoice = document.getElementById("editInvoiceDate").value;
+    const classes = document.getElementById("editClasses").value;
+    const pricing = document.getElementById("editPrice").value;
+    const staff = document.getElementById("editStaff").value;
+    const weeks = document.getElementById("editWeeks").value;
+    const students = document.getElementById("editStudents").value;
+    const newProgram = {
+      name,
+      status,
+      description,
+      invoice,
+      classes,
+      pricing,
+      staff,
+      weeks,
+      students,
+      id: program.id,
+    };
+    // dispatch the new program to the backend
+    dispatch(updateProgram(newProgram));
+    // set edit mode to false
+    setEditMode(false);
+  };
   return (
     <div>
       <h2>Program</h2>
@@ -128,6 +155,11 @@ const Program = () => {
       <button type="button" onClick={() => setEditMode(!editMode)}>
         {editMode ? "Cancel" : "Edit"}
       </button>
+      {editMode ? (
+        <button type="button" onClick={saveChanges}>
+          Save
+        </button>
+      ) : null}
     </div>
   );
 };
