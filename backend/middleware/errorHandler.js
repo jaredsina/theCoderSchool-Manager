@@ -1,5 +1,13 @@
 const logger = require("../util/logger");
 
+/**
+ * Middleware for handling errors
+ * @param {*} error Error object
+ * @param {*} request Request object
+ * @param {*} response Response object
+ * @param {*} next Next function
+ * @returns {*} Response object or null
+ */
 const errorHandler = (error, request, response, next) => {
   logger.error(error.message);
   if (error.name === "CastError") {
