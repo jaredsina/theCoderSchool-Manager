@@ -19,6 +19,11 @@ const programsSlice = createSlice({
     deleteProgramState: (state, action) => {
       return state.filter((program) => program.id !== action.payload);
     },
+    updateProgramState: (state, action) => {
+      return state.map((program) =>
+        program.id !== action.payload.id ? program : action.payload,
+      );
+    },
   },
 });
 
@@ -27,6 +32,7 @@ export const {
   appendProgramState,
   removeAllProgramsState,
   deleteProgramState,
+  updateProgramState,
 } = programsSlice.actions;
 
 export default programsSlice.reducer;
@@ -67,5 +73,15 @@ export const removeProgram = (id) => async (dispatch) => {
     dispatch(deleteProgramState(id));
   } catch (err) {
     dispatch(displayMessage("Error deleting program", "error", 5));
+  }
+};
+
+export const updateProgram = (program) => async (dispatch) => {
+  try {
+    const editedProgram = await ProgramService.update(program.id, program);
+    dispatch(displayMessage(`Edited ${editedProgram.name}`, "success", 5));
+    dispatch(updateProgramState(editedProgram));
+  } catch (err) {
+    dispatch(displayMessage("Error editing program", "error", 5));
   }
 };
