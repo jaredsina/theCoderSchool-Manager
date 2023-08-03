@@ -21,6 +21,7 @@ const tokenValidator = require("./middleware/tokenValidator");
 const programRouter = require("./routers/programRouter");
 const userRouter = require("./routers/userRouter");
 const loginRouter = require("./routers/loginRouter");
+const partnerRouter = require("./routers/partnerRouter");
 
 // setup error middleware
 const errorHandler = require("./middleware/errorHandler");
@@ -51,7 +52,13 @@ app.use(
   userExtractor,
   programRouter,
 );
-
+app.use(
+  "/api/partners",
+  tokenExtractor,
+  tokenValidator,
+  userExtractor,
+  partnerRouter,
+);
 // setup middleware for handling unknown endpoints and errors
 app.use(unknownEndpoint);
 app.use(errorHandler);
