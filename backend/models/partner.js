@@ -10,6 +10,12 @@ const partnerSchema = new mongoose.Schema({
   primarycontact: { type: String },
   primarycontactemail: { type: String },
   primarycontactphone: { type: String },
+  programs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Program",
+    },
+  ],
 });
 
 partnerSchema.set("toJSON", {

@@ -11,6 +11,10 @@ const programSchema = new mongoose.Schema({
   invoice: { type: String },
   staff: {},
   files: {},
+  partner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Partner",
+  },
 });
 
 programSchema.set("toJSON", {
