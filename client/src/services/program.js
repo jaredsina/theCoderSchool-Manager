@@ -33,4 +33,11 @@ const deleteProgram = async (id) => {
   return response.data;
 };
 
-export default { getAll, setToken, create, deleteProgram };
+// The update function sends a PUT request to the /api/programs/:id endpoint with the program data.
+// If the request is successful, the function returns the response data.
+const update = async (id, newProgram) => {
+  const response = await axios.put(`${baseUrl}/${id}`, newProgram, config);
+  return response.data;
+};
+
+export default { getAll, setToken, create, deleteProgram, update };
