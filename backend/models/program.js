@@ -15,6 +15,7 @@ const programSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Partner",
   },
+  partnerName: { type: String },
 });
 
 programSchema.set("toJSON", {
