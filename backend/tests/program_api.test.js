@@ -21,6 +21,7 @@ beforeEach(async () => {
   // setup partners for testing
   await Partner.deleteMany({});
   const uploadedPartner = await Partner.create({ name: "Test Partner" });
+  await Partner.create({ name: "Test Partner 2" });
   testDataList[0].partner = uploadedPartner.id;
   // set partner name
   testDataList[0].partnerName = uploadedPartner.name;
@@ -116,36 +117,159 @@ describe("put route", () => {
       .expect("Content-Type", /application\/json/);
   });
   test("should properly update the partner of a program", async () => {
-    const programsAtStart = await dataInDb();
-    const oldProgram = programsAtStart.find(
-      (program) => program.name === "Math Program",
-    );
-    const oldProgramId = oldProgram.id;
-    const response = await api
-      .put(`/api/programs/${oldProgramId}`)
-      .set("Authorization", `bearer ${token}`)
-      .send({ ...oldProgram, partner: "5f9f9b6a5e4b0d3e0c9a3e4b" })
-      .expect(200)
-      .expect("Content-Type", /application\/json/);
-    expect(response.body.partner).toContain("5f9f9b6a5e4b0d3e0c9a3e4b");
-  });
-  test("should properly add the program to the partners program list", async () => {
-    // lets grab the existing partners
+    // get starting partners
     const partnersAtStart = await Partner.find({});
-    // let grab the id of the first partner
-    const partnerId = partnersAtStart[0].id;
-    // lets post a new program with the partner id
+    // get partner id to post a new program to
+    const partnerToUpdate = partnersAtStart.find(
+      (partner) => partner.name === "Test Partner 2",
+    );
+    // post a new program
     const response = await api
       .post("/api/programs/")
       .set("Authorization", `bearer ${token}`)
-      .send({ ...testDataList[0], partner: partnerId })
+      .send({ ...testDataList[1], partner: partnerToUpdate.id })
       .expect(200)
       .expect("Content-Type", /application\/json/);
-    // lets grab the partner again
-    const partnerAtEnd = await Partner.findById(partnerId);
+    // check that the program has the correct partner
+    expect(response.body).toHaveProperty("partner", partnerToUpdate.id);
+  });
 
-    // lets check if the program was added to the partners program list
-    expect(partnerAtEnd.programs[0].toString()).toBe(response.body.id);
+  test("updating a programs partner should add it to the new partners programs", async () => {
+    // get starting partners
+    const partnersAtStart = await Partner.find({});
+    // get partner id to post a new program to
+    const partnerToUpdate = partnersAtStart.find(
+      (partner) => partner.name === "Test Partner 2",
+    );
+    // get partner id of other partner to update the program to
+    const partnerToUpdate2 = partnersAtStart.find(
+      (partner) => partner.name === "Test Partner",
+    );
+
+    // post a new program to the partner
+    const response = await api
+      .post("/api/programs/")
+      .set("Authorization", `bearer ${token}`)
+      .send({ ...testDataList[1], partner: partnerToUpdate.id })
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    // get updated partner
+    const updatedPartner = await Partner.findById(partnerToUpdate.id);
+    // check that the new program was added to the partner
+    expect(updatedPartner.programs).toHaveLength(1);
+
+    // update the posted program with a different partner
+    const programToUpdate = response.body;
+    const response2 = await api
+      .put(`/api/programs/${programToUpdate.id}`)
+      .set("Authorization", `bearer ${token}`)
+      .send({ ...programToUpdate, partner: partnerToUpdate2.id })
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    // get updated partner
+    const updatedPartner2 = await Partner.findById(partnerToUpdate2.id);
+    // check that the new program was added to the partner
+    expect(updatedPartner2.programs).toHaveLength(1);
+  });
+  test("updating a programs partner should remove it from the old partners programs", async () => {
+    // get starting partners
+    const partnersAtStart = await Partner.find({});
+    // get partner id to post a new program to
+    const oldPartner = partnersAtStart.find(
+      (partner) => partner.name === "Test Partner 2",
+    );
+    // get partner id of other partner to update the program to
+    const newPartner = partnersAtStart.find(
+      (partner) => partner.name === "Test Partner",
+    );
+
+    // post a new program to the partner
+    const response = await api
+      .post("/api/programs/")
+      .set("Authorization", `bearer ${token}`)
+      .send({ ...testDataList[1], partner: oldPartner.id })
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    // get updated partner
+    const updatedPartner = await Partner.findById(oldPartner.id);
+    // check that the new program was added to the partner
+    expect(updatedPartner.programs).toHaveLength(1);
+
+    // update the posted program with a different partner
+    const programToUpdate = response.body;
+    const response2 = await api
+      .put(`/api/programs/${programToUpdate.id}`)
+      .set("Authorization", `bearer ${token}`)
+      .send({ ...programToUpdate, partner: newPartner.id })
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    // check that the old partner no longer has the program
+    const oldPartnerv2 = await Partner.findById(oldPartner.id);
+    expect(oldPartnerv2.programs).toHaveLength(0);
+  });
+  test("updating a null partner to a program should successfully update the program", async () => {
+    // get starting partners
+    const partnersAtStart = await Partner.find({});
+    // get partner id to post a new program to
+    const oldPartner = partnersAtStart.find(
+      (partner) => partner.name === "Test Partner 2",
+    );
+
+    // post a new program to the partner
+    const response = await api
+      .post("/api/programs/")
+      .set("Authorization", `bearer ${token}`)
+      .send({ ...testDataList[1], partner: oldPartner.id })
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    // get updated partner
+    const updatedPartner = await Partner.findById(oldPartner.id);
+    // check that the new program was added to the partner
+    expect(updatedPartner.programs).toHaveLength(1);
+
+    // update the posted program with a different partner
+    const programToUpdate = response.body;
+    const response2 = await api
+      .put(`/api/programs/${programToUpdate.id}`)
+      .set("Authorization", `bearer ${token}`)
+      .send({ ...programToUpdate, partner: null })
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    // check that the old partner no longer has the program
+    const oldPartnerv2 = await Partner.findById(oldPartner.id);
+    expect(oldPartnerv2.programs).toHaveLength(0);
+  });
+  test("updating a program with a partner to a null partner should successfully update the program", async () => {
+    // get starting partners
+    const partnersAtStart = await Partner.find({});
+    // get partner id to post a new program to
+    const oldPartner = partnersAtStart.find(
+      (partner) => partner.name === "Test Partner 2",
+    );
+
+    // post a new program to the partner
+    const response = await api
+      .post("/api/programs/")
+      .set("Authorization", `bearer ${token}`)
+      .send({ ...testDataList[1], partner: null })
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    // get updated partner
+    const updatedPartner = await Partner.findById(oldPartner.id);
+    // check that the new program was added to the partner
+    expect(updatedPartner.programs).toHaveLength(0);
+
+    // update the posted program with a different partner
+    const programToUpdate = response.body;
+    const response2 = await api
+      .put(`/api/programs/${programToUpdate.id}`)
+      .set("Authorization", `bearer ${token}`)
+      .send({ ...programToUpdate, partner: oldPartner.id })
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    // check that the old partner no longer has the program
+    const oldPartnerv2 = await Partner.findById(oldPartner.id);
+    expect(oldPartnerv2.programs).toHaveLength(1);
   });
 });
 
@@ -186,6 +310,24 @@ describe("post route", () => {
       .expect(200)
       .expect("Content-Type", /application\/json/);
     expect(response.body.partnerName).toContain("Test Partner");
+  });
+  test("should properly add the program to the partners program list", async () => {
+    // lets grab the existing partners
+    const partnersAtStart = await Partner.find({});
+    // let grab the id of the first partner
+    const partnerId = partnersAtStart[0].id;
+    // lets post a new program with the partner id
+    const response = await api
+      .post("/api/programs/")
+      .set("Authorization", `bearer ${token}`)
+      .send({ ...testDataList[0], partner: partnerId })
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    // lets grab the partner again
+    const partnerAtEnd = await Partner.findById(partnerId);
+
+    // lets check if the program was added to the partners program list
+    expect(partnerAtEnd.programs[0].toString()).toBe(response.body.id);
   });
 });
 
