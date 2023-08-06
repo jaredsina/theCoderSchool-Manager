@@ -40,6 +40,11 @@ const postNew = async (request, response) => {
 const replace = async (request, response) => {
   const newProgram = request.body;
   const oldProgram = await Program.findById(newProgram.id);
+  if (!oldProgram) {
+    response.status(404).json({ error: "Program was not found" });
+    const error = new Error("Program does not exist");
+    throw error;
+  }
   if (oldProgram) {
     const addedProgram = await Program.findOneAndReplace(
       { _id: newProgram.id },
@@ -48,12 +53,31 @@ const replace = async (request, response) => {
         new: true,
       },
     );
+    // if the programs partner was updated to a different partner, remove the program from the old partner's programs array
+    // and add it to the new partner's programs array
+    let oldPartnerName;
+    if (!oldProgram.partner) {
+      oldPartnerName = "";
+    } else {
+      oldPartnerName = oldProgram.partner.toString();
+    }
+    if (oldPartnerName !== newProgram.partner) {
+      // check if old partner exists
+      if (oldProgram.partner) {
+        const oldPartner = await Partner.findById(oldProgram.partner);
+        oldPartner.programs = oldPartner.programs.filter(
+          (program) => program.toString() !== oldProgram.id,
+        );
+        await oldPartner.save();
+      }
+      // check if new partner exists
+      if (newProgram.partner) {
+        const newPartner = await Partner.findById(newProgram.partner);
+        newPartner.programs = newPartner.programs.concat(newProgram.id);
+        await newPartner.save();
+      }
+    }
     response.status(200).json(addedProgram);
-  }
-  if (!oldProgram) {
-    response.status(404).json({ error: "Program was not found" });
-    const error = new Error("Program does not exist");
-    throw error;
   }
 };
 
