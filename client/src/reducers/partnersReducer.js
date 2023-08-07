@@ -70,9 +70,11 @@ export const deletePartner = (id) => async (dispatch) => {
 
 export const updatePartner = (partner) => async (dispatch) => {
   try {
-    const updatedPartner = await PartnerService.update(partner);
+    const updatedPartner = await PartnerService.update(partner.id, partner);
     dispatch(updatePartnerState(updatedPartner));
-    dispatch(displayMessage("Partner updated", "success", 5));
+    dispatch(
+      displayMessage(`Edited ${updatedPartner.name}updated`, "success", 5),
+    );
   } catch (err) {
     dispatch(displayMessage("Error updating partner", "error", 5));
     console.log(err);
