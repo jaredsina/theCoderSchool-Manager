@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import LoginService from "../services/login";
 import { displayMessage } from "./notificationReducer";
 import ProgramServices from "../services/program";
+import PartnerServices from "../services/partner";
 
 const authSlice = createSlice({
   name: "user",
@@ -42,6 +43,7 @@ export const initializeUser = () => async (dispatch) => {
     const user = JSON.parse(loggedUserJSON);
     dispatch(setUser(user));
     ProgramServices.setToken(user.token);
+    PartnerServices.setToken(user.token);
   }
 };
 
