@@ -14,11 +14,9 @@ const LoginForm = () => {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     dispatch(attemptLogin(username, password));
-    if (user) {
-      navigate("/dashboard");
-    }
   };
-  // when the LoginForm mounts lets check if user exists the store and if so redirect to dashboard
+
+  // when LoginForm mounts and user changes we want to redirect to dashboard
   useEffect(() => {
     if (user) {
       navigate("/dashboard");
