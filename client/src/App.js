@@ -5,6 +5,7 @@ import LoginForm from "./components/LoginForm";
 import Dashboard from "./components/Dashboard";
 import { initializeUser } from "./reducers/authReducer";
 import { initializePrograms } from "./reducers/programsReducer";
+import { initializePartners } from "./reducers/partnersReducer";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const App = () => {
   useEffect(() => {
     dispatch(initializeUser());
     dispatch(initializePrograms());
+    dispatch(initializePartners());
   }, [dispatch]);
 
   return (
