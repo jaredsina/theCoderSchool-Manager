@@ -1,9 +1,10 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProgram } from "../reducers/programsReducer";
 
 const ProgramForm = () => {
   const dispatch = useDispatch();
+  const partners = useSelector((state) => state.partners);
 
   // when the user clicks submmit lets create a new program object and dispatch it to the backend
   const handleSubmit = async (event) => {
@@ -17,8 +18,15 @@ const ProgramForm = () => {
     const pricing = document.getElementById("pricing").value;
     const invoice = document.getElementById("invoice").value;
     const staff = document.getElementById("staff").value;
+    // we are getting the partner id from the datalist using the data-key attribute
+    const partner = document.getElementById("partner").value;
+    const partnerId = document
+      .querySelector(`option[value="${partner}"]`)
+      .getAttribute("data-key");
+
     const newProgram = {
       name,
+      partner: partnerId,
       students,
       weeks,
       description,
@@ -27,6 +35,7 @@ const ProgramForm = () => {
       pricing,
       invoice,
       staff,
+      partnerName: partner,
     };
     dispatch(addProgram(newProgram));
   };
@@ -35,8 +44,25 @@ const ProgramForm = () => {
     <div>
       <h1>Program Form</h1>
       <form onSubmit={handleSubmit}>
+        <label htmlFor="partner">
+          Partner
+          <select id="partner" name="partner">
+            <option value="" data-key={null}>
+              None
+            </option>
+            {partners.map((partner) => (
+              <option
+                key={partner.id}
+                value={partner.name}
+                data-key={partner.id}
+              >
+                {partner.name}
+              </option>
+            ))}
+          </select>
+        </label>
         <label htmlFor="name">
-          Name
+          Name*:{" "}
           <input
             type="text"
             placeholder="Name of program"
@@ -46,7 +72,7 @@ const ProgramForm = () => {
           />
         </label>
         <label htmlFor="students">
-          Students
+          Students*:{" "}
           <input
             type="number"
             placeholder="300"
@@ -78,7 +104,7 @@ const ProgramForm = () => {
           />
         </label>
         <label htmlFor="status">
-          Active:
+          Active*:
           <label htmlFor="status">
             True
             <input
@@ -95,7 +121,7 @@ const ProgramForm = () => {
           </label>
         </label>
         <label htmlFor="pricing">
-          Pricing per student
+          Pricing per student*:
           <input
             type="number"
             placeholder="25"
