@@ -6,6 +6,21 @@ const getPartners = async (request, response) => {
   });
   response.status(200).json(partners);
 };
+const getOne = async (request, response) => {
+  const { id } = request.params;
+  const partner = await Partner.findById(id).populate("programs", {
+    partner: 0,
+  });
+  if (partner) {
+    response.status(200).json(partner);
+  }
+  if (!partner) {
+    response.status(404).json({ error: "Partner was not found" });
+    const error = new Error("Partner does not exist");
+    error.status = 404;
+    throw error;
+  }
+};
 
 const createPartner = async (request, response) => {
   const newPartner = request.body;
@@ -66,6 +81,7 @@ const replacePartner = async (request, response) => {
         new: true,
       },
     );
+
     response.status(200).json(addedPartner);
   }
   if (!oldPartner) {
@@ -81,4 +97,5 @@ module.exports = {
   updatePartner,
   deletePartner,
   replacePartner,
+  getOne,
 };
