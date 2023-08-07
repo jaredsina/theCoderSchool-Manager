@@ -248,4 +248,57 @@ describe("patch route", () => {
       .expect(404)
       .expect("Content-Type", /application\/json/);
   });
+  test("updating a partner name should change the name of the partner in the program", async () => {
+    // create a new partner
+    const newPartner = {
+      name: "Partner 2",
+    };
+    const response = await api
+      .post("/api/partners/")
+      .set("Authorization", `bearer ${token}`)
+      .send(newPartner)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    const { id } = response.body;
+    // create a new program
+    const newProgram = {
+      name: "Program 1",
+      partner: id,
+      partnerName: "Partner 2",
+      status: true,
+      pricing: 23,
+      students: 4,
+    };
+    const programResponse = await api
+      .post("/api/programs/")
+      .set("Authorization", `bearer ${token}`)
+      .send(newProgram)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+
+    const programId = programResponse.body.id;
+
+    // update the partner
+    await api
+      .patch(`/api/partners/${id}`)
+      .set("Authorization", `bearer ${token}`)
+      .send({ name: "Partner 2 Updated", id })
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    // check that the partner was updated
+    const updatedPartner = await api
+      .get(`/api/partners/${id}`)
+      .set("Authorization", `bearer ${token}`)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    expect(updatedPartner.body.name).toBe("Partner 2 Updated");
+    // check that the partner was updated in the program
+    const updatedProgramResponse = await api
+      .get(`/api/programs/${programId}`)
+      .set("Authorization", `bearer ${token}`)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    console.log(updatedProgramResponse.body);
+    expect(updatedProgramResponse.body.partner.name).toBe("Partner 2 Updated");
+  });
 });
