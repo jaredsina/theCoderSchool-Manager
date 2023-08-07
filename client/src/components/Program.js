@@ -74,7 +74,7 @@ const Program = () => {
       <h4>
         Partner:{" "}
         {editMode ? (
-          <select id="editPartner">
+          <select id="editPartner" defaultValue={program.partnerName}>
             <option value="" data-key={null}>
               None
             </option>
