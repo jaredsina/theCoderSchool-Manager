@@ -2,14 +2,18 @@ const Program = require("../models/program");
 const Partner = require("../models/partner");
 // fetches all resources in the collection
 const getAll = async (request, response) => {
-  const programs = await Program.find({});
+  const programs = await Program.find({}).populate("partner", {
+    programs: 0,
+  });
   response.status(200).json(programs);
 };
 
 // fetches a single resource from the collection
 const getOne = async (request, response) => {
   const { id } = request.params;
-  const program = await Program.findById(id);
+  const program = await Program.findById(id).populate("partner", {
+    programs: 0,
+  });
   if (program) {
     response.status(200).json(program);
   }
