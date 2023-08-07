@@ -8,7 +8,7 @@ const Program = () => {
   const dispatch = useDispatch();
   const match = useMatch("/dashboard/:id");
   const programs = useSelector((state) => state.programs);
-
+  const partners = useSelector((state) => state.partners);
   const program = match ? programs.find((p) => p.id === match.params.id) : null;
   if (!program) {
     return null;
@@ -24,6 +24,10 @@ const Program = () => {
     const staff = document.getElementById("editStaff").value;
     const weeks = document.getElementById("editWeeks").value;
     const students = document.getElementById("editStudents").value;
+    const partner = document.getElementById("editPartner").value;
+    const partnerId = document
+      .querySelector(`option[value="${partner}"]`)
+      .getAttribute("data-key");
 
     // make sure all the required values are there
     if (!name || !students || !pricing) {
@@ -43,6 +47,8 @@ const Program = () => {
       weeks,
       students,
       id: program.id,
+      partner: partnerId,
+      partnerName: partner,
     };
     // dispatch the new program to the backend
     dispatch(updateProgram(newProgram));
@@ -65,6 +71,27 @@ const Program = () => {
           program.name
         )}
       </h3>
+      <h4>
+        Partner:{" "}
+        {editMode ? (
+          <select id="editPartner">
+            <option value="" data-key={null}>
+              None
+            </option>
+            {partners.map((partner) => (
+              <option
+                key={partner.id}
+                value={partner.name}
+                data-key={partner.id}
+              >
+                {partner.name}
+              </option>
+            ))}
+          </select>
+        ) : (
+          program.partnerName
+        )}
+      </h4>
       Active:{" "}
       {editMode ? (
         <input
