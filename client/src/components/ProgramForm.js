@@ -35,7 +35,6 @@ const ProgramForm = () => {
       pricing,
       invoice,
       staff,
-      partnerName: partner,
     };
     dispatch(addProgram(newProgram));
   };
