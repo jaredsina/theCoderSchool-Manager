@@ -6,20 +6,19 @@ const Sidebar = () => {
   const partners = useSelector((state) => state.partners);
   const programs = useSelector((state) => state.programs);
 
-  // when the programs or partners are updated, the sidebar will be updated
-  useEffect(() => {}, [programs, partners]);
-
   // get a list of all the partners and their programs
   const partnersList = partners.map((partner) => (
     <li key={partner.id}>
       <Link to={`/dashboard/${partner.id}`}>{partner.name}</Link>
-      <ul>
-        {partner.programs.map((program) => (
-          <li key={program.id}>
-            <Link to={`/dashboard/${program.id}`}>{program.name}</Link>
-          </li>
-        ))}
-      </ul>
+      {partner.programs.length > 0 ? (
+        <ul>
+          {partner.programs.map((program) => (
+            <li key={program.id}>
+              <Link to={`/dashboard/${program.id}`}>{program.name}</Link>
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </li>
   ));
   // get a list of all the programs without partners
