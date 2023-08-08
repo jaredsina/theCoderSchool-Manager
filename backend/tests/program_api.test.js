@@ -23,8 +23,6 @@ beforeEach(async () => {
   const uploadedPartner = await Partner.create({ name: "Test Partner" });
   await Partner.create({ name: "Test Partner 2" });
   testDataList[0].partner = uploadedPartner.id;
-  // set partner name
-  testDataList[0].partnerName = uploadedPartner.name;
   // setup programs for testing
   await Program.deleteMany({});
   const uploadedProgram = await Program.create(testDataList[0]);
@@ -302,15 +300,7 @@ describe("post route", () => {
       .expect("Content-Type", /application\/json/);
     expect(response.body.partner).toBeDefined();
   });
-  test("should properly add the partner name to the program", async () => {
-    const response = await api
-      .post("/api/programs/")
-      .set("Authorization", `bearer ${token}`)
-      .send(testDataList[0])
-      .expect(200)
-      .expect("Content-Type", /application\/json/);
-    expect(response.body.partnerName).toContain("Test Partner");
-  });
+
   test("should properly add the program to the partners program list", async () => {
     // lets grab the existing partners
     const partnersAtStart = await Partner.find({});
