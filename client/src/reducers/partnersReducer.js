@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import PartnerService from "../services/partner";
 import { displayMessage } from "./notificationReducer";
+import { updateProgramState } from "./programsReducer";
 
 const partnerSlice = createSlice({
   name: "partners",
@@ -71,10 +72,24 @@ export const deletePartner = (id) => async (dispatch) => {
 export const updatePartner = (partner) => async (dispatch) => {
   try {
     const updatedPartner = await PartnerService.update(partner.id, partner);
+    console.log(updatedPartner);
     dispatch(updatePartnerState(updatedPartner));
     dispatch(
       displayMessage(`Edited ${updatedPartner.name}updated`, "success", 5),
     );
+    const updatedPartnerWithoutPrograms = { ...updatedPartner };
+    delete updatedPartnerWithoutPrograms.programs;
+
+    if (updatedPartner.programs) {
+      updatedPartner.programs.forEach((program) => {
+        dispatch(
+          updateProgramState({
+            ...program,
+            partner: updatedPartnerWithoutPrograms,
+          }),
+        );
+      });
+    }
   } catch (err) {
     dispatch(displayMessage("Error updating partner", "error", 5));
     console.log(err);
