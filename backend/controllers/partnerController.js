@@ -80,7 +80,9 @@ const replacePartner = async (request, response) => {
       {
         new: true,
       },
-    );
+    ).populate("programs", {
+      partner: 0,
+    });
 
     response.status(200).json(addedPartner);
   }
