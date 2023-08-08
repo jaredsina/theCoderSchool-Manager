@@ -48,7 +48,6 @@ const Program = () => {
       students,
       id: program.id,
       partner: partnerId,
-      partnerName: partner,
     };
     // dispatch the new program to the backend
     dispatch(updateProgram(newProgram));
@@ -71,27 +70,24 @@ const Program = () => {
           program.name
         )}
       </h3>
-      <h4>
-        Partner:{" "}
-        {editMode ? (
-          <select id="editPartner" defaultValue={program.partnerName}>
-            <option value="" data-key={null}>
-              None
+      Partner:{" "}
+      {editMode ? (
+        <select
+          id="editPartner"
+          defaultValue={program.partner ? program.partner.name : ""}
+        >
+          <option value="" data-key={null}>
+            None
+          </option>
+          {partners.map((partner) => (
+            <option key={partner.id} value={partner.name} data-key={partner.id}>
+              {partner.name}
             </option>
-            {partners.map((partner) => (
-              <option
-                key={partner.id}
-                value={partner.name}
-                data-key={partner.id}
-              >
-                {partner.name}
-              </option>
-            ))}
-          </select>
-        ) : (
-          program.partnerName
-        )}
-      </h4>
+          ))}
+        </select>
+      ) : (
+        <h4>{program.partner ? program.partner.name : "None"}</h4>
+      )}
       Active:{" "}
       {editMode ? (
         <input
