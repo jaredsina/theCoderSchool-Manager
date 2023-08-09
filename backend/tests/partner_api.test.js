@@ -1,3 +1,6 @@
+/* eslint-disable node/no-unsupported-features/es-syntax */
+/* eslint-disable node/no-unpublished-require */
+/* eslint-disable no-undef */
 const mongoose = require("mongoose");
 const supertest = require("supertest");
 const Partner = require("../models/partner");
