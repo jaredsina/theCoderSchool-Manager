@@ -56,16 +56,15 @@ const replace = async (request, response) => {
       {
         new: true,
       },
-    );
-    // if the programs partner was updated to a different partner, remove the program from the old partner's programs array
-    // and add it to the new partner's programs array
-    let oldPartnerName;
-    if (!oldProgram.partner) {
-      oldPartnerName = "";
-    } else {
-      oldPartnerName = oldProgram.partner.toString();
-    }
-    if (oldPartnerName !== newProgram.partner) {
+    ).populate("partner", {
+      programs: 0,
+    });
+    // if old program partner exists and new program partner exists and they are not the same
+    if (
+      oldProgram.partner &&
+      newProgram.partner &&
+      oldProgram.partner.toString() !== newProgram.partner
+    ) {
       // check if old partner exists
       if (oldProgram.partner) {
         const oldPartner = await Partner.findById(oldProgram.partner);
@@ -74,12 +73,28 @@ const replace = async (request, response) => {
         );
         await oldPartner.save();
       }
-      // check if new partner exists
+      // check if new partner exists and add the program to the new partner's programs array
       if (newProgram.partner) {
         const newPartner = await Partner.findById(newProgram.partner);
         newPartner.programs = newPartner.programs.concat(newProgram.id);
         await newPartner.save();
       }
+    }
+    // if old program partner exists and new program partner does not exist
+    if (oldProgram.partner && !newProgram.partner) {
+      // remove program from old partner's programs array
+      const oldPartner = await Partner.findById(oldProgram.partner);
+      oldPartner.programs = oldPartner.programs.filter(
+        (program) => program.toString() !== oldProgram.id,
+      );
+      await oldPartner.save();
+    }
+    // if old program partner does not exist and new program partner exists
+    if (!oldProgram.partner && newProgram.partner) {
+      // add program to new partner's programs array
+      const newPartner = await Partner.findById(newProgram.partner);
+      newPartner.programs = newPartner.programs.concat(newProgram.id);
+      await newPartner.save();
     }
     response.status(200).json(addedProgram);
   }
