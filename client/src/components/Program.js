@@ -50,7 +50,7 @@ const Program = () => {
       partner: partnerId,
     };
     // dispatch the new program to the backend
-    dispatch(updateProgram(newProgram));
+    dispatch(updateProgram(newProgram, program));
     // set edit mode to false
     setEditMode(false);
   };
