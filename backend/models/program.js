@@ -19,11 +19,10 @@ const programSchema = new mongoose.Schema({
 
 programSchema.set("toJSON", {
   transform: (document, returnedObject) => {
-    const updatedObject = returnedObject;
-    updatedObject.id = returnedObject._id.toString();
-    delete updatedObject._id;
-    delete updatedObject.__v;
-    return updatedObject;
+    returnedObject.id = returnedObject._id.toString();
+    delete returnedObject._id;
+    delete returnedObject.__v;
+    return returnedObject;
   },
 });
 
