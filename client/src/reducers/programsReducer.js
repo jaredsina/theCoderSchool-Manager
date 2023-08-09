@@ -2,6 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import ProgramService from "../services/program";
 import { logout } from "./authReducer";
 import { displayMessage } from "./notificationReducer";
+import {
+  removeProgramFromPartnerState,
+  addProgramToPartnerState,
+} from "./partnersReducer";
 
 const programsSlice = createSlice({
   name: "programs",
@@ -76,11 +80,69 @@ export const removeProgram = (id) => async (dispatch) => {
   }
 };
 
-export const updateProgram = (program) => async (dispatch) => {
+export const updateProgram = (program, oldProgram) => async (dispatch) => {
   try {
     const editedProgram = await ProgramService.update(program.id, program);
     dispatch(displayMessage(`Edited ${editedProgram.name}`, "success", 5));
     dispatch(updateProgramState(editedProgram));
+
+    // if updated program partner was changed, update partner state with the new program
+    if (
+      oldProgram.partner &&
+      editedProgram.partner &&
+      oldProgram.partner.id !== editedProgram.partner.id
+    ) {
+      const editProgramWithoutPartner = { ...editedProgram };
+      delete editProgramWithoutPartner.partner;
+
+      dispatch(
+        addProgramToPartnerState({
+          program: editProgramWithoutPartner,
+          partnerId: editedProgram.partner.id,
+        }),
+      );
+      dispatch(
+        removeProgramFromPartnerState({
+          programId: editedProgram.id,
+          partnerId: program.partner,
+        }),
+      );
+    } else if (!oldProgram.partner && editedProgram.partner) {
+      const editProgramWithoutPartner = { ...editedProgram };
+      delete editProgramWithoutPartner.partner;
+
+      dispatch(
+        addProgramToPartnerState({
+          program: editProgramWithoutPartner,
+          partnerId: editedProgram.partner.id,
+        }),
+      );
+    } else if (oldProgram.partner && !editedProgram.partner) {
+      dispatch(
+        removeProgramFromPartnerState({
+          programId: editedProgram.id,
+          partnerId: oldProgram.partner,
+        }),
+      );
+    } else if (oldProgram.partner.id === editedProgram.partner.id) {
+      // add updated program to partner state
+      const editProgramWithoutPartner = { ...editedProgram };
+      delete editProgramWithoutPartner.partner;
+      // remove old program from partner state
+      dispatch(
+        removeProgramFromPartnerState({
+          programId: editedProgram.id,
+          partnerId: oldProgram.partner,
+        }),
+      );
+      // add updated program to partner state
+      dispatch(
+        addProgramToPartnerState({
+          program: editProgramWithoutPartner,
+          partnerId: editedProgram.partner.id,
+        }),
+      );
+    }
   } catch (err) {
     dispatch(displayMessage("Error editing program", "error", 5));
   }
