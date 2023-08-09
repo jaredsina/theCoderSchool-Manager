@@ -24,6 +24,30 @@ const partnerSlice = createSlice({
         partner.id !== action.payload.id ? partner : action.payload,
       );
     },
+    removeProgramFromPartnerState: (state, action) => {
+      return state.map((partner) => {
+        if (partner.id === action.payload.partnerId) {
+          return partner;
+        }
+        return {
+          ...partner,
+          programs: partner.programs.filter(
+            (program) => program.id !== action.payload.programId,
+          ),
+        };
+      });
+    },
+    addProgramToPartnerState: (state, action) => {
+      return state.map((partner) => {
+        if (partner.id !== action.payload.partnerId) {
+          return partner;
+        }
+        return {
+          ...partner,
+          programs: [...partner.programs, action.payload.program],
+        };
+      });
+    },
   },
 });
 
@@ -33,6 +57,8 @@ export const {
   removeAllPartnersState,
   deletePartnerFromState,
   updatePartnerState,
+  removeProgramFromPartnerState,
+  addProgramToPartnerState,
 } = partnerSlice.actions;
 
 export default partnerSlice.reducer;
@@ -72,7 +98,6 @@ export const deletePartner = (id) => async (dispatch) => {
 export const updatePartner = (partner) => async (dispatch) => {
   try {
     const updatedPartner = await PartnerService.update(partner.id, partner);
-    console.log(updatedPartner);
     dispatch(updatePartnerState(updatedPartner));
     dispatch(
       displayMessage(`Edited ${updatedPartner.name}updated`, "success", 5),
