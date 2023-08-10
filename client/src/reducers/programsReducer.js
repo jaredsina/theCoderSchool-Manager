@@ -65,6 +65,14 @@ export const addProgram = (program) => async (dispatch) => {
     const newProgram = await ProgramService.create(program);
     dispatch(displayMessage(`Added ${newProgram.name}`, "success", 5));
     dispatch(appendProgramState(newProgram));
+    if (newProgram.partner) {
+      dispatch(
+        addProgramToPartnerState({
+          program: newProgram,
+          partnerId: newProgram.partner.id,
+        }),
+      );
+    }
   } catch (err) {
     dispatch(displayMessage("Error adding program", "error", 5));
   }
@@ -72,9 +80,15 @@ export const addProgram = (program) => async (dispatch) => {
 
 export const removeProgram = (id) => async (dispatch) => {
   try {
-    await ProgramService.deleteProgram(id);
+    const deletedProgram = await ProgramService.deleteProgram(id);
     dispatch(displayMessage("Program deleted", "success", 5));
     dispatch(deleteProgramState(id));
+    dispatch(
+      removeProgramFromPartnerState({
+        programId: deletedProgram.id,
+        partnerId: deletedProgram.partner,
+      }),
+    );
   } catch (err) {
     dispatch(displayMessage("Error deleting program", "error", 5));
   }
