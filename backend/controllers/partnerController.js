@@ -1,4 +1,5 @@
 const Partner = require("../models/partner");
+const Program = require("../models/program");
 
 const getPartners = async (request, response) => {
   const partners = await Partner.find({}).populate("programs", {
@@ -60,6 +61,13 @@ const deletePartner = async (request, response) => {
 
   // should return the deleted partner if successful
   if (deletedPartner) {
+    // remove partner from all programs
+    const programs = await Program.find({ partner: deletedPartner.id });
+    programs.forEach(async (program) => {
+      program.partner = null;
+      await program.save();
+    });
+
     response.status(200).json(deletedPartner);
   }
 };
