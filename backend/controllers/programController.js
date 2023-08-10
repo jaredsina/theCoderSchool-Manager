@@ -28,14 +28,18 @@ const getOne = async (request, response) => {
 // creates a new resource based on the request data
 const postNew = async (request, response) => {
   const newProgram = request.body;
-  const addedProgram = await Program.create(newProgram);
-
+  let addedProgram = await Program.create(newProgram);
   // if a partner is assigned to the program, add the program to the partner's programs array
   if (addedProgram.partner) {
     const partner = await Partner.findById(addedProgram.partner);
     partner.programs = partner.programs.concat(addedProgram._id);
     await partner.save();
   }
+
+  // populate the partner field of the program
+  addedProgram = await addedProgram.populate("partner", {
+    programs: 0,
+  });
 
   response.status(200).json(addedProgram);
 };
@@ -128,6 +132,15 @@ const deleteProgram = async (request, response) => {
   const program = await Program.findById(id);
   if (program) {
     const deletedProgram = await Program.findByIdAndRemove(id);
+    // if program has a partner, remove the program from the partner's programs array
+    if (deletedProgram.partner) {
+      const partner = await Partner.findById(deletedProgram.partner);
+      partner.programs = partner.programs.filter(
+        (programInPartner) => programInPartner.toString() !== deletedProgram.id,
+      );
+      await partner.save();
+    }
+
     response.status(200).json(deletedProgram);
   }
   if (!program) {
