@@ -34,12 +34,11 @@ const postNew = async (request, response) => {
     const partner = await Partner.findById(addedProgram.partner);
     partner.programs = partner.programs.concat(addedProgram._id);
     await partner.save();
+    // populate the partner field of the program
+    addedProgram = await addedProgram.populate("partner", {
+      programs: 0,
+    });
   }
-
-  // populate the partner field of the program
-  addedProgram = await addedProgram.populate("partner", {
-    programs: 0,
-  });
 
   response.status(200).json(addedProgram);
 };
