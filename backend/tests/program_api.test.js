@@ -390,6 +390,31 @@ describe("delete route", () => {
       .expect("Content-Type", /application\/json/);
     expect(response.body).toHaveProperty("error", "malformatted id");
   });
+  test("should properly delete the program from the partners program list", async () => {
+    // get the partner id
+    const partnerId = await Partner.find({}).then((partners) => partners[0].id);
+    // lets post a new program with the partner id
+    const response = await api
+      .post("/api/programs/")
+      .set("Authorization", `bearer ${token}`)
+      .send({ ...testDataList[0], partner: partnerId })
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    // lets grab the partner again
+    const partnerAtEnd = await Partner.findById(partnerId);
+    // lets check if the program was added to the partners program list
+    expect(partnerAtEnd.programs[0].toString()).toBe(response.body.id);
+    // lets delete the program
+    await api
+      .delete(`/api/programs/${response.body.id}`)
+      .set("Authorization", `bearer ${token}`)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    // lets grab the partner again
+    const partnerAtEnd2 = await Partner.findById(partnerId);
+    // lets check if the program was deleted from the partners program list
+    expect(partnerAtEnd2.programs).toHaveLength(0);
+  });
 });
 
 afterAll(async () => {
