@@ -26,7 +26,7 @@ const partnerSlice = createSlice({
     },
     removeProgramFromPartnerState: (state, action) => {
       return state.map((partner) => {
-        if (partner.id === action.payload.partnerId) {
+        if (partner.id !== action.payload.partnerId) {
           return partner;
         }
         return {
