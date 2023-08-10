@@ -6,6 +6,7 @@ const supertest = require("supertest");
 const Partner = require("../models/partner");
 const { app, server } = require("../index");
 const User = require("../models/user");
+const helper = require("./testHelper_program_api");
 
 const api = supertest(app);
 
@@ -212,6 +213,41 @@ describe("delete route", () => {
       .set("Authorization", `bearer ${token}`)
       .expect(404)
       .expect("Content-Type", /application\/json/);
+  });
+  test("after deleting a partner should delete partner from all associated programs", async () => {
+    // create a new partner
+    const newPartner = {
+      name: "Partner 2",
+    };
+    const createdPartner = await api
+      .post("/api/partners/")
+      .set("Authorization", `bearer ${token}`)
+      .send(newPartner)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    // get id of new partner
+    const { id } = createdPartner.body;
+    // create a new program
+    const createdProgram = await api
+      .post("/api/programs/")
+      .set("Authorization", `bearer ${token}`)
+      .send({ ...helper.testDataList[0], partner: id })
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    // get id of new program
+    const programId = createdProgram.body.id;
+    // delete the partner
+    await api
+      .delete(`/api/partners/${id}`)
+      .set("Authorization", `bearer ${token}`)
+      .expect(200);
+    // check that the partner was deleted from the program
+    const updatedProgram = await api
+      .get(`/api/programs/${programId}`)
+      .set("Authorization", `bearer ${token}`)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    expect(updatedProgram.body.partner).toBe(null);
   });
 });
 
