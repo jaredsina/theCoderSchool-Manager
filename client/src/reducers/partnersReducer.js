@@ -84,11 +84,24 @@ export const addPartner = (partner) => async (dispatch) => {
   }
 };
 
-export const deletePartner = (id) => async (dispatch) => {
+export const removePartner = (partnerToBeDeleted) => async (dispatch) => {
   try {
-    await PartnerService.remove(id);
+    const deletedPartner = await PartnerService.deletePartner(
+      partnerToBeDeleted.id,
+    );
     dispatch(displayMessage("Partner deleted", "success", 5));
-    dispatch(deletePartnerFromState(id));
+    dispatch(deletePartnerFromState(deletedPartner.id));
+    // delete the partner from the programs that have it
+    if (partnerToBeDeleted.programs) {
+      partnerToBeDeleted.programs.forEach((program) => {
+        dispatch(
+          updateProgramState({
+            ...program,
+            partner: null,
+          }),
+        );
+      });
+    }
   } catch (err) {
     dispatch(displayMessage("Error deleting partner", "error", 5));
     console.log(err);
