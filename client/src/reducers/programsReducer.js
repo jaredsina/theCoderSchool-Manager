@@ -118,7 +118,7 @@ export const updateProgram = (program, oldProgram) => async (dispatch) => {
       dispatch(
         removeProgramFromPartnerState({
           programId: editedProgram.id,
-          partnerId: program.partner,
+          partnerId: oldProgram.partner.id,
         }),
       );
     } else if (!oldProgram.partner && editedProgram.partner) {
@@ -135,7 +135,7 @@ export const updateProgram = (program, oldProgram) => async (dispatch) => {
       dispatch(
         removeProgramFromPartnerState({
           programId: editedProgram.id,
-          partnerId: oldProgram.partner,
+          partnerId: oldProgram.partner.id,
         }),
       );
     } else if (oldProgram.partner.id === editedProgram.partner.id) {
@@ -146,7 +146,7 @@ export const updateProgram = (program, oldProgram) => async (dispatch) => {
       dispatch(
         removeProgramFromPartnerState({
           programId: editedProgram.id,
-          partnerId: oldProgram.partner,
+          partnerId: oldProgram.partner.id,
         }),
       );
       // add updated program to partner state
