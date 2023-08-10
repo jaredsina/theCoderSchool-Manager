@@ -79,7 +79,7 @@ const Partner = () => {
         <>
           <button
             type="button"
-            onClick={() => dispatch(removePartner(partner.id))}
+            onClick={() => dispatch(removePartner(partner))}
           >
             Delete
           </button>
