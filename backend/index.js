@@ -16,12 +16,14 @@ const requestLogger = require("./middleware/requestLogger");
 const userExtractor = require("./middleware/userExtractor");
 const tokenExtractor = require("./middleware/tokenExtractor");
 const tokenValidator = require("./middleware/tokenValidator");
+const fileUpload = require("./middleware/fileUpload");
 
 // setup routers
 const programRouter = require("./routers/programRouter");
 const userRouter = require("./routers/userRouter");
 const loginRouter = require("./routers/loginRouter");
 const partnerRouter = require("./routers/partnerRouter");
+const fileRouter = require("./routers/fileRouter");
 
 // setup error middleware
 const errorHandler = require("./middleware/errorHandler");
@@ -52,6 +54,15 @@ app.use(
   userExtractor,
   programRouter,
 );
+app.use(
+  "/api/files",
+  tokenExtractor,
+  tokenValidator,
+  userExtractor,
+  fileUpload.single("file"),
+  fileRouter,
+);
+
 app.use(
   "/api/partners",
   tokenExtractor,
