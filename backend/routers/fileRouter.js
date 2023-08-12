@@ -4,6 +4,7 @@ const {
   getFiles,
   postFile,
   getFile,
+  deleteFile,
 } = require("../controllers/fileController");
 
 // get all files
@@ -14,5 +15,8 @@ fileRouter.post("/", postFile);
 
 // get a single file
 fileRouter.get("/:id", getFile);
+
+// delete a file
+fileRouter.delete("/:id", deleteFile);
 
 module.exports = fileRouter;
