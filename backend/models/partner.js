@@ -10,6 +10,12 @@ const partnerSchema = new mongoose.Schema({
   primarycontact: { type: String },
   primarycontactemail: { type: String },
   primarycontactphone: { type: String },
+  files: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "File",
+    },
+  ],
   programs: [
     {
       type: mongoose.Schema.Types.ObjectId,
