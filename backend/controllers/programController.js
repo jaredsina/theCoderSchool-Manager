@@ -1,5 +1,7 @@
 const Program = require("../models/program");
 const Partner = require("../models/partner");
+const File = require("../models/file");
+
 // fetches all resources in the collection
 const getAll = async (request, response) => {
   const programs = await Program.find({}).populate("partner", {
@@ -139,9 +141,15 @@ const deleteProgram = async (request, response) => {
       );
       await partner.save();
     }
-
+    // if program has files, remove the files from the files collection
+    if (deletedProgram.files.length > 0) {
+      deletedProgram.files.forEach(async (file) => {
+        const deletedFile = await File.findByIdAndRemove(file);
+      });
+    }
     response.status(200).json(deletedProgram);
   }
+
   if (!program) {
     response.status(404).json({ error: "Program was not found" });
     const error = new Error("Program does not exist");
