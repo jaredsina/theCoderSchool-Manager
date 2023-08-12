@@ -25,6 +25,14 @@ const fileSchema = new mongoose.Schema({
   path: {
     type: String,
   },
+  programId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Program",
+  },
+  partnerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Partner",
+  },
 });
 
 fileSchema.set("toJSON", {
