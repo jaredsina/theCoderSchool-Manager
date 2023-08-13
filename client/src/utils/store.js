@@ -4,6 +4,7 @@ import authReducer from "../reducers/authReducer";
 import notificationReducer from "../reducers/notificationReducer";
 import programsReducer from "../reducers/programsReducer";
 import partnersReducer from "../reducers/partnersReducer";
+import fileReducer from "../reducers/fileReducer";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     notification: notificationReducer,
     programs: programsReducer,
     partners: partnersReducer,
+    files: fileReducer,
   },
 });
 
