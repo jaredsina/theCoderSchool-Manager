@@ -12,10 +12,14 @@ const fileSlice = createSlice({
     appendFileState: (state, action) => {
       return [...state, action.payload];
     },
+    deleteFileState: (state, action) => {
+      return state.filter((file) => file.id !== action.payload);
+    },
   },
 });
 
-export const { setFilesState, appendFileState } = fileSlice.actions;
+export const { setFilesState, appendFileState, deleteFileState } =
+  fileSlice.actions;
 
 export default fileSlice.reducer;
 
@@ -34,6 +38,16 @@ export const uploadFile = (file) => async (dispatch) => {
     const newFile = await FileService.create(file);
     dispatch(displayMessage("File uploaded successfully", "success", 5));
     dispatch(appendFileState(newFile));
+  } catch (err) {
+    dispatch(displayMessage(err.response.data.error, "error", 5));
+  }
+};
+
+export const deleteFile = (id) => async (dispatch) => {
+  try {
+    await FileService.deleteFile(id);
+    dispatch(displayMessage("File deleted successfully", "success", 5));
+    dispatch(deleteFileState(id));
   } catch (err) {
     dispatch(displayMessage(err.response.data.error, "error", 5));
   }
