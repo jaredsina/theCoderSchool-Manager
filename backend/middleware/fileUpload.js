@@ -12,12 +12,10 @@ const upload = multer({
       const fileModel = File.findOne({ filename: filename });
 
       if (fileModel) {
-        console.log("file already exists");
         // if file exists, append a number to the end of the filename
         const newFilename = filename + Date.now();
         cb(null, newFilename);
       } else {
-        console.log("file does not exist");
         cb(null, filename);
       }
     },
