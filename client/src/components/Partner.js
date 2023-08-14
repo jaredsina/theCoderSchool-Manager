@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMatch, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updatePartner, removePartner } from "../reducers/partnersReducer";
-// ToDO: when switching mid editMode it should turn off editMode
+import FileForm from "./FileForm";
+import FileList from "./FileList";
+import { initializeFiles } from "../reducers/fileReducer";
 
 const Partner = () => {
   const dispatch = useDispatch();
@@ -18,6 +20,14 @@ const Partner = () => {
   // if there is no matching partner, return null
   // otherwise, return the match partner from the partners array
   const partner = match ? partners.find((p) => p.id === match.params.id) : null;
+
+  // initialize the files for this partner
+  useEffect(() => {
+    // dont initialize the files if there is no partner
+    if (partner) {
+      dispatch(initializeFiles(partner.id));
+    }
+  }, [dispatch, partner]);
 
   // if there is no matching partner, return null
   if (!partner) {
@@ -71,6 +81,7 @@ const Partner = () => {
   // if the editMode is false, we will show the partner information
   return (
     <div>
+      <FileForm type="Partner" id={partner.id} />
       {editMode ? (
         <button type="button" onClick={() => setEditMode(false)}>
           Cancel
@@ -188,6 +199,8 @@ const Partner = () => {
       )}
       <h3>Related Programs:</h3>
       {programs}
+      <h3>Files:</h3>
+      <FileList />
     </div>
   );
 };
