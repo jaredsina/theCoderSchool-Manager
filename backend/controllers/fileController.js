@@ -3,15 +3,22 @@ const File = require("../models/file");
 const Program = require("../models/program");
 const Partner = require("../models/partner");
 
-// get all files
+// get all files for a program or partner
 const getFiles = async (request, response) => {
-  const files = await File.find({});
+  // retrive the parent id from the params sent in the request
+  const { parentId } = request.params;
+  // find all files that have a relationship with the parent
+  const files = await File.find({
+    $or: [{ programId: parentId }, { partnerId: parentId }],
+  });
   const filesInfo = files.map((file) => ({
     filename: file.filename,
     id: file.id,
     contentType: file.contentType,
     size: file.size,
     date: file.date,
+    programId: file.programId,
+    partnerId: file.partnerId,
   }));
   if (files) {
     response.status(200).json(filesInfo);
