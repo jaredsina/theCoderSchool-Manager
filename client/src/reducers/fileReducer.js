@@ -9,10 +9,13 @@ const fileSlice = createSlice({
     setFilesState: (state, action) => {
       return action.payload;
     },
+    appendFileState: (state, action) => {
+      return [...state, action.payload];
+    },
   },
 });
 
-export const { setFilesState } = fileSlice.actions;
+export const { setFilesState, appendFileState } = fileSlice.actions;
 
 export default fileSlice.reducer;
 
@@ -20,6 +23,11 @@ export const initializeFiles = () => async (dispatch) => {
   try {
     const files = await FileService.getAll();
     dispatch(setFilesState(files));
+export const uploadFile = (file) => async (dispatch) => {
+  try {
+    const newFile = await FileService.create(file);
+    dispatch(displayMessage("File uploaded successfully", "success", 5));
+    dispatch(appendFileState(newFile));
   } catch (err) {
     dispatch(displayMessage(err.response.data.error, "error", 5));
   }
