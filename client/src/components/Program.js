@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useMatch } from "react-router-dom";
 import { removeProgram, updateProgram } from "../reducers/programsReducer";
+import { initializeFiles } from "../reducers/fileReducer";
+import FileForm from "./FileForm";
+import FileList from "./FileList";
 
 const Program = () => {
   const [editMode, setEditMode] = useState(false);
@@ -10,6 +13,14 @@ const Program = () => {
   const programs = useSelector((state) => state.programs);
   const partners = useSelector((state) => state.partners);
   const program = match ? programs.find((p) => p.id === match.params.id) : null;
+
+  useEffect(() => {
+    // dont initialize the files if there is no program
+    if (program) {
+      dispatch(initializeFiles(program.id));
+    }
+  }, [dispatch, program]);
+
   if (!program) {
     return null;
   }
@@ -191,6 +202,8 @@ const Program = () => {
           Save
         </button>
       ) : null}
+      <FileForm type="Program" id={program.id} />
+      <FileList />
     </div>
   );
 };
