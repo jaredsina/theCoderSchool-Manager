@@ -7,8 +7,8 @@ const {
   deleteFile,
 } = require("../controllers/fileController");
 
-// get all files
-fileRouter.get("/", getFiles);
+// get all files for a specific parent
+fileRouter.get("/:parentId", getFiles);
 
 // post a new file
 fileRouter.post("/", postFile);
