@@ -144,7 +144,7 @@ const deleteProgram = async (request, response) => {
     // if program has files, remove the files from the files collection
     if (deletedProgram.files.length > 0) {
       deletedProgram.files.forEach(async (file) => {
-        const deletedFile = await File.findByIdAndRemove(file);
+        await File.findByIdAndRemove(file);
       });
     }
     response.status(200).json(deletedProgram);

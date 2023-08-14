@@ -1,5 +1,6 @@
 const Partner = require("../models/partner");
 const Program = require("../models/program");
+const File = require("../models/file");
 
 const getPartners = async (request, response) => {
   const partners = await Partner.find({}).populate("programs", {
@@ -67,6 +68,13 @@ const deletePartner = async (request, response) => {
       program.partner = null;
       await program.save();
     });
+
+    // if partner has files, remove the files from the files collection
+    if (deletedPartner.files.length > 0) {
+      deletedPartner.files.forEach(async (file) => {
+        await File.findByIdAndDelete(file);
+      });
+    }
 
     response.status(200).json(deletedPartner);
   }
