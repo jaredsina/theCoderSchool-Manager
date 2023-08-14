@@ -1,12 +1,17 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { deleteFile } from "../reducers/fileReducer";
 
 const FileList = () => {
+  const dispatch = useDispatch();
   const files = useSelector((state) => state.files);
   const filesList = files.map((file) => (
     <li key={file.id}>
       <Link to={`/dashboard/${file.id}`}>{file.filename}</Link>
+      <button type="button" onClick={() => dispatch(deleteFile(file.id))}>
+        Delete
+      </button>
     </li>
   ));
   return (
