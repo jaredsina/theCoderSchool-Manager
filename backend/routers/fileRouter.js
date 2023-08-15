@@ -8,7 +8,7 @@ const {
 } = require("../controllers/fileController");
 
 // get all files for a specific parent
-fileRouter.get("/:parentId", getFiles);
+fileRouter.get("/parent/:parentId", getFiles);
 
 // post a new file
 fileRouter.post("/", postFile);
