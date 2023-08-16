@@ -12,8 +12,9 @@ const upload = multer({
       const fileModel = File.findOne({ filename: filename });
 
       if (fileModel) {
+        const [filen, ext] = filename.split(".");
         // if file exists, append a number to the end of the filename
-        const newFilename = filename + Date.now();
+        const newFilename = `${filen}-${Date.now()}.${ext}`;
         cb(null, newFilename);
       } else {
         cb(null, filename);
