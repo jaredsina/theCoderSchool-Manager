@@ -1,4 +1,3 @@
-const fs = require("fs");
 const File = require("../models/file");
 const Program = require("../models/program");
 const Partner = require("../models/partner");
@@ -19,6 +18,7 @@ const getFiles = async (request, response) => {
     date: file.date,
     programId: file.programId,
     partnerId: file.partnerId,
+    path: file.path,
   }));
   if (files) {
     response.status(200).json(filesInfo);
@@ -36,10 +36,7 @@ const getFile = async (request, response) => {
   const { id } = request.params;
   const file = await File.findById(id);
   if (file) {
-    response
-      .status(200)
-      .set("Content-Type", file.contentType)
-      .send(file.content);
+    return response.status(200).json(file);
   }
   if (!file) {
     response.status(404).json({ error: "File was not found" });
@@ -51,13 +48,10 @@ const getFile = async (request, response) => {
 
 // post a new file
 const postFile = async (request, response) => {
-  // set buffer of file using the path to the file in the upload folder
-  const buffer = fs.readFileSync(request.file.path);
   const newFile = {
     filename: request.file.originalname,
     contentType: request.file.mimetype,
     size: request.file.size,
-    content: buffer,
     path: request.file.path,
     programId: request.body.programId,
     partnerId: request.body.partnerId,
