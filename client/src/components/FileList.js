@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { deleteFile } from "../reducers/fileReducer";
 
 const FileList = () => {
@@ -8,7 +7,9 @@ const FileList = () => {
   const files = useSelector((state) => state.files);
   const filesList = files.map((file) => (
     <li key={file.id}>
-      <Link to={`/dashboard/${file.id}`}>{file.filename}</Link>
+      <a href={file.url} target="_blank" rel="noreferrer">
+        {file.filename}
+      </a>
       <button type="button" onClick={() => dispatch(deleteFile(file.id))}>
         Delete
       </button>
