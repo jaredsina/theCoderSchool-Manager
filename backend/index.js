@@ -24,6 +24,7 @@ const userRouter = require("./routers/userRouter");
 const loginRouter = require("./routers/loginRouter");
 const partnerRouter = require("./routers/partnerRouter");
 const fileRouter = require("./routers/fileRouter");
+const taskRouter = require("./routers/taskRouter");
 
 // setup error middleware
 const errorHandler = require("./middleware/errorHandler");
@@ -61,6 +62,13 @@ app.use(
   userExtractor,
   fileUpload.single("file"),
   fileRouter,
+);
+app.use(
+  "/api/tasks",
+  tokenExtractor,
+  tokenValidator,
+  userExtractor,
+  taskRouter,
 );
 
 app.use(
