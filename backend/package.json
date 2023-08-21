@@ -16,9 +16,9 @@
     "@google-cloud/storage": "^7.0.1",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
+    "googleapis": "^126.0.0",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.0",
     "mongoose-unique-validator": "^4.0.0",
@@ -26,6 +26,7 @@
     "nodemailer": "^6.9.4"
   },
   "devDependencies": {
+    "dotenv": "^16.3.1",
     "eslint": "^8.45.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-node": "^4.1.0",
