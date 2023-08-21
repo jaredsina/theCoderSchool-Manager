@@ -5,6 +5,7 @@ import { removeProgram, updateProgram } from "../reducers/programsReducer";
 import { initializeFiles } from "../reducers/fileReducer";
 import FileForm from "./FileForm";
 import FileList from "./FileList";
+import TaskForm from "./TaskForm";
 
 const Program = () => {
   const [editMode, setEditMode] = useState(false);
@@ -204,6 +205,7 @@ const Program = () => {
       ) : null}
       <FileForm type="Program" id={program.id} />
       <FileList />
+      <TaskForm type="Program" id={program.id} />
     </div>
   );
 };

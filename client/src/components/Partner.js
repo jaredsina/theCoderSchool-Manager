@@ -5,6 +5,7 @@ import { updatePartner, removePartner } from "../reducers/partnersReducer";
 import FileForm from "./FileForm";
 import FileList from "./FileList";
 import { initializeFiles } from "../reducers/fileReducer";
+import TaskForm from "./TaskForm";
 
 const Partner = () => {
   const dispatch = useDispatch();
@@ -199,8 +200,8 @@ const Partner = () => {
       )}
       <h3>Related Programs:</h3>
       {programs}
-      <h3>Files:</h3>
       <FileList />
+      <TaskForm type="Partner" id={partner.id} />
     </div>
   );
 };
