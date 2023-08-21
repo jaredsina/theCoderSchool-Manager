@@ -1,6 +1,7 @@
 const Partner = require("../models/partner");
 const Program = require("../models/program");
 const File = require("../models/file");
+const Task = require("../models/task");
 
 const getPartners = async (request, response) => {
   const partners = await Partner.find({}).populate("programs", {
@@ -73,6 +74,13 @@ const deletePartner = async (request, response) => {
     if (deletedPartner.files.length > 0) {
       deletedPartner.files.forEach(async (file) => {
         await File.findByIdAndDelete(file);
+      });
+    }
+
+    // if partner has tasks, remove the tasks from the tasks collection
+    if (deletedPartner.tasks.length > 0) {
+      deletedPartner.tasks.forEach(async (task) => {
+        await Task.findByIdAndDelete(task);
       });
     }
 

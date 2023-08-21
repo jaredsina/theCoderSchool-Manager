@@ -1,6 +1,7 @@
 const Program = require("../models/program");
 const Partner = require("../models/partner");
 const File = require("../models/file");
+const Task = require("../models/task");
 
 // fetches all resources in the collection
 const getAll = async (request, response) => {
@@ -151,6 +152,14 @@ const deleteProgram = async (request, response) => {
         await File.findByIdAndRemove(file);
       });
     }
+
+    // if program has tasks, remove the tasks from the tasks collection
+    if (deletedProgram.tasks.length > 0) {
+      deletedProgram.tasks.forEach(async (task) => {
+        await Task.findByIdAndRemove(task);
+      });
+    }
+
     response.status(200).json(deletedProgram);
   }
 
