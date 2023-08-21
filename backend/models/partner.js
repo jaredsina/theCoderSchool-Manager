@@ -22,6 +22,12 @@ const partnerSchema = new mongoose.Schema({
       ref: "Program",
     },
   ],
+  tasks: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Task",
+    },
+  ],
 });
 
 partnerSchema.set("toJSON", {

@@ -15,6 +15,7 @@ const programSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Partner",
   },
+  tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
 });
 
 programSchema.set("toJSON", {
