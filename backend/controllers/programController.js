@@ -30,6 +30,10 @@ const getOne = async (request, response) => {
 // creates a new resource based on the request data
 const postNew = async (request, response) => {
   const newProgram = request.body;
+  // convert the invoice date to a date object
+  if (newProgram.invoice) {
+    newProgram.invoice = new Date(newProgram.invoice);
+  }
   let addedProgram = await Program.create(newProgram);
   // if a partner is assigned to the program, add the program to the partner's programs array
   if (addedProgram.partner) {

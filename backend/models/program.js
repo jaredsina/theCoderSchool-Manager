@@ -8,7 +8,7 @@ const programSchema = new mongoose.Schema({
   classes: { type: Number }, // number of classes the program has
   status: { type: Boolean, required: true, default: false },
   pricing: { type: Number, required: true },
-  invoice: { type: String },
+  invoice: { type: Date },
   staff: {},
   files: [{ type: mongoose.Schema.Types.ObjectId, ref: "File" }],
   partner: {
