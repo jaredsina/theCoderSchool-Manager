@@ -7,7 +7,8 @@
     "dev": "NODE_ENV=development nodemon index.js",
     "test": "NODE_ENV=test jest --verbose --runInBand",
     "lint": "eslint .",
-    "format": "prettier -w"
+    "format": "prettier -w",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
