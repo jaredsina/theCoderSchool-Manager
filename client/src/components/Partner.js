@@ -6,6 +6,8 @@ import FileForm from "./FileForm";
 import FileList from "./FileList";
 import { initializeFiles } from "../reducers/fileReducer";
 import TaskForm from "./TaskForm";
+import { initializeTasks } from "../reducers/taskReducer";
+import TaskList from "./TaskList";
 
 const Partner = () => {
   const dispatch = useDispatch();
@@ -27,6 +29,7 @@ const Partner = () => {
     // dont initialize the files if there is no partner
     if (partner) {
       dispatch(initializeFiles(partner.id));
+      dispatch(initializeTasks(partner.id));
     }
   }, [dispatch, partner]);
 
@@ -82,7 +85,6 @@ const Partner = () => {
   // if the editMode is false, we will show the partner information
   return (
     <div>
-      <FileForm type="Partner" id={partner.id} />
       {editMode ? (
         <button type="button" onClick={() => setEditMode(false)}>
           Cancel
@@ -200,8 +202,10 @@ const Partner = () => {
       )}
       <h3>Related Programs:</h3>
       {programs}
+      <FileForm type="Partner" id={partner.id} />
       <FileList />
       <TaskForm type="Partner" id={partner.id} />
+      <TaskList />
     </div>
   );
 };
