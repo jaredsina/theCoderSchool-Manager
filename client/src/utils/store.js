@@ -5,6 +5,7 @@ import notificationReducer from "../reducers/notificationReducer";
 import programsReducer from "../reducers/programsReducer";
 import partnersReducer from "../reducers/partnersReducer";
 import fileReducer from "../reducers/fileReducer";
+import taskReducer from "../reducers/taskReducer";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     programs: programsReducer,
     partners: partnersReducer,
     files: fileReducer,
+    tasks: taskReducer,
   },
 });
 
