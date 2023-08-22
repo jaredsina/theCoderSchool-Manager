@@ -12,11 +12,10 @@ const taskSchema = new mongoose.Schema({
   dueDate: {
     type: Date,
   },
-  email_alert: {
+  emailAlert: {
     type: Boolean,
-    default: false,
   },
-  email_sent: {
+  emailSent: {
     type: Boolean,
     default: false,
   },
