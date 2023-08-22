@@ -4,6 +4,7 @@ import { displayMessage } from "./notificationReducer";
 import ProgramServices from "../services/program";
 import PartnerServices from "../services/partner";
 import FileServices from "../services/file";
+import TaskServices from "../services/task";
 
 const authSlice = createSlice({
   name: "user",
@@ -46,6 +47,7 @@ export const initializeUser = () => async (dispatch) => {
     ProgramServices.setToken(user.token);
     PartnerServices.setToken(user.token);
     FileServices.setToken(user.token);
+    TaskServices.setToken(user.token);
   }
 };
 
