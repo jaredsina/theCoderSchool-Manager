@@ -6,6 +6,8 @@ import { initializeFiles } from "../reducers/fileReducer";
 import FileForm from "./FileForm";
 import FileList from "./FileList";
 import TaskForm from "./TaskForm";
+import { initializeTasks } from "../reducers/taskReducer";
+import TaskList from "./TaskList";
 
 const Program = () => {
   const [editMode, setEditMode] = useState(false);
@@ -19,6 +21,7 @@ const Program = () => {
     // dont initialize the files if there is no program
     if (program) {
       dispatch(initializeFiles(program.id));
+      dispatch(initializeTasks(program.id));
     }
   }, [dispatch, program]);
 
@@ -206,6 +209,7 @@ const Program = () => {
       <FileForm type="Program" id={program.id} />
       <FileList />
       <TaskForm type="Program" id={program.id} />
+      <TaskList />
     </div>
   );
 };
