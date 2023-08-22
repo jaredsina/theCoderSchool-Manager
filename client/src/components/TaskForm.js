@@ -1,7 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { createTask } from "../reducers/taskReducer";
 
 const TaskForm = ({ type, id }) => {
+  const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const name = document.getElementById("taskName").value;
@@ -31,7 +34,7 @@ const TaskForm = ({ type, id }) => {
       programId,
       partnerId,
     };
-    console.log(newTask);
+    dispatch(createTask(newTask));
   };
   return (
     <div>
@@ -66,7 +69,7 @@ const TaskForm = ({ type, id }) => {
             name="dueDate"
           />
         </label>
-        <label htmlFor="email_alert">
+        <label htmlFor="emailAlert">
           Email Alerts?:{" "}
           <input
             type="checkbox"
