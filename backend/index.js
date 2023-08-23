@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
-// no try/catch blocks for aync/await
+// no try/catch blocks for async/await
 require("express-async-errors");
 
 // cors allows requests from other origins
@@ -35,6 +35,11 @@ const app = express();
 // setup connection to mongodb
 logger.info("Trying to connect to database");
 mongoose.connect(config.MONGODB_URI);
+
+// setup cron job to send email reminders
+const emailReminder = require("./util/emailReminder");
+
+emailReminder.start();
 
 // parse json data in request body and convert to js object
 app.use(express.json());
