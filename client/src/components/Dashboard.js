@@ -16,6 +16,7 @@ import {
   removeAllPartnersState,
 } from "../reducers/partnersReducer";
 import Partner from "./Partner";
+import Task from "./Task";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -58,6 +59,7 @@ const Dashboard = () => {
       <div className="main">
         <Program />
         <Partner />
+        <Task />
       </div>
     </div>
   );
