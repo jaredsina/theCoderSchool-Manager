@@ -20,8 +20,8 @@ taskRouter.get("/:id", getOne);
 // post a new task
 taskRouter.post("/", postNew);
 
-// replace a task
-taskRouter.put("/", replace);
+// update a task
+taskRouter.put("/:id", replace);
 
 // delete a task
 taskRouter.delete("/:id", deleteOne);
