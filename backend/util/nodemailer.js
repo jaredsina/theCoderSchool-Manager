@@ -48,14 +48,7 @@ const createTransport = async () => {
 const sendEmail = async (options) => {
   const transporter = await createTransport();
 
-  const mailOptions = {
-    from: process.env.GMAIL_EMAIL,
-    to: process.env.GMAIL_EMAIL,
-    subject: "Testing",
-    text: "Testing you",
-  };
-
-  await transporter.sendMail(mailOptions);
+  await transporter.sendMail(options);
 };
 
 module.exports = sendEmail;
