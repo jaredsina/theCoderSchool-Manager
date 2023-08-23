@@ -8,7 +8,7 @@ const TaskList = () => {
   const tasks = useSelector((state) => state.tasks);
   const taskList = tasks.map((task) => (
     <li key={task.id}>
-      <Link to={`/dashboard/task/${task.id}`}>{task.name}</Link>
+      <Link to={`/dashboard/${task.id}`}>{task.name}</Link>
       <button type="button" onClick={() => dispatch(deleteTask(task.id))}>
         Delete
       </button>
