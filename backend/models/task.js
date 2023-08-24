@@ -12,12 +12,21 @@ const taskSchema = new mongoose.Schema({
   dueDate: {
     type: Date,
   },
-  emailAlert: {
+  sevenDayEmailSent: {
     type: Boolean,
+    default: null,
   },
-  emailSent: {
+  threeDayEmailSent: {
     type: Boolean,
-    default: false,
+    default: null,
+  },
+  oneDayEmailSent: {
+    type: Boolean,
+    default: null,
+  },
+  sameDayEmailSent: {
+    type: Boolean,
+    default: null,
   },
   programId: {
     type: mongoose.Schema.Types.ObjectId,
