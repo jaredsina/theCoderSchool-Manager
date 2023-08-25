@@ -14,10 +14,11 @@ const ProgramForm = () => {
     const weeks = document.getElementById("weeks").value;
     const description = document.getElementById("description").value;
     const classes = document.getElementById("classes").value;
-    const status = document.getElementById("status").value;
     const pricing = document.getElementById("pricing").value;
     const invoice = document.getElementById("invoice").value;
     const staff = document.getElementById("staff").value;
+    const status = document.getElementById("status").checked;
+
     // we are getting the partner id from the datalist using the data-key attribute
     const partner = document.getElementById("partner").value;
     const partnerId = document
@@ -104,20 +105,7 @@ const ProgramForm = () => {
         </label>
         <label htmlFor="status">
           Active*:
-          <label htmlFor="status">
-            True
-            <input
-              type="radio"
-              id="status"
-              name="status"
-              value="true"
-              defaultChecked
-            />
-          </label>
-          <label htmlFor="status">
-            False
-            <input type="radio" id="status" name="status" value="false" />
-          </label>
+          <input type="checkbox" id="status" name="status" defaultChecked />
         </label>
         <label htmlFor="pricing">
           Pricing per student*:
