@@ -78,7 +78,6 @@ export const updateTask = (id, task) => async (dispatch) => {
 export const getTasksByParentId = (parentId) => async (dispatch) => {
   try {
     const tasks = await TaskService.getTasksByParentId(parentId);
-    console.log(tasks);
     dispatch(setTasksState(tasks));
   } catch (err) {
     dispatch(displayMessage(err.response.data.error, "error", 5));
