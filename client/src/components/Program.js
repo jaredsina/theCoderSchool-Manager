@@ -28,6 +28,7 @@ const Program = () => {
   if (!program) {
     return null;
   }
+
   const saveChanges = () => {
     // grab all the values from the form
     const name = document.getElementById("editName").value;
@@ -40,6 +41,7 @@ const Program = () => {
     const weeks = document.getElementById("editWeeks").value;
     const students = document.getElementById("editStudents").value;
     const partner = document.getElementById("editPartner").value;
+    const invoicePaid = document.getElementById("editInvoicePaid").checked;
     const partnerId = document
       .querySelector(`option[value="${partner}"]`)
       .getAttribute("data-key");
@@ -61,6 +63,7 @@ const Program = () => {
       staff,
       weeks,
       students,
+      invoicePaid,
       id: program.id,
       partner: partnerId,
     };
@@ -135,6 +138,18 @@ const Program = () => {
           />
         ) : (
           program.invoice
+        )}
+      </p>
+      <p>
+        Invoice paid:{" "}
+        {editMode ? (
+          <input
+            type="checkbox"
+            id="editInvoicePaid"
+            defaultChecked={program.invoicePaid}
+          />
+        ) : (
+          program.invoicePaid.toString()
         )}
       </p>
       <p>
