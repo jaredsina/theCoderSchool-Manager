@@ -134,7 +134,12 @@ const Program = () => {
           <input
             type="date"
             id="editInvoiceDate"
-            defaultValue={program.invoice}
+            // defaultValue of due date is the programs due date converted from a date object to a string
+            defaultValue={
+              program.invoice
+                ? new Date(program.invoice).toISOString().split("T")[0]
+                : ""
+            }
           />
         ) : (
           program.invoice
@@ -207,8 +212,6 @@ const Program = () => {
           program.staff
         )}
       </p>
-      <p>Task Alerts: </p>
-      <p>Files: </p>
       <button type="button" onClick={() => dispatch(removeProgram(program.id))}>
         Delete
       </button>
