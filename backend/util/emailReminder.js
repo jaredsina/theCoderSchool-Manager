@@ -29,13 +29,12 @@ const emailReminder = cron.schedule("0 8 * * *", async () => {
           daysDiff >= 0 &&
           task.sevenDayEmailSent === false
         ) {
-          logger.info(`7 days email sent for: ${task.name}`);
           sendEmail({
             to: process.env.GMAIL_EMAIL,
             subject: `Task Reminder: ${task.name}`,
             text: `This is a reminder that your task ${task.name} is due in ${daysDiff} days. The description of the task is: ${task.description}`,
           });
-
+          logger.info(`7 days email sent for: ${task.name}`);
           // once an email has been sent, set emailSent to true so that it is not sent again
           task.sevenDayEmailSent = true;
         }
