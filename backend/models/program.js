@@ -9,6 +9,7 @@ const programSchema = new mongoose.Schema({
   status: { type: Boolean, required: true, default: false },
   pricing: { type: Number, required: true },
   invoice: { type: Date },
+  invoicePaid: { type: Boolean, default: false },
   staff: {},
   files: [{ type: mongoose.Schema.Types.ObjectId, ref: "File" }],
   partner: {
