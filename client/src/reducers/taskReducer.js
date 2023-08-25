@@ -35,9 +35,9 @@ export const {
 
 export default taskSlice.reducer;
 
-export const initializeTasks = (parentId) => async (dispatch) => {
+export const initializeTasks = () => async (dispatch) => {
   try {
-    const tasks = await TaskService.getTasksByParentId(parentId);
+    const tasks = await TaskService.getAll();
     dispatch(setTasksState(tasks));
   } catch (err) {
     dispatch(displayMessage(err.response.data.error, "error", 5));
@@ -69,6 +69,17 @@ export const updateTask = (id, task) => async (dispatch) => {
     const updatedTask = await TaskService.update(id, task);
     dispatch(displayMessage("Task updated successfully", "success", 5));
     dispatch(updateTaskState(updatedTask));
+  } catch (err) {
+    dispatch(displayMessage(err.response.data.error, "error", 5));
+  }
+};
+
+// get tasks by parent id
+export const getTasksByParentId = (parentId) => async (dispatch) => {
+  try {
+    const tasks = await TaskService.getTasksByParentId(parentId);
+    console.log(tasks);
+    dispatch(setTasksState(tasks));
   } catch (err) {
     dispatch(displayMessage(err.response.data.error, "error", 5));
   }

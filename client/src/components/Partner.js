@@ -6,7 +6,7 @@ import FileForm from "./FileForm";
 import FileList from "./FileList";
 import { initializeFiles } from "../reducers/fileReducer";
 import TaskForm from "./TaskForm";
-import { initializeTasks } from "../reducers/taskReducer";
+import { getTasksByParentId } from "../reducers/taskReducer";
 import TaskList from "./TaskList";
 
 const Partner = () => {
@@ -29,7 +29,7 @@ const Partner = () => {
     // dont initialize the files if there is no partner
     if (partner) {
       dispatch(initializeFiles(partner.id));
-      dispatch(initializeTasks(partner.id));
+      dispatch(getTasksByParentId(partner.id));
     }
   }, [dispatch, partner]);
 

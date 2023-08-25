@@ -6,7 +6,7 @@ import { initializeFiles } from "../reducers/fileReducer";
 import FileForm from "./FileForm";
 import FileList from "./FileList";
 import TaskForm from "./TaskForm";
-import { initializeTasks } from "../reducers/taskReducer";
+import { getTasksByParentId } from "../reducers/taskReducer";
 import TaskList from "./TaskList";
 
 const Program = () => {
@@ -21,7 +21,7 @@ const Program = () => {
     // dont initialize the files if there is no program
     if (program) {
       dispatch(initializeFiles(program.id));
-      dispatch(initializeTasks(program.id));
+      dispatch(getTasksByParentId(program.id));
     }
   }, [dispatch, program]);
 
