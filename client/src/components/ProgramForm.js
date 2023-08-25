@@ -18,6 +18,7 @@ const ProgramForm = () => {
     const invoice = document.getElementById("invoice").value;
     const staff = document.getElementById("staff").value;
     const status = document.getElementById("status").checked;
+    const invoicePaid = document.getElementById("invoicePaid").checked;
 
     // we are getting the partner id from the datalist using the data-key attribute
     const partner = document.getElementById("partner").value;
@@ -36,6 +37,7 @@ const ProgramForm = () => {
       pricing,
       invoice,
       staff,
+      invoicePaid,
     };
     dispatch(addProgram(newProgram));
   };
@@ -121,6 +123,15 @@ const ProgramForm = () => {
         <label htmlFor="invoice">
           Invoice due date:
           <input type="date" id="invoice" name="invoice" />
+        </label>
+        <label htmlFor="invoicePaid">
+          Invoice paid:
+          <input
+            type="checkbox"
+            id="invoicePaid"
+            name="invoicePaid"
+            defaultChecked
+          />
         </label>
         <label htmlFor="staff">
           Staff
