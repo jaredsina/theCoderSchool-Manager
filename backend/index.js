@@ -41,6 +41,11 @@ const emailReminder = require("./util/emailReminder");
 
 emailReminder.start();
 
+// setup cron job to send invoice reminders
+const invoiceReminder = require("./util/invoiceReminder");
+
+invoiceReminder.start();
+
 // parse json data in request body and convert to js object
 app.use(express.json());
 
