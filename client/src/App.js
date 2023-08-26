@@ -7,6 +7,7 @@ import { initializeUser } from "./reducers/authReducer";
 import { initializePrograms } from "./reducers/programsReducer";
 import { initializePartners } from "./reducers/partnersReducer";
 import { initializeTasks } from "./reducers/taskReducer";
+import "./main.css";
 
 const App = () => {
   const dispatch = useDispatch();
