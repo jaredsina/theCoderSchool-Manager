@@ -7,6 +7,7 @@ const logger = require("./logger");
 // cron job to send email reminders every day at 8am
 const emailReminder = cron.schedule("0 8 * * *", async () => {
   try {
+    logger.info("email reminder cron job started");
     // grab tasks that have either sevenDayEmailSent, threeDayEmailSent, oneDayEmailSent, or sameDayEmailSent set to false
     const tasks = await Task.find({
       $or: [
