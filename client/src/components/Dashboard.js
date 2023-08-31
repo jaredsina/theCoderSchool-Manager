@@ -46,21 +46,19 @@ const Dashboard = () => {
     dispatch(initializePartners());
   }, [dispatch]);
   return (
-    <div>
-      <button type="button" onClick={logoutHandler}>
-        Logout
-      </button>
-      <ProgramForm />
+    <div className="flex flex-col h-full lg:flex-row bg-white lg:bg-emerald-400">
+      {/* <ProgramForm />
       <PartnerForm />
-      <Notification />
-
-      <h1>Dashboard</h1>
-      <Sidebar />
-      <div className="main">
+      <Notification /> */}
+      <div className="main bg-white flex-grow lg:order-last lg:rounded-l-3xl">
+        <button type="button" onClick={logoutHandler}>
+          Logout
+        </button>
         <Program />
         <Partner />
         <Task />
       </div>
+      <Sidebar />
     </div>
   );
 };
