@@ -24,14 +24,20 @@ const App = () => {
   return (
     <div className="App h-screen bg-emerald-950 text-emerald-50 font-sans">
       <Routes>
-        <Route path="/dashboard/:id" element={<Dashboard />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/archive" element={<Dashboard />} />
+        <Route path="/dashboard/files" element={<Dashboard />} />
+        <Route path="/dashboard/programs" element={<Dashboard />} />
+        <Route path="/dashboard/tasks" element={<Dashboard />} />
+        <Route path="/dashboard/partners" element={<Dashboard />} />
+        <Route path="/dashboard/home" element={<Dashboard />} />
+        {/* <Route path="/dashboard/:id" element={<Dashboard />} /> */}
+        <Route path="/dashboard/home" element={<Dashboard />} />
         <Route path="/login" element={<LoginForm />} />
         <Route
           path="/"
           element={
             user ? (
-              <Navigate replace to="/dashboard" />
+              <Navigate replace to="/dashboard/home" />
             ) : (
               <Navigate replace to="/login" />
             )
