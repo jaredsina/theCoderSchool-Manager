@@ -20,7 +20,7 @@ const LoginForm = () => {
   // when LoginForm mounts and user changes we want to redirect to dashboard
   useEffect(() => {
     if (user) {
-      navigate("/dashboard");
+      navigate("/dashboard/home");
     }
   }, [user, navigate]);
 
@@ -73,9 +73,9 @@ const LoginForm = () => {
             Login
           </button>
         </form>
-        <p className="login-notification flex justify-center lg:h-8 mt-4">
+        <div className="login-notification flex justify-center lg:h-8 mt-4">
           <Notification />
-        </p>
+        </div>
       </div>
     </div>
   );
