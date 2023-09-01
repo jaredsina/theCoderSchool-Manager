@@ -5,10 +5,14 @@ const {
   postFile,
   getFile,
   deleteFile,
+  getParentFiles,
 } = require("../controllers/fileController");
 
 // get all files for a specific parent
-fileRouter.get("/parent/:parentId", getFiles);
+fileRouter.get("/parent/:parentId", getParentFiles);
+
+// get all files
+fileRouter.get("/", getFiles);
 
 // post a new file
 fileRouter.post("/", postFile);

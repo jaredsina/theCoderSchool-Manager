@@ -3,8 +3,22 @@ const Program = require("../models/program");
 const Partner = require("../models/partner");
 const { bucket } = require("../util/googlecloudstorage");
 
-// get all files for a program or partner
+// get all files
 const getFiles = async (request, response) => {
+  const files = await File.find({});
+  if (files) {
+    response.status(200).json(files);
+  }
+  if (!files) {
+    response.status(404).json({ error: "Files were not found" });
+    const error = new Error("Files do not exist");
+    error.status = 404;
+    throw error;
+  }
+};
+
+// get all files for a program or partner
+const getParentFiles = async (request, response) => {
   // retrive the parent id from the params sent in the request
   const { parentId } = request.params;
   // find all files that have a relationship with the parent
@@ -161,4 +175,4 @@ const deleteFile = async (request, response) => {
   }
 };
 
-module.exports = { getFiles, postFile, getFile, deleteFile };
+module.exports = { getFiles, postFile, getFile, deleteFile, getParentFiles };
