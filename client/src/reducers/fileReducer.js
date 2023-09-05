@@ -23,11 +23,10 @@ export const { setFilesState, appendFileState, deleteFileState } =
 
 export default fileSlice.reducer;
 
-export const initializeFiles = (id) => async (dispatch) => {
+export const initializeFiles = () => async (dispatch) => {
   try {
-    const files = await FileService.getAll(id);
+    const files = await FileService.getAll();
     dispatch(setFilesState(files));
-    console.log(files);
   } catch (err) {
     dispatch(displayMessage(err.response.data.error, "error", 5));
   }
