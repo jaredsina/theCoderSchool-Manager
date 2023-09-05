@@ -14,8 +14,8 @@ const setToken = (newToken) => {
 
 // The getAll function sends a GET request to the /api/files endpoint.
 // If the request is successful, the function returns the response data.
-const getAll = async (parentId) => {
-  const response = await axios.get(`${baseUrl}/parent/${parentId}`, config);
+const getAll = async () => {
+  const response = await axios.get(`${baseUrl}`, config);
   return response.data;
 };
 
