@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useSelector } from "react-redux";
+import Modal from "./Modal";
+import ProgramForm from "./ProgramForm";
 
 const Programs = () => {
   const [status, setStatus] = useState(false); // false = inactive, true = active
@@ -20,6 +22,8 @@ const Programs = () => {
       </div>
     );
   });
+  // create a ref to the modal so we can open/close it from the parent component
+  const modalRef = useRef();
 
   return (
     <>
@@ -34,15 +38,16 @@ const Programs = () => {
           Active Programs
         </span>
       </label>
+      <Modal ref={modalRef} header="New Program Form">
+        <ProgramForm />
+      </Modal>
       <button
         type="button"
         className="programCreateButton bg-emerald-950 text-white rounded-lg p-2"
-        data-modal-toggle="addProgram-modal"
-        data-modal0-target="addProgram-modal"
+        onClick={() => modalRef.current.openModal()}
       >
         Create Program
       </button>
-      <div className="" tabIndex="-1" id="addProgram-modal" />
       <h2 className="font-bold">Programs</h2>
       <div className="programs-list bg-transparent grid grid-flow-row gap-4">
         {programCards}
