@@ -27,7 +27,7 @@ const LoginForm = () => {
   return (
     <div className="login h-full flex flex-col">
       <div className="login-banner p-8 lg:self-center">
-        <img src={logo} alt="theCoderSchool logo" className="" />
+        <img src={logo} alt="theCoderSchool logo" />
         <h1 className="title text-2xl lg:text-4xl">Montgomery Database</h1>
       </div>
       <div className="login-form bg-white text-emerald-950 flex-grow p-8 lg:w-96 lg:flex-none lg:rounded-lg lg:mx-auto">
@@ -57,7 +57,7 @@ const LoginForm = () => {
             />
           </label>
 
-          <label htmlFor="remember" className="">
+          <label htmlFor="remember">
             <input
               type="checkbox"
               id="remember"
