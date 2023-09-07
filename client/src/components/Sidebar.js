@@ -9,13 +9,19 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useMatch } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 const Sidebar = () => {
   const match = useMatch("/dashboard/:page");
   const page = match ? match.params.page : null;
   return (
-    <div className="sidebar bg-emerald-950 rounded-t-3xl lg:rounded-t-none lg:flex lg:px-4">
-      <ul className="flex justify-evenly lg:flex-col lg:justify-center lg:gap-4">
+    <div className="sidebar bg-emerald-950 rounded-t-3xl lg:rounded-t-none lg:flex lg:flex-col lg:px-4 lg:p-8">
+      <img
+        src={logo}
+        alt="logo"
+        className="fixed top-4 left-4 w-24 bg-emerald-950 p-2 rounded-md lg:w-14"
+      />
+      <ul className="flex-grow flex justify-evenly lg:flex-col lg:justify-center lg:gap-4">
         <li
           className={`sidebar-icon flex justify-center items-center p-4 rounded-lg transition-all ${
             page === "home"
