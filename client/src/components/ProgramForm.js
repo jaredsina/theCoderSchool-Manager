@@ -73,6 +73,20 @@ const ProgramForm = () => {
             required
           />
         </label>
+        <label htmlFor="status">
+          Active*:
+          <input type="checkbox" id="status" name="status" defaultChecked />
+        </label>
+        <label htmlFor="pricing">
+          Pricing per student*:
+          <input
+            type="number"
+            placeholder="25"
+            id="pricing"
+            name="pricing"
+            required
+          />
+        </label>
         <label htmlFor="students">
           Students*:{" "}
           <input
@@ -103,20 +117,6 @@ const ProgramForm = () => {
             placeholder="classes"
             id="classes"
             name="classes"
-          />
-        </label>
-        <label htmlFor="status">
-          Active*:
-          <input type="checkbox" id="status" name="status" defaultChecked />
-        </label>
-        <label htmlFor="pricing">
-          Pricing per student*:
-          <input
-            type="number"
-            placeholder="25"
-            id="pricing"
-            name="pricing"
-            required
           />
         </label>
         {/* invoice is a calender due date */}
