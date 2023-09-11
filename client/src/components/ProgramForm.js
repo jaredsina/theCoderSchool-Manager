@@ -168,7 +168,12 @@ const ProgramForm = () => {
             className="rounded-lg p-2 border bg-gray-50 border-gray-300"
           />
         </label>
-        <button type="submit">Submit</button>
+        <button
+          type="submit"
+          className="submit-button self-center max-w-fit py-2 px-8 bg-yellow-300 rounded-md font-bold hover:bg-yellow-400 transition duration-200 ease-in-out"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
