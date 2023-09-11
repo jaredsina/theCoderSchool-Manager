@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updatePartner, removePartner } from "../reducers/partnersReducer";
 import FileForm from "./FileForm";
 import FileList from "./FileList";
-import { initializeFiles } from "../reducers/fileReducer";
+// import { initializeFiles } from "../reducers/fileReducer";
 import TaskForm from "./TaskForm";
 import { getTasksByParentId } from "../reducers/taskReducer";
 import TaskList from "./TaskList";
@@ -28,7 +28,7 @@ const Partner = () => {
   useEffect(() => {
     // dont initialize the files if there is no partner
     if (partner) {
-      dispatch(initializeFiles(partner.id));
+      // dispatch(initializeFiles(partner.id));
       dispatch(getTasksByParentId(partner.id));
     }
   }, [dispatch, partner]);
