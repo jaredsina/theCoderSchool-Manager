@@ -1,8 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import { addProgram } from "../reducers/programsReducer";
 
-const ProgramForm = () => {
+const ProgramForm = ({ closeModal }) => {
   const dispatch = useDispatch();
   const partners = useSelector((state) => state.partners);
 
@@ -40,6 +41,9 @@ const ProgramForm = () => {
       invoicePaid,
     };
     dispatch(addProgram(newProgram));
+
+    // close the modal
+    closeModal();
   };
   return (
     <div>
@@ -180,3 +184,7 @@ const ProgramForm = () => {
 };
 
 export default ProgramForm;
+
+ProgramForm.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+};
