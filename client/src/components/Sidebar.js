@@ -25,7 +25,7 @@ const Sidebar = () => {
         <li
           className={`sidebar-icon flex justify-center items-center p-4 rounded-lg transition-all ${
             page === "home"
-              ? "bg-white shadow-2xl shadow-black -translate-y-8 lg:translate-y-0 lg:translate-x-8"
+              ? "bg-white lg:w-14 shadow-2xl shadow-black -translate-y-8 lg:translate-y-0 lg:translate-x-20"
               : ""
           }`}
         >
@@ -42,7 +42,7 @@ const Sidebar = () => {
         <li
           className={`sidebar-icon flex justify-center items-center p-4 rounded-lg transition-all ${
             page === "partners"
-              ? "bg-white shadow-2xl shadow-black -translate-y-8 lg:translate-y-0 lg:translate-x-8"
+              ? "bg-white lg:w-14 shadow-2xl shadow-black -translate-y-8 lg:translate-y-0 lg:translate-x-20"
               : ""
           }`}
         >
@@ -60,7 +60,7 @@ const Sidebar = () => {
         <li
           className={`sidebar-icon flex justify-center items-center p-4 rounded-lg transition-all ${
             page === "programs"
-              ? "bg-white shadow-2xl shadow-black -translate-y-8 lg:translate-y-0 lg:translate-x-8"
+              ? "bg-white lg:w-14 shadow-2xl shadow-black -translate-y-8 lg:translate-y-0 lg:translate-x-20"
               : ""
           }`}
         >
@@ -78,7 +78,7 @@ const Sidebar = () => {
         <li
           className={`sidebar-icon flex justify-center items-center p-4 rounded-lg transition-all ${
             page === "tasks"
-              ? "bg-white shadow-2xl shadow-black -translate-y-8 lg:translate-y-0 lg:translate-x-8"
+              ? "bg-white lg:w-14 shadow-2xl shadow-black -translate-y-8 lg:translate-y-0 lg:translate-x-20"
               : ""
           }`}
         >
@@ -96,7 +96,7 @@ const Sidebar = () => {
         <li
           className={`sidebar-icon flex justify-center items-center p-4 rounded-lg transition-all ${
             page === "files"
-              ? "bg-white shadow-2xl shadow-black -translate-y-8 lg:translate-y-0 lg:translate-x-8"
+              ? "bg-white lg:w-14 shadow-2xl shadow-black -translate-y-8 lg:translate-y-0 lg:translate-x-20"
               : ""
           }`}
         >
@@ -114,7 +114,7 @@ const Sidebar = () => {
         <li
           className={`sidebar-icon flex justify-center items-center p-4 rounded-lg transition-all ${
             page === "archive"
-              ? "bg-white shadow-2xl shadow-black -translate-y-8 lg:translate-y-0 lg:translate-x-8"
+              ? "bg-white lg:w-14 shadow-2xl shadow-black -translate-y-8 lg:translate-y-0 lg:translate-x-20"
               : ""
           }`}
         >
