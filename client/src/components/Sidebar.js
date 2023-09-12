@@ -15,11 +15,11 @@ const Sidebar = () => {
   const match = useMatch("/dashboard/:page");
   const page = match ? match.params.page : null;
   return (
-    <div className="sidebar bg-emerald-950 rounded-t-3xl lg:rounded-t-none lg:flex lg:flex-col lg:px-4 lg:p-8">
+    <div className="sidebar  bg-emerald-950 rounded-t-3xl lg:rounded-t-none lg:flex lg:flex-col lg:px-4 lg:p-8">
       <img
         src={logo}
         alt="logo"
-        className="absolute top-4 left-4 w-24 bg-emerald-950 p-2 rounded-md lg:w-14"
+        className="hidden lg:block lg:sticky lg:top-4 lg:left-4 lg:w-24 lg:bg-emerald-950 lg:p-2 lg:rounded-md"
       />
       <ul className="flex-grow flex justify-evenly lg:flex-col lg:justify-center lg:gap-4">
         <li
