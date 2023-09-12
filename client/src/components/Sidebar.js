@@ -19,7 +19,7 @@ const Sidebar = () => {
       <img
         src={logo}
         alt="logo"
-        className="fixed top-4 left-4 w-24 bg-emerald-950 p-2 rounded-md lg:w-14"
+        className="absolute top-4 left-4 w-24 bg-emerald-950 p-2 rounded-md lg:w-14"
       />
       <ul className="flex-grow flex justify-evenly lg:flex-col lg:justify-center lg:gap-4">
         <li
