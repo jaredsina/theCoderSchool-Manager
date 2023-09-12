@@ -21,6 +21,7 @@ import SearchBar from "./SearchBar";
 import { initializeTasks } from "../reducers/taskReducer";
 import { initializeFiles } from "../reducers/fileReducer";
 import Programs from "./Programs";
+import logo from "../assets/logo.png";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -50,17 +51,22 @@ const Dashboard = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col h-full lg:flex-row bg-white lg:bg-emerald-950">
+    <div className="dashboard flex flex-col h-full lg:flex-row bg-white lg:bg-emerald-950">
       {/* <ProgramForm />
       <PartnerForm />
       <Notification /> */}
-      <div className="main bg-white flex-grow lg:order-last lg:rounded-l-3xl text-emerald-950">
-        <div className="main-top flex lg:justify-between justify-end gap-8 items-center p-4 lg:p-12">
+      <div className="main flex-1 overflow-x-hidden overflow-y-auto bg-white lg:order-last lg:rounded-l-3xl text-emerald-950">
+        <div className="main-top flex lg:justify-between gap-8 items-center p-4 lg:p-12">
+          <img
+            src={logo}
+            alt="theCoderSchool logo"
+            className="lg:hidden bg-emerald-950 rounded-md p-2 w-24"
+          />
           <SearchBar />
           <button
             type="button"
             onClick={logoutHandler}
-            className="logout-button text-emerald-950 bg-yellow-400 rounded-lg px-4 py-2 hover:bg-yellow-500 transition-all"
+            className="logout-button ml-auto text-emerald-950 bg-yellow-400 rounded-lg px-4 py-2 hover:bg-yellow-500 transition-all"
           >
             Logout
           </button>
