@@ -33,7 +33,7 @@ const Modal = forwardRef((props, ref) => {
             close();
           }}
         />
-        <div className="modal-content relative bg-white rounded-lg">
+        <div className="modal-content relative bg-white rounded-lg lg:mx-48">
           <div className="modal-header flex items-center justify-between border-b p-4 text-lg">
             <h3 className="font-bold">{props.header}</h3>
             <button type="button" onClick={() => close()}>
