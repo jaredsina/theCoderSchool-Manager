@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useMatch } from "react-router-dom";
 import { removeProgram, updateProgram } from "../reducers/programsReducer";
-import { initializeFiles } from "../reducers/fileReducer";
+// import { initializeFiles } from "../reducers/fileReducer";
 import FileForm from "./FileForm";
 import FileList from "./FileList";
 import TaskForm from "./TaskForm";
@@ -20,7 +20,7 @@ const Program = () => {
   useEffect(() => {
     // dont initialize the files if there is no program
     if (program) {
-      dispatch(initializeFiles(program.id));
+      // dispatch(initializeFiles(program.id));
       dispatch(getTasksByParentId(program.id));
     }
   }, [dispatch, program]);
