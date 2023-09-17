@@ -51,7 +51,7 @@ const Programs = () => {
         </button>
       </div>
       <h2 className="font-bold">Programs</h2>
-      <div className="programs-list p-2 bg-transparent overflow-y-auto overflow-x-hidden grid gap-4 grid-cols-2">
+      <div className="programs-list p-2 bg-transparent overflow-y-auto overflow-x-hidden grid gap-4 grid-cols-2 lg:px-8">
         {programCards}
       </div>
     </>
