@@ -36,7 +36,7 @@ const Programs = () => {
   const modalRef = useRef();
 
   return (
-    <>
+    <div className="lg:px-8">
       <div className="flex items-center justify-between">
         <label className="relative inline-flex items-center cursor-pointer">
           <input
@@ -60,11 +60,13 @@ const Programs = () => {
           Create Program
         </button>
       </div>
-      <h2 className="font-bold">Programs</h2>
-      <div className="programs-list p-2 bg-transparent overflow-y-auto overflow-x-hidden grid gap-4 grid-cols-2 lg:px-8">
-        {programCards}
+      <div className=" shadow-lg rounded-lg p-4 border border-gray-50 mt-4">
+        <h2 className="font-bold">Programs</h2>
+        <div className="programs-list p-2 bg-transparent overflow-y-auto overflow-x-hidden grid gap-4 grid-cols-2 lg:grid-cols-4">
+          {programCards}
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
