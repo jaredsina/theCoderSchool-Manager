@@ -18,7 +18,17 @@ const Programs = () => {
     return (
       <div key={program.id} className="bg-emerald-50 shadow-md rounded-lg p-4">
         <p>{program.name}</p>
-        <p>{program.status ? "Active" : "Inactive"}</p>
+        <p className={program.status ? " text-green-600" : " text-red-600"}>
+          {program.status ? "Active" : "Inactive"}
+        </p>
+        <div className="hidden lg:block">
+          <p
+            className={program.invoicePaid ? "text-green-600" : "text-red-600"}
+          >
+            Invoice Paid: {program.invoicePaid ? "Paid" : "Not Paid"}
+          </p>
+          <p />
+        </div>
       </div>
     );
   });
