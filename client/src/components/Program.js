@@ -73,9 +73,8 @@ const Program = () => {
     setEditMode(false);
   };
   return (
-    <div>
-      <h2>Program</h2>
-      <h3>
+    <div className="lg:m-8 lg:p-4 rounded-lg shadow-lg">
+      <h1 className=" font-bold text-5xl">
         {editMode ? (
           <input
             type="text"
@@ -87,25 +86,35 @@ const Program = () => {
         ) : (
           program.name
         )}
-      </h3>
-      Partner:{" "}
-      {editMode ? (
-        <select
-          id="editPartner"
-          defaultValue={program.partner ? program.partner.name : ""}
-        >
-          <option value="" data-key={null}>
-            None
-          </option>
-          {partners.map((partner) => (
-            <option key={partner.id} value={partner.name} data-key={partner.id}>
-              {partner.name}
-            </option>
-          ))}
-        </select>
-      ) : (
-        <h4>{program.partner ? program.partner.name : "None"}</h4>
-      )}
+      </h1>
+      <div className=" grid grid-cols-3">
+        <div>
+          <h2 className="font-bold text-3xl">Partner </h2>
+          {editMode ? (
+            <select
+              id="editPartner"
+              defaultValue={program.partner ? program.partner.name : ""}
+            >
+              <option value="" data-key={null}>
+                None
+              </option>
+              {partners.map((partner) => (
+                <option
+                  key={partner.id}
+                  value={partner.name}
+                  data-key={partner.id}
+                >
+                  {partner.name}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <h4 className=" bg-emerald-50 px-3 py-2 rounded-lg w-fit">
+              {program.partner ? program.partner.name : "None"}
+            </h4>
+          )}
+        </div>
+      </div>
       Active:{" "}
       {editMode ? (
         <input
