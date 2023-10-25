@@ -1,11 +1,14 @@
 import React, { useState, useRef } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import ProgramForm from "./ProgramForm";
 
 const Programs = () => {
   const [status, setStatus] = useState(false); // false = inactive, true = active
 
+  // For navigating to individual program pages
+  const navigate = useNavigate();
   // if status is set to false display all programs otherwise display only active programs
   const programs = useSelector((state) => {
     if (status) {
@@ -16,7 +19,11 @@ const Programs = () => {
 
   const programCards = programs.map((program) => {
     return (
-      <div key={program.id} className="bg-emerald-50 shadow-md rounded-lg p-4">
+      <div
+        key={program.id}
+        className="bg-emerald-50 shadow-md rounded-lg p-4"
+        onClick={() => navigate(`/dashboard/${program.id}`)}
+      >
         <p>{program.name}</p>
         <p className={program.status ? " text-green-600" : " text-red-600"}>
           {program.status ? "Active" : "Inactive"}
@@ -34,7 +41,6 @@ const Programs = () => {
   });
   // create a ref to the modal so we can open/close it from the parent component
   const modalRef = useRef();
-
   return (
     <div className="lg:px-8">
       <div className="flex items-center justify-between">
@@ -61,7 +67,7 @@ const Programs = () => {
         </button>
       </div>
       <div className=" shadow-lg rounded-lg p-4 border border-gray-50 mt-4">
-        <h2 className="font-bold">Programs</h2>
+        <h2 className="font-bold mb-4">Programs</h2>
         <div className="programs-list p-2 bg-transparent overflow-y-auto overflow-x-hidden grid gap-4 grid-cols-2 lg:grid-cols-4">
           {programCards}
         </div>

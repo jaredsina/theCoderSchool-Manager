@@ -73,8 +73,7 @@ const Dashboard = () => {
         </div>
         <div className="p-4">
           {match.params.page === "programs" && <Programs />}
-          {match.params.page === "partners" && <Partner />}
-          {match.params.page === "tasks" && <Task />}
+          <Program />
         </div>
       </div>
       <Sidebar />

@@ -10,6 +10,7 @@ const App = () => {
   return (
     <div className="App h-screen bg-emerald-950 text-emerald-50 font-sans">
       <Routes>
+        <Route path="/dashboard/:id" element={<Dashboard />} />
         <Route path="/dashboard/archive" element={<Dashboard />} />
         <Route path="/dashboard/files" element={<Dashboard />} />
         <Route path="/dashboard/programs" element={<Dashboard />} />
