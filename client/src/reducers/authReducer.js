@@ -25,8 +25,6 @@ export const attemptLogin = (username, password) => async (dispatch) => {
 
     // save the user to local storage
     window.localStorage.setItem("user", JSON.stringify(user));
-    // display a success message
-    dispatch(displayMessage(`Welcome ${user.username}`, "success", 5));
   } catch (err) {
     // display an error message
     dispatch(displayMessage("Invalid username or password", "error", 5));
