@@ -17,7 +17,7 @@ const FileList = () => {
   ));
   return (
     <div>
-      <h1>File List</h1>
+      <h4 className="font-bold text-3xl">File List</h4>
       <ul>{filesList}</ul>
     </div>
   );

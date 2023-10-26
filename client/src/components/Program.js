@@ -73,7 +73,7 @@ const Program = () => {
     setEditMode(false);
   };
   return (
-    <div className="lg:m-8 lg:p-4 rounded-lg shadow-lg">
+    <div className="lg:m-8 lg:p-4 rounded-lg">
       <h1 className=" font-bold text-5xl">
         {editMode ? (
           <input
@@ -87,7 +87,7 @@ const Program = () => {
           program.name
         )}
       </h1>
-      <div className=" grid grid-cols-3">
+      <div className=" grid grid-cols-3 gap-8 my-8">
         <div>
           <h2 className="font-bold text-3xl">Description </h2>
           {editMode ? (
@@ -256,30 +256,39 @@ const Program = () => {
           </h4>
         </div>
       </div>
-      <button
-        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-        type="button"
-        onClick={() => dispatch(removeProgram(program.id))}
-      >
-        Delete
-      </button>
-      {/* Button to edit the current Program */}
-      <button className="" type="button" onClick={() => setEditMode(!editMode)}>
-        {editMode ? "Cancel" : "Edit"}
-      </button>
-      {editMode ? (
+      <div className="flex gap-4">
         <button
-          className="savebtn bg-green-400"
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
           type="button"
-          onClick={saveChanges}
+          onClick={() => dispatch(removeProgram(program.id))}
         >
-          Save
+          Delete
         </button>
-      ) : null}
+        {/* Button to edit the current Program */}
+        <button
+          className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          type="button"
+          onClick={() => setEditMode(!editMode)}
+        >
+          {editMode ? "Cancel" : "Edit"}
+        </button>
+        {editMode ? (
+          <button
+            className="savebtn bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            type="button"
+            onClick={saveChanges}
+          >
+            Save
+          </button>
+        ) : null}
+      </div>
+      <div className="grid grid-cols-2 mt-8">
+        <FileList />
+        <TaskList />
+      </div>
+
       <FileForm type="Program" id={program.id} />
-      <FileList />
       <TaskForm type="Program" id={program.id} />
-      <TaskList />
     </div>
   );
 };

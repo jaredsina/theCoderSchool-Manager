@@ -16,7 +16,7 @@ const TaskList = () => {
   ));
   return (
     <div>
-      <h1>Task List</h1>
+      <h4 className="font-bold text-3xl">Task List</h4>
       <ul>{taskList}</ul>
     </div>
   );
