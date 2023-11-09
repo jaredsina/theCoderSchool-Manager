@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useMatch } from "react-router-dom";
 import { removeProgram, updateProgram } from "../reducers/programsReducer";
@@ -8,6 +8,7 @@ import FileList from "./FileList";
 import TaskForm from "./TaskForm";
 import { getTasksByParentId } from "../reducers/taskReducer";
 import TaskList from "./TaskList";
+import Modal from "./Modal";
 
 const Program = () => {
   const [editMode, setEditMode] = useState(false);
@@ -24,6 +25,9 @@ const Program = () => {
       dispatch(getTasksByParentId(program.id));
     }
   }, [dispatch, program]);
+
+  const fileFormModalRef = useRef();
+  const taskFormModalRef = useRef();
 
   if (!program) {
     return null;
@@ -72,6 +76,7 @@ const Program = () => {
     // set edit mode to false
     setEditMode(false);
   };
+
   return (
     <div className="lg:m-8 lg:p-4 rounded-lg">
       <h1 className=" font-bold text-5xl">
@@ -282,13 +287,42 @@ const Program = () => {
           </button>
         ) : null}
       </div>
-      <div className="grid grid-cols-2 mt-8">
-        <FileList />
+      <div className="grid grid-cols-2 mt-8 ">
+        <FileList id={program.id} />
         <TaskList />
+        <div className=" justify-self-center">
+          <Modal ref={fileFormModalRef} header="New File Form">
+            <FileForm
+              type="Program"
+              id={program.id}
+              closeModal={() => fileFormModalRef.current.close()}
+            />
+          </Modal>
+          <button
+            type="button"
+            className="fileCreateButton bg-emerald-950 text-white rounded-lg p-2"
+            onClick={() => fileFormModalRef.current.openModal()}
+          >
+            Create File
+          </button>
+        </div>
+        <div className="justify-self-center">
+          <Modal ref={taskFormModalRef} header="New Task Form">
+            <TaskForm
+              type="Program"
+              id={program.id}
+              closeModal={() => taskFormModalRef.current.close()}
+            />
+          </Modal>
+          <button
+            type="button"
+            className="taskCreateButton bg-emerald-950 text-white rounded-lg p-2"
+            onClick={() => taskFormModalRef.current.openModal()}
+          >
+            Create Task
+          </button>
+        </div>
       </div>
-
-      <FileForm type="Program" id={program.id} />
-      <TaskForm type="Program" id={program.id} />
     </div>
   );
 };
