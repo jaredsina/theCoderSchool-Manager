@@ -87,6 +87,7 @@ const Program = () => {
             placeholder="Name of program"
             required
             id="editName"
+            className="bg-yellow-50 px-3 py-2 rounded-lg"
           />
         ) : (
           program.name
@@ -101,6 +102,7 @@ const Program = () => {
               style={{ height: 100, width: 300 }}
               defaultValue={program.description}
               placeholder="Description of program"
+              className="bg-yellow-50 px-3 py-2 rounded-lg"
             />
           ) : (
             <h4 className=" bg-emerald-50 px-3 py-2 rounded-lg w-fit">
@@ -112,6 +114,7 @@ const Program = () => {
           <h2 className="font-bold text-3xl">Partner </h2>
           {editMode ? (
             <select
+              className="bg-yellow-50 px-3 py-2 rounded-lg"
               id="editPartner"
               defaultValue={program.partner ? program.partner.name : ""}
             >
@@ -138,6 +141,7 @@ const Program = () => {
           <h2 className="font-bold text-3xl">Active: </h2>
           {editMode ? (
             <input
+              className="bg-yellow-50 px-3 py-2 rounded-lg"
               type="checkbox"
               id="editStatus"
               defaultChecked={!!program.status}
@@ -152,6 +156,7 @@ const Program = () => {
           <h2 className="font-bold text-3xl">Invoice Due Date: </h2>
           {editMode ? (
             <input
+              className="bg-yellow-50 px-3 py-2 rounded-lg"
               type="date"
               id="editInvoiceDate"
               // defaultValue of due date is the programs due date converted from a date object to a string
@@ -187,6 +192,7 @@ const Program = () => {
             <input
               type="number"
               id="editClasses"
+              className="bg-yellow-50 w-24 px-3 py-2 rounded-lg"
               defaultValue={program.classes}
             />
           ) : (
@@ -201,6 +207,7 @@ const Program = () => {
             <input
               type="number"
               id="editStudents"
+              className="bg-yellow-50 w-24 px-3 py-2 rounded-lg"
               defaultValue={program.students}
             />
           ) : (
@@ -212,7 +219,12 @@ const Program = () => {
         <div>
           <h2 className="font-bold text-3xl">Number of Weeks: </h2>
           {editMode ? (
-            <input type="number" id="editWeeks" defaultValue={program.weeks} />
+            <input
+              type="number"
+              className="bg-yellow-50 w-24 px-3 py-2 rounded-lg"
+              id="editWeeks"
+              defaultValue={program.weeks}
+            />
           ) : (
             <h4 className=" bg-emerald-50 px-3 py-2 rounded-lg w-fit">
               {program.weeks ? program.weeks : "0"}
@@ -225,6 +237,7 @@ const Program = () => {
             <input
               type="text"
               id="editStaff"
+              className="bg-yellow-50 w-64 px-3 py-2 rounded-lg"
               placeholder="Staff1, Staff2,"
               defaultValue={program.staff}
             />
@@ -240,6 +253,7 @@ const Program = () => {
             <input
               type="number"
               id="editPrice"
+              className="bg-yellow-50 w-24 px-3 py-2 rounded-lg"
               defaultValue={program.pricing}
             />
           ) : (
