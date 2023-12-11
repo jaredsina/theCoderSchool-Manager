@@ -277,7 +277,7 @@ const Program = () => {
       </div>
       <div className="flex gap-4">
         <button
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded hover:scale-105 transition-all"
           type="button"
           onClick={() => dispatch(removeProgram(program.id))}
         >
@@ -285,7 +285,7 @@ const Program = () => {
         </button>
         {/* Button to edit the current Program */}
         <button
-          className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:scale-105 transition-all"
           type="button"
           onClick={() => setEditMode(!editMode)}
         >
@@ -293,7 +293,7 @@ const Program = () => {
         </button>
         {editMode ? (
           <button
-            className="savebtn bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            className="savebtn bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded hover:scale-105 transition-all"
             type="button"
             onClick={saveChanges}
           >
@@ -314,7 +314,7 @@ const Program = () => {
           </Modal>
           <button
             type="button"
-            className="fileCreateButton bg-emerald-950 text-white rounded-lg p-2"
+            className="fileCreateButton bg-emerald-950 text-white rounded-lg p-2 hover:scale-105 transition-all"
             onClick={() => fileFormModalRef.current.openModal()}
           >
             Create File
@@ -330,7 +330,7 @@ const Program = () => {
           </Modal>
           <button
             type="button"
-            className="taskCreateButton bg-emerald-950 text-white rounded-lg p-2"
+            className="taskCreateButton bg-emerald-950 text-white rounded-lg p-2 hover:scale-105 transition-all"
             onClick={() => taskFormModalRef.current.openModal()}
           >
             Create Task
