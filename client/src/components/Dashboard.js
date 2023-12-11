@@ -66,7 +66,7 @@ const Dashboard = () => {
           <button
             type="button"
             onClick={logoutHandler}
-            className="logout-button ml-auto text-emerald-950 bg-yellow-400 rounded-lg px-4 py-2 hover:bg-yellow-500 transition-all"
+            className="logout-button ml-auto text-emerald-950 bg-yellow-400 rounded-lg px-4 py-2 hover:bg-yellow-500 transition-all hover:scale-105"
           >
             Logout
           </button>

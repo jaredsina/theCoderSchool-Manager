@@ -60,7 +60,7 @@ const Programs = () => {
         </Modal>
         <button
           type="button"
-          className="programCreateButton bg-emerald-950 text-white rounded-lg p-2"
+          className="programCreateButton bg-emerald-950 text-white rounded-lg p-2 hover:scale-105 transition-all"
           onClick={() => modalRef.current.openModal()}
         >
           Create Program
