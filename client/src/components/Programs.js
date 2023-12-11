@@ -21,7 +21,7 @@ const Programs = () => {
     return (
       <div
         key={program.id}
-        className="bg-emerald-50 shadow-md rounded-lg p-4"
+        className="bg-emerald-50 shadow-md rounded-lg p-4 hover:scale-110 hover:shadow-lg transition-all cursor-pointer"
         onClick={() => navigate(`/dashboard/${program.id}`)}
       >
         <p>{program.name}</p>
