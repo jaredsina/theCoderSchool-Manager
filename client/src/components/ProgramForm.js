@@ -47,7 +47,7 @@ const ProgramForm = ({ closeModal }) => {
   };
   return (
     <form onSubmit={handleSubmit} className="">
-      <div className="lg:grid lg:grid-cols-2 lg:gap-4 flex flex-col gap-4">
+      <div className="lg:grid lg:grid-cols-2 lg:gap-4 gap-4">
         <label htmlFor="partner" className="flex flex-col gap-2">
           Partner
           <select
@@ -181,7 +181,7 @@ const ProgramForm = ({ closeModal }) => {
 
       <button
         type="submit"
-        className="submit-button self-center max-w-fit mt-4 py-2 px-8 bg-yellow-300 rounded-md font-bold hover:bg-yellow-400 transition duration-200 ease-in-out"
+        className="submit-button max-w-fit mt-4 py-2 px-8 bg-yellow-300 rounded-md font-bold hover:bg-yellow-400 hover:scale-105 transition duration-200 ease-in-out"
       >
         Submit
       </button>
