@@ -92,11 +92,14 @@ const TaskForm = ({ type, id }) => {
   };
   return (
     <div>
-      <h1>Task Form</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">
+      <form
+        onSubmit={handleSubmit}
+        className="lg:grid lg:grid-cols-2 lg:gap-4 gap-4"
+      >
+        <label htmlFor="name" className="flex flex-col gap-2">
           Name*:{" "}
           <input
+            className="bg-gray-50 rounded-lg p-2 border border-gray-300"
             type="text"
             placeholder="Name of task"
             id="taskName"
@@ -104,9 +107,20 @@ const TaskForm = ({ type, id }) => {
             required
           />
         </label>
-        <label htmlFor="description">
+        <label className="flex flex-col gap-2" htmlFor="dueDate">
+          Due Date:{" "}
+          <input
+            className="bg-gray-50 rounded-lg p-2 border border-gray-300 text-black"
+            type="date"
+            id="taskDueDate"
+            name="dueDate"
+            onChange={handleDateChange}
+          />
+        </label>
+        <label className="flex flex-col gap-2" htmlFor="description">
           Description*:{" "}
           <textarea
+            className="bg-gray-50 rounded-lg p-2 border border-gray-300"
             type="text"
             placeholder="Description of task"
             id="taskDescription"
@@ -114,52 +128,56 @@ const TaskForm = ({ type, id }) => {
             required
           />
         </label>
-        <label htmlFor="dueDate">
-          Due Date:{" "}
-          <input
-            type="date"
-            id="taskDueDate"
-            name="dueDate"
-            onChange={handleDateChange}
-          />
-        </label>
-        <label htmlFor="sevenDayEmail">
-          Notify Seven Days Before? :{" "}
-          <input
-            type="checkbox"
-            id="taskSevenDayEmail"
-            name="sevenDayEmail"
-            disabled
-          />
-        </label>
-        <label htmlFor="threeDayEmail">
-          Notify Three Days Before? :{" "}
-          <input
-            type="checkbox"
-            id="taskThreeDayEmail"
-            name="threeDayEmail"
-            disabled
-          />
-        </label>
-        <label htmlFor="oneDayEmail">
-          Notify One Day Before? :{" "}
-          <input
-            type="checkbox"
-            id="taskOneDayEmail"
-            name="oneDayEmail"
-            disabled
-          />
-        </label>
-        <label htmlFor="sameDayEmail">
-          Notify Same Day? :{" "}
-          <input
-            type="checkbox"
-            id="taskSameDayEmail"
-            name="sameDayEmail"
-            disabled
-          />
-        </label>
-        <button type="submit" value="Submit">
+        <div>
+          <p className="mb-2">Notification Settings:</p>
+          <div className="grid grid-cols-2">
+            <label className="" htmlFor="sevenDayEmail">
+              Notify Seven Days Before? :{" "}
+              <input
+                className="bg-gray-50 rounded-lg p-2 border border-gray-300"
+                type="checkbox"
+                id="taskSevenDayEmail"
+                name="sevenDayEmail"
+                disabled
+              />
+            </label>
+            <label className="" htmlFor="threeDayEmail">
+              Notify Three Days Before? :{" "}
+              <input
+                className="bg-gray-50 rounded-lg p-2 border border-gray-300"
+                type="checkbox"
+                id="taskThreeDayEmail"
+                name="threeDayEmail"
+                disabled
+              />
+            </label>
+            <label className="" htmlFor="oneDayEmail">
+              Notify One Day Before? :{" "}
+              <input
+                className="bg-gray-50 rounded-lg p-2 border border-gray-300"
+                type="checkbox"
+                id="taskOneDayEmail"
+                name="oneDayEmail"
+                disabled
+              />
+            </label>
+            <label className="" htmlFor="sameDayEmail">
+              Notify Same Day? :{" "}
+              <input
+                className="bg-gray-50 rounded-lg p-2 border border-gray-300"
+                type="checkbox"
+                id="taskSameDayEmail"
+                name="sameDayEmail"
+                disabled
+              />
+            </label>
+          </div>
+        </div>
+        <button
+          type="submit"
+          value="Submit"
+          className="max-w-fit mt-4 py-2 px-8 bg-yellow-300 rounded-md font-bold hover:bg-yellow-400 hover:scale-105 transition duration-200 ease-in-out"
+        >
           Submit
         </button>
       </form>
