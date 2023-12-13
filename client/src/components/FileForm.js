@@ -26,10 +26,18 @@ const FileForm = ({ type, id }) => {
   }
   return (
     <div>
-      <h1>File Form</h1>
       <form encType="multipart/form-data" onSubmit={createFile}>
-        <input type="file" name="file" id="fileInput" />
-        <button type="submit" value="Upload">
+        <input
+          className="border border-gray-300 rounded-md bg-gray-100 w-1/2"
+          type="file"
+          name="file"
+          id="fileInput"
+        />
+        <button
+          type="submit"
+          value="Upload"
+          className="self-center ml-4 max-w-fit mt-4 py-2 px-8 bg-yellow-300 rounded-md font-bold hover:bg-yellow-400 hover:scale-105 transition duration-200 ease-in-out"
+        >
           Upload
         </button>
       </form>
