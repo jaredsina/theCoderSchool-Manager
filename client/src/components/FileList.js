@@ -15,11 +15,23 @@ const FileList = ({ id }) => {
       return f.programId === id;
     })
     .map((file) => (
-      <li key={file.id}>
-        <a href={file.url} target="_blank" rel="noreferrer">
+      <li
+        key={file.id}
+        className=" border-b py-2 border-emerald-950 grid grid-cols-4"
+      >
+        <a
+          href={file.url}
+          target="_blank"
+          rel="noreferrer"
+          className="col-span-2 whitespace-nowrap overflow-auto"
+        >
           {file.filename}
         </a>
-        <button type="button" onClick={() => dispatch(deleteFile(file.id))}>
+        <button
+          type="button"
+          onClick={() => dispatch(deleteFile(file.id))}
+          className="bg-red-600 hover:bg-red-700 text-white font-bold px-1 rounded hover:scale-105 transition-all col-start-4"
+        >
           Delete
         </button>
       </li>
@@ -27,6 +39,9 @@ const FileList = ({ id }) => {
   return (
     <div>
       <h4 className="font-bold text-3xl">File List</h4>
+      <div className="grid-cols-4 grid border-b border-emerald-950 mt-4">
+        <p>File Name</p>
+      </div>
       <ul>{filesList}</ul>
     </div>
   );
