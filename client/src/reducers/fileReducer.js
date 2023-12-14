@@ -32,6 +32,15 @@ export const initializeFiles = () => async (dispatch) => {
   }
 };
 
+export const initializeParentFiles = (id) => async (dispatch) => {
+  try {
+    const files = await FileService.getParentFiles(id);
+    dispatch(setFilesState(files));
+  } catch (err) {
+    dispatch(displayMessage(err.response.data.error, "error", 5));
+  }
+};
+
 export const uploadFile = (file) => async (dispatch) => {
   try {
     const newFile = await FileService.create(file);

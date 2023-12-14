@@ -19,6 +19,16 @@ const getAll = async () => {
   return response.data;
 };
 
+/**
+ * Retrieves the files for a given parent ID.
+ * @param {string} id - The ID of the parent.
+ * @returns {Promise<Array>} - A promise that resolves to an array of files.
+ */
+const getParentFiles = async (id) => {
+  const response = await axios.get(`${baseUrl}/parent/${id}`, config);
+  return response.data;
+};
+
 // The create function sends a POST request to the /api/files endpoint with the file data.
 // If the request is successful, the function returns the response data.
 const create = async (newFile) => {
@@ -40,4 +50,11 @@ const getFile = async (id) => {
   return response.data;
 };
 
-export default { getAll, setToken, create, deleteFile, getFile };
+export default {
+  getAll,
+  setToken,
+  create,
+  deleteFile,
+  getFile,
+  getParentFiles,
+};

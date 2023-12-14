@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import { deleteFile } from "../reducers/fileReducer";
+import { deleteFile, initializeParentFiles } from "../reducers/fileReducer";
 
 const FileList = ({ id }) => {
   const dispatch = useDispatch();
+  // fetch the signed google urls for the files in the program
+  useEffect(() => {
+    dispatch(initializeParentFiles(id));
+  }, [dispatch, id]);
   const files = useSelector((state) => state.files);
   const filesList = files
     .filter((f) => {
