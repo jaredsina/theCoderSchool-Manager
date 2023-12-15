@@ -32,7 +32,7 @@ const Programs = () => {
           <p
             className={program.invoicePaid ? "text-green-600" : "text-red-600"}
           >
-            Invoice Paid: {program.invoicePaid ? "Paid" : "Not Paid"}
+            Invoice: {program.invoicePaid ? "Paid" : "Not Paid"}
           </p>
           <p />
         </div>
@@ -60,7 +60,7 @@ const Programs = () => {
         </Modal>
         <button
           type="button"
-          className="programCreateButton bg-emerald-950 text-white rounded-lg p-2 hover:scale-105 transition-all"
+          className="programCreateButton bg-emerald-950 text-white rounded-lg p-2 hover:scale-105 transition-all font-bold"
           onClick={() => modalRef.current.openModal()}
         >
           Create Program
