@@ -27,10 +27,18 @@ const FileList = ({ id }) => {
         >
           {file.filename}
         </a>
+        <a
+          href={file.url}
+          target="_blank"
+          rel="noreferrer"
+          className="col-start-3 bg-green-400 hover:bg-green-500 text-white font-bold mx-4 text-center rounded hover:scale-105 transition-all cursor-pointer"
+        >
+          View
+        </a>
         <button
           type="button"
           onClick={() => dispatch(deleteFile(file.id))}
-          className="bg-red-600 hover:bg-red-700 text-white font-bold px-1 rounded hover:scale-105 transition-all col-start-4"
+          className="bg-red-600 hover:bg-red-700 text-white font-bold px-1 mx-4 rounded hover:scale-105 transition-all col-start-4"
         >
           Delete
         </button>
