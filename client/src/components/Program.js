@@ -301,7 +301,7 @@ const Program = () => {
           </button>
         ) : null}
       </div>
-      <div className="grid grid-cols-2 mt-8 ">
+      <div className="grid grid-cols-2 mt-8 gap-12">
         <FileList id={program.id} />
         <TaskList />
         <div className=" justify-self-center">
