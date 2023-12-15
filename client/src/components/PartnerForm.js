@@ -35,81 +35,106 @@ const PartnerForm = () => {
 
   return (
     <div>
-      <h2>Partner Form</h2>
       <form onSubmit={handlePartner}>
-        <label htmlFor="partnername">
-          Name*:{" "}
-          <input
-            type="text"
-            placeholder="Name of partner"
-            id="partnername"
-            name="partnername"
-            required
-          />
-        </label>
-        <label htmlFor="schoolname">
-          School Name
-          <input
-            type="text"
-            placeholder="School Name"
-            id="schoolname"
-            name="schoolname"
-          />
-        </label>
-        <label htmlFor="website">
-          Website
-          <input
-            type="text"
-            placeholder="Website"
-            id="website"
-            name="website"
-          />
-        </label>
-        <label htmlFor="email">
-          Email
-          <input type="text" placeholder="Email" id="email" name="email" />
-        </label>
-        <label htmlFor="phone">
-          Phone
-          <input type="text" placeholder="Phone" id="phone" name="phone" />
-        </label>
-        <label htmlFor="address">
-          Address
-          <input
-            type="text"
-            placeholder="Address"
-            id="address"
-            name="address"
-          />
-        </label>
-        <label htmlFor="primarycontact">
-          Primary Contact
-          <input
-            type="text"
-            placeholder="Primary Contact"
-            id="primarycontact"
-            name="primarycontact"
-          />
-        </label>
-        <label htmlFor="primarycontactemail">
-          Primary Contact Email
-          <input
-            type="text"
-            placeholder="Primary Contact Email"
-            id="primarycontactemail"
-            name="primarycontactemail"
-          />
-        </label>
-        <label htmlFor="primarycontactphone">
-          Primary Contact Phone
-          <input
-            type="text"
-            placeholder="Primary Contact Phone"
-            id="primarycontactphone"
-            name="primarycontactphone"
-          />
-        </label>
-        <button type="submit">Submit</button>
+        <div className="lg:grid lg:grid-cols-2 lg:gap-4 gap-4">
+          <label className="flex flex-col gap-2" htmlFor="partnername">
+            Name*:{" "}
+            <input
+              className="bg-gray-50 rounded-lg p-2 border border-gray-300"
+              type="text"
+              placeholder="Name of partner"
+              id="partnername"
+              name="partnername"
+              required
+            />
+          </label>
+          <label className="flex flex-col gap-2" htmlFor="schoolname">
+            School Name
+            <input
+              className="bg-gray-50 rounded-lg p-2 border border-gray-300"
+              type="text"
+              placeholder="School Name"
+              id="schoolname"
+              name="schoolname"
+            />
+          </label>
+          <label className="flex flex-col gap-2" htmlFor="website">
+            Website
+            <input
+              className="bg-gray-50 rounded-lg p-2 border border-gray-300"
+              type="text"
+              placeholder="Website"
+              id="website"
+              name="website"
+            />
+          </label>
+          <label className="flex flex-col gap-2" htmlFor="email">
+            Email
+            <input
+              className="bg-gray-50 rounded-lg p-2 border border-gray-300"
+              type="text"
+              placeholder="Email"
+              id="email"
+              name="email"
+            />
+          </label>
+          <label className="flex flex-col gap-2" htmlFor="phone">
+            Phone
+            <input
+              className="bg-gray-50 rounded-lg p-2 border border-gray-300"
+              type="text"
+              placeholder="Phone"
+              id="phone"
+              name="phone"
+            />
+          </label>
+          <label className="flex flex-col gap-2" htmlFor="address">
+            Address
+            <input
+              className="bg-gray-50 rounded-lg p-2 border border-gray-300"
+              type="text"
+              placeholder="Address"
+              id="address"
+              name="address"
+            />
+          </label>
+          <label className="flex flex-col gap-2" htmlFor="primarycontact">
+            Primary Contact
+            <input
+              className="bg-gray-50 rounded-lg p-2 border border-gray-300"
+              type="text"
+              placeholder="Primary Contact"
+              id="primarycontact"
+              name="primarycontact"
+            />
+          </label>
+          <label className="flex flex-col gap-2" htmlFor="primarycontactemail">
+            Primary Contact Email
+            <input
+              className="bg-gray-50 rounded-lg p-2 border border-gray-300"
+              type="text"
+              placeholder="Primary Contact Email"
+              id="primarycontactemail"
+              name="primarycontactemail"
+            />
+          </label>
+          <label className="flex flex-col gap-2" htmlFor="primarycontactphone">
+            Primary Contact Phone
+            <input
+              className="bg-gray-50 rounded-lg p-2 border border-gray-300"
+              type="text"
+              placeholder="Primary Contact Phone"
+              id="primarycontactphone"
+              name="primarycontactphone"
+            />
+          </label>
+        </div>
+        <button
+          type="submit"
+          className="max-w-fit mt-4 py-2 px-8 bg-yellow-300 rounded-md font-bold hover:bg-yellow-400 hover:scale-105 transition duration-200 ease-in-out"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
