@@ -7,6 +7,7 @@ import ProgramForm from "./ProgramForm";
 import Program from "./Program";
 import Notification from "./Notification";
 import PartnerForm from "./PartnerForm";
+import Partners from "./Partners";
 import {
   initializePrograms,
   removeAllProgramsState,
@@ -73,6 +74,8 @@ const Dashboard = () => {
         </div>
         <div className="p-4">
           {match.params.page === "programs" && <Programs />}
+          {match.params.page === "partners" && <Partners />}
+          <Partner />
           <Program />
         </div>
       </div>
