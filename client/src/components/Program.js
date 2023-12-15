@@ -314,7 +314,7 @@ const Program = () => {
           </Modal>
           <button
             type="button"
-            className="fileCreateButton mt-4 bg-emerald-950 text-white rounded-lg p-2 hover:scale-105 transition-all"
+            className="fileCreateButton mt-4 bg-emerald-950 text-white rounded-lg p-2 hover:scale-105 transition-all font-bold"
             onClick={() => fileFormModalRef.current.openModal()}
           >
             Create File
@@ -330,7 +330,7 @@ const Program = () => {
           </Modal>
           <button
             type="button"
-            className="taskCreateButton bg-emerald-950 mt-4 text-white rounded-lg p-2 hover:scale-105 transition-all"
+            className="taskCreateButton bg-emerald-950 mt-4 text-white rounded-lg p-2 hover:scale-105 transition-all font-bold"
             onClick={() => taskFormModalRef.current.openModal()}
           >
             Create Task
