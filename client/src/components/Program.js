@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useMatch } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router-dom";
 import { removeProgram, updateProgram } from "../reducers/programsReducer";
 // import { initializeFiles } from "../reducers/fileReducer";
 import FileForm from "./FileForm";
@@ -13,6 +13,7 @@ import Modal from "./Modal";
 const Program = () => {
   const [editMode, setEditMode] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const match = useMatch("/dashboard/:id");
   const programs = useSelector((state) => state.programs);
   const partners = useSelector((state) => state.partners);
@@ -132,7 +133,10 @@ const Program = () => {
               ))}
             </select>
           ) : (
-            <h4 className=" bg-emerald-50 px-3 py-2 rounded-lg w-fit">
+            <h4
+              className=" bg-emerald-50 px-3 py-2 rounded-lg w-fit cursor-pointer hover:scale-105 transition-all "
+              onClick={() => navigate(`/dashboard/${program.partner.id}`)}
+            >
               {program.partner ? program.partner.name : "None"}
             </h4>
           )}
