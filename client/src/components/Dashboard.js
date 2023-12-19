@@ -23,6 +23,7 @@ import { initializeTasks } from "../reducers/taskReducer";
 import { initializeFiles } from "../reducers/fileReducer";
 import Programs from "./Programs";
 import logo from "../assets/logo.png";
+import Tasks from "./Tasks";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -75,8 +76,10 @@ const Dashboard = () => {
         <div className="p-4">
           {match.params.page === "programs" && <Programs />}
           {match.params.page === "partners" && <Partners />}
+          {match.params.page === "tasks" && <Tasks />}
           <Partner />
           <Program />
+          <Task />
         </div>
       </div>
       <Sidebar />
