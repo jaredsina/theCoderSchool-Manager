@@ -12,7 +12,8 @@ const FileList = ({ id }) => {
   const files = useSelector((state) => state.files);
   const filesList = files
     .filter((f) => {
-      return f.programId === id;
+      if (f.programId === id) return f.programId === id;
+      if (f.partnerId === id) return f.partnerId === id;
     })
     .map((file) => (
       <li
