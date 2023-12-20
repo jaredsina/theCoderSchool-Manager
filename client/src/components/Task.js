@@ -140,115 +140,157 @@ const Task = () => {
     calculateDueDateDiff(task.dueDate);
   };
   return (
-    <div>
-      <h1>Task</h1>
-      {editMode ? (
-        <>
-          <button type="button" onClick={() => handleUpdate()}>
-            Save
-          </button>
-          <button type="button" onClick={() => setEditMode(false)}>
-            Cancel
-          </button>
-        </>
-      ) : (
-        <button type="button" onClick={editButtonHandler}>
-          Edit
-        </button>
-      )}
-      Task Name:{" "}
-      {editMode ? (
-        <input
-          type="text"
-          id="editTaskName"
-          defaultValue={task.name}
-          placeholder="Name of task"
-          required
-        />
-      ) : (
-        <h1>{task.name}</h1>
-      )}
-      Description:{" "}
-      {editMode ? (
-        <textarea
-          type="text"
-          id="editTaskDescription"
-          style={{ height: 100, width: 300 }}
-          defaultValue={task.description}
-          placeholder="Description"
-        />
-      ) : (
-        <h2>{task.description}</h2>
-      )}
-      Due Date:{" "}
-      {editMode ? (
-        <input
-          type="date"
-          id="editTaskDueDate"
-          defaultValue={task.dueDate ? task.dueDate.split("T")[0] : null}
-          onChange={handleDateChange}
-        />
-      ) : (
-        <h2>{task.dueDate ? task.dueDate.split("T")[0] : null}</h2>
-      )}
-      {editMode ? (
-        <>
-          <label htmlFor="editTaskSevenDayEmail">
-            Notify Seven Days Before? :{" "}
-            <input
-              type="checkbox"
-              id="editTaskSevenDayEmail"
-              name="sevenDayEmail"
-              defaultChecked={task.sevenDayEmailSent === false}
-              disabled={dueDateDiff <= 7}
-            />
-          </label>
-          <label htmlFor="editTaskThreeDayEmail">
-            Notify Three Days Before? :{" "}
-            <input
-              type="checkbox"
-              id="editTaskThreeDayEmail"
-              name="threeDayEmail"
-              defaultChecked={task.threeDayEmailSent === false}
-              disabled={dueDateDiff <= 3}
-            />
-          </label>
-          <label htmlFor="editTaskOneDayEmail">
-            Notify One Day Before? :{" "}
-            <input
-              type="checkbox"
-              id="editTaskOneDayEmail"
-              name="oneDayEmail"
-              defaultChecked={task.oneDayEmailSent === false}
-              disabled={dueDateDiff <= 1}
-            />
-          </label>
-          <label htmlFor="editTaskSameDayEmail">
-            Notify Same Day? :{" "}
-            <input
-              type="checkbox"
-              id="editTaskSameDayEmail"
-              name="sameDayEmail"
-              defaultChecked={task.sameDayEmailSent === false}
-              disabled={dueDateDiff <= 0}
-            />
-          </label>
-        </>
-      ) : (
+    <div className="lg:px-8 lg:p-4 ">
+      <h1 className="font-bold text-5xl">
+        {editMode ? (
+          <input
+            type="text"
+            id="editTaskName"
+            defaultValue={task.name}
+            placeholder="Name of task"
+            required
+            className="bg-yellow-50 px-3 py-2 rounded-lg"
+          />
+        ) : (
+          task.name
+        )}
+      </h1>
+      <div className="grid grid-cols-2 gap-8 my-8">
         <div>
-          <p>Notify Seven Days Before: </p>
-          <p>{task.sevenDayEmailSent === false ? "Yes" : "No"}</p>
-          <p>Notify Three Days Before: </p>
-          <p>{task.threeDayEmailSent === false ? "Yes" : "No"}</p>
-          <p>Notify One Day Before: </p>
-          <p>{task.oneDayEmailSent === false ? "Yes" : "No"}</p>
-          <p>Notify Same Day: </p>
-          <p>{task.sameDayEmailSent === false ? "Yes" : "No"}</p>
+          <h2 className="font-bold text-3xl">Description</h2>
+          {editMode ? (
+            <textarea
+              type="text"
+              id="editTaskDescription"
+              style={{ height: 100, width: 300 }}
+              defaultValue={task.description}
+              placeholder="Description"
+              className="bg-yellow-50 px-3 py-2 rounded-lg"
+            />
+          ) : (
+            <h4 className="bg-emerald-50 px-3 py-2 rounded-lg w-fit">
+              {task.description}
+            </h4>
+          )}
         </div>
-      )}
-      <button type="button" onClick={() => dispatch(deleteTask(task.id))}>
-        Delete
-      </button>
+        <div>
+          <h2 className="font-bold text-3xl">Due Date</h2>
+          {editMode ? (
+            <input
+              type="date"
+              id="editTaskDueDate"
+              defaultValue={task.dueDate ? task.dueDate.split("T")[0] : null}
+              onChange={handleDateChange}
+              className="bg-yellow-50 px-3 py-2 rounded-lg"
+            />
+          ) : (
+            <h4 className="bg-emerald-50 px-3 py-2 rounded-lg w-fit">
+              {task.dueDate ? task.dueDate.split("T")[0] : null}
+            </h4>
+          )}
+        </div>
+        <div className="col-span-2">
+          <h2 className="font-bold text-3xl">Notification Settings:</h2>
+          {editMode ? (
+            <div className="grid grid-cols-2 mt-2 bg-yellow-50 px-3 py-2 rounded-lg">
+              <label htmlFor="editTaskSevenDayEmail">
+                Notify Seven Days Before? :{" "}
+                <input
+                  type="checkbox"
+                  id="editTaskSevenDayEmail"
+                  name="sevenDayEmail"
+                  defaultChecked={task.sevenDayEmailSent === false}
+                  disabled={dueDateDiff <= 7}
+                />
+              </label>
+              <label htmlFor="editTaskThreeDayEmail">
+                Notify Three Days Before? :{" "}
+                <input
+                  type="checkbox"
+                  id="editTaskThreeDayEmail"
+                  name="threeDayEmail"
+                  defaultChecked={task.threeDayEmailSent === false}
+                  disabled={dueDateDiff <= 3}
+                />
+              </label>
+              <label htmlFor="editTaskOneDayEmail">
+                Notify One Day Before? :{" "}
+                <input
+                  type="checkbox"
+                  id="editTaskOneDayEmail"
+                  name="oneDayEmail"
+                  defaultChecked={task.oneDayEmailSent === false}
+                  disabled={dueDateDiff <= 1}
+                />
+              </label>
+              <label htmlFor="editTaskSameDayEmail">
+                Notify Same Day? :{" "}
+                <input
+                  type="checkbox"
+                  id="editTaskSameDayEmail"
+                  name="sameDayEmail"
+                  defaultChecked={task.sameDayEmailSent === false}
+                  disabled={dueDateDiff <= 0}
+                />
+              </label>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 mt-2 gap-2 bg-emerald-50 px-3 py-2 rounded-lg w-fit">
+              <div>
+                <p>Notify Seven Days Before: </p>
+                <p>{task.sevenDayEmailSent === false ? "Yes" : "No"}</p>
+              </div>
+              <div>
+                <p>Notify Three Days Before: </p>
+                <p>{task.threeDayEmailSent === false ? "Yes" : "No"}</p>
+              </div>
+              <div>
+                <p>Notify One Day Before: </p>
+                <p>{task.oneDayEmailSent === false ? "Yes" : "No"}</p>
+              </div>
+              <div>
+                <p>Notify Same Day: </p>
+                <p>{task.sameDayEmailSent === false ? "Yes" : "No"}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="flex gap-4 ">
+        {editMode ? (
+          <>
+            <button
+              type="button"
+              onClick={() => handleUpdate()}
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded hover:scale-105 transition-all"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              onClick={() => setEditMode(false)}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:scale-105 transition-all"
+            >
+              Cancel
+            </button>
+          </>
+        ) : (
+          <button
+            type="button"
+            onClick={editButtonHandler}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:scale-105 transition-all"
+          >
+            Edit
+          </button>
+        )}
+        <button
+          type="button"
+          onClick={() => dispatch(deleteTask(task.id))}
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded hover:scale-105 transition-all"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 };
