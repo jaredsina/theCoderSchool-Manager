@@ -252,17 +252,17 @@ const Partner = () => {
           <>
             <button
               type="button"
-              onClick={() => dispatch(removePartner(partner))}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded hover:scale-105 transition-all"
-            >
-              Delete
-            </button>
-            <button
-              type="button"
               onClick={() => setEditMode(true)}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:scale-105 transition-all"
             >
               Edit
+            </button>
+            <button
+              type="button"
+              onClick={() => dispatch(removePartner(partner))}
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded hover:scale-105 transition-all"
+            >
+              Delete
             </button>
           </>
         )}

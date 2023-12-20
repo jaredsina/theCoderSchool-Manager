@@ -280,13 +280,6 @@ const Program = () => {
         </div>
       </div>
       <div className="flex gap-4">
-        <button
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded hover:scale-105 transition-all"
-          type="button"
-          onClick={() => dispatch(removeProgram(program.id))}
-        >
-          Delete
-        </button>
         {/* Button to edit the current Program */}
         <button
           className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:scale-105 transition-all"
@@ -304,6 +297,13 @@ const Program = () => {
             Save
           </button>
         ) : null}
+        <button
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded hover:scale-105 transition-all"
+          type="button"
+          onClick={() => dispatch(removeProgram(program.id))}
+        >
+          Delete
+        </button>
       </div>
       <div className="grid grid-cols-2 mt-8 gap-12">
         <FileList id={program.id} />
