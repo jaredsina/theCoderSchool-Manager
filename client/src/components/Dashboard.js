@@ -24,6 +24,7 @@ import { initializeFiles } from "../reducers/fileReducer";
 import Programs from "./Programs";
 import logo from "../assets/logo.png";
 import Tasks from "./Tasks";
+import Files from "./Files";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -77,6 +78,7 @@ const Dashboard = () => {
           {match.params.page === "programs" && <Programs />}
           {match.params.page === "partners" && <Partners />}
           {match.params.page === "tasks" && <Tasks />}
+          {match.params.page === "files" && <Files />}
           <Partner />
           <Program />
           <Task />
