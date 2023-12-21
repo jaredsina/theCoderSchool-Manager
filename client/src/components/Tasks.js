@@ -6,11 +6,13 @@ import { deleteTask, initializeTasks } from "../reducers/taskReducer";
 const Tasks = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const user = useSelector((state) => state.user);
   // reinitialize the tasks when the component mounts
   useEffect(() => {
-    dispatch(initializeTasks());
-  }, [dispatch]);
+    if (user) {
+      dispatch(initializeTasks());
+    }
+  }, [dispatch, user]);
 
   const tasks = useSelector((state) => state.tasks);
 
@@ -23,7 +25,7 @@ const Tasks = () => {
       >
         <p>{task.name}</p>
         <p className="col-span-2">{task.description}</p>
-        <p className="col-span-2">{task.dueDate}</p>
+        <p className="col-span-2">{task.dueDate.split("T")[0]}</p>
         <Link
           to={`/dashboard/${task.id}`}
           className=" bg-green-400 hover:bg-green-500 text-white font-bold rounded hover:scale-105 transition-all p-1 mx-4 text-center"
