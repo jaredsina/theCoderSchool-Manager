@@ -29,6 +29,11 @@ const getParentFiles = async (id) => {
   return response.data;
 };
 
+const getFilesWithUrls = async () => {
+  const response = await axios.get(`${baseUrl}/urls`, config);
+  return response.data;
+};
+
 // The create function sends a POST request to the /api/files endpoint with the file data.
 // If the request is successful, the function returns the response data.
 const create = async (newFile) => {
@@ -57,4 +62,5 @@ export default {
   deleteFile,
   getFile,
   getParentFiles,
+  getFilesWithUrls,
 };
