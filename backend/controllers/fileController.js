@@ -17,6 +17,39 @@ const getFiles = async (request, response) => {
   }
 };
 
+// get all files with urls
+const getFilesWithUrls = async (request, response) => {
+  const files = await File.find({});
+  if (files) {
+    const filesInfo = await Promise.all(
+      files.map(async (file) => {
+        const url = await bucket.file(file.filename).getSignedUrl({
+          action: "read",
+          expires: Date.now() + 15 * 60 * 1000, // 15 minutes
+        });
+        const fileObject = {
+          filename: file.filename,
+          contentType: file.contentType,
+          size: file.size,
+          id: file.id,
+          date: file.date,
+          programId: file.programId,
+          partnerId: file.partnerId,
+          url: url[0],
+        };
+        return fileObject;
+      }),
+    );
+    response.status(200).json(filesInfo);
+  }
+  if (!files) {
+    response.status(404).json({ error: "Files were not found" });
+    const error = new Error("Files do not exist");
+    error.status = 404;
+    throw error;
+  }
+};
+
 // get all files for a program or partner
 const getParentFiles = async (request, response) => {
   // retrive the parent id from the params sent in the request
@@ -175,4 +208,11 @@ const deleteFile = async (request, response) => {
   }
 };
 
-module.exports = { getFiles, postFile, getFile, deleteFile, getParentFiles };
+module.exports = {
+  getFiles,
+  postFile,
+  getFile,
+  deleteFile,
+  getParentFiles,
+  getFilesWithUrls,
+};
