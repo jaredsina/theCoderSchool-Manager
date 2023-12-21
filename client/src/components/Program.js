@@ -172,7 +172,7 @@ const Program = () => {
             />
           ) : (
             <h4 className=" bg-emerald-50 px-3 py-2 rounded-lg w-fit">
-              {program.invoice ? program.invoice : "None"}
+              {program.invoice ? program.invoice.split("T")[0] : "None"}
             </h4>
           )}
         </div>

@@ -14,28 +14,28 @@ const SearchBar = () => {
   const tasks = useSelector((state) => state.tasks);
   const files = useSelector((state) => state.files);
 
-  useEffect(() => {
-    // filter the entire store for matches
-    const filteredPartners = partners.filter((partner) =>
-      partner.name.toLowerCase().includes(search.toLowerCase()),
-    );
-    const filteredPrograms = programs.filter((program) =>
-      program.name.toLowerCase().includes(search.toLowerCase()),
-    );
-    const filteredTasks = tasks.filter((task) =>
-      task.name.toLowerCase().includes(search.toLowerCase()),
-    );
-    const filteredFiles = files.filter((file) =>
-      file.name.toLowerCase().includes(search.toLowerCase()),
-    );
-    // put the matches into an array
-    setSearchList([
-      ...filteredPartners,
-      ...filteredPrograms,
-      ...filteredTasks,
-      ...filteredFiles,
-    ]);
-  }, [search, partners, programs, tasks, files]);
+  // useEffect(() => {
+  //   // filter the entire store for matches
+  //   const filteredPartners = partners.filter((partner) =>
+  //     partner.name.toLowerCase().includes(search.toLowerCase()),
+  //   );
+  //   const filteredPrograms = programs.filter((program) =>
+  //     program.name.toLowerCase().includes(search.toLowerCase()),
+  //   );
+  //   const filteredTasks = tasks.filter((task) =>
+  //     task.name.toLowerCase().includes(search.toLowerCase()),
+  //   );
+  //   const filteredFiles = files.filter((file) =>
+  //     file.name.toLowerCase().includes(search.toLowerCase()),
+  //   );
+  //   // put the matches into an array
+  //   setSearchList([
+  //     ...filteredPartners,
+  //     ...filteredPrograms,
+  //     ...filteredTasks,
+  //     ...filteredFiles,
+  //   ]);
+  // }, [search, partners, programs, tasks, files]);
   //! TODO: FINISH RENDERING THE SEARCH RESULTS
   // use the searchList to render the results below the search bar when it is open
   const renderedSearchList = searchList.map((item) => {
