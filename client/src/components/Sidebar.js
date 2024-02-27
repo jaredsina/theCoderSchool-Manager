@@ -24,23 +24,6 @@ const Sidebar = () => {
       <ul className="flex-grow flex justify-evenly lg:flex-col lg:justify-center lg:gap-4">
         <li
           className={`sidebar-icon flex justify-center items-center p-4 rounded-lg transition-all ${
-            page === "home"
-              ? "bg-white lg:w-14 shadow-2xl shadow-black -translate-y-8 lg:translate-y-0 lg:translate-x-20"
-              : ""
-          }`}
-        >
-          <Link to="/dashboard/home">
-            <FontAwesomeIcon
-              icon={faHouse}
-              style={{
-                color: page === "home" ? "rgb(250,204,21)" : "rgb(5, 150, 105)",
-                width: "1em",
-              }}
-            />
-          </Link>
-        </li>
-        <li
-          className={`sidebar-icon flex justify-center items-center p-4 rounded-lg transition-all ${
             page === "partners"
               ? "bg-white lg:w-14 shadow-2xl shadow-black -translate-y-8 lg:translate-y-0 lg:translate-x-20"
               : ""
@@ -106,24 +89,6 @@ const Sidebar = () => {
               style={{
                 color:
                   page === "files" ? "rgb(250,204,21)" : "rgb(5, 150, 105)",
-                width: "1em",
-              }}
-            />
-          </Link>
-        </li>
-        <li
-          className={`sidebar-icon flex justify-center items-center p-4 rounded-lg transition-all ${
-            page === "archive"
-              ? "bg-white lg:w-14 shadow-2xl shadow-black -translate-y-8 lg:translate-y-0 lg:translate-x-20"
-              : ""
-          }`}
-        >
-          <Link to="/dashboard/archive">
-            <FontAwesomeIcon
-              icon={faBoxArchive}
-              style={{
-                color:
-                  page === "archive" ? "rgb(250,204,21)" : "rgb(5, 150, 105)",
                 width: "1em",
               }}
             />
