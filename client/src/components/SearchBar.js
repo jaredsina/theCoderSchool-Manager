@@ -1,4 +1,4 @@
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -67,6 +67,46 @@ const SearchBar = () => {
         </Link>
       );
     }
+  }, [search, partners, programs, tasks, files]);
+  //! TODO: FINISH RENDERING THE SEARCH RESULTS
+  // use the searchList to render the results below the search bar when it is open
+  const renderedSearchList = searchList.map((item) => {
+    // if (item.resultType === "partner") {
+    return (
+      <Link
+        to={`/dashboard/${item.id}`}
+        key={item.id}
+        className="search-result"
+        onClick={() => setOpen(false)}
+      >
+        <div className="flex items-center justify-between m-2 p-4 bg-emerald-50 hover:bg-emerald-950 rounded-lg hover:text-white">
+          <p className="text-sm">{item.name}</p>
+          <FontAwesomeIcon
+            icon={faChevronRight}
+            style={{
+              color: "rgb(236,253,245)",
+              width: ".5em",
+            }}
+          />
+        </div>
+      </Link>
+    );
+    // }
+    // if (item.type === "program") {
+    //   return (
+    //     <Link
+    //       to={`/dashboard/programs/${item.id}`}
+    //       key={item.id}
+    //       className="search-result"
+    //       onClick={() => setOpen(false)}
+    //     >
+    //       <div className="flex items-center gap-4">
+    //         <p className="text-sm">{item.name}</p>
+    //       </div>
+    //     </Link>
+    //   );
+    // }
+    return null;
   });
 
   if (open) {
@@ -81,7 +121,7 @@ const SearchBar = () => {
           }}
         />
         <div className="relative transition-all w-full max-w-lg transform px-4">
-          <div className="bg-white p-4 flex gap-4 items-center rounded-lg shadow-lg overflow-hidden">
+          <div className="bg-white p-4 flex gap-4 items-center rounded-t-lg shadow-lg overflow-hidden border-b-slate-200 border-b">
             <input
               type="text"
               className="search-bar flex-1 bg-transparent outline-none"
@@ -96,6 +136,7 @@ const SearchBar = () => {
               }}
             />
           </div>
+          <div className="bg-white rounded-b-lg p-4">{renderedSearchList}</div>
         </div>
       </div>
     );
@@ -112,20 +153,19 @@ const SearchBar = () => {
           onClick={() => setOpen(true)}
         />
       </div>
-      <div className=" hidden bg-emerald-50 rounded-lg flex-grow max-w-sm p-2 lg:flex gap-2 items-center">
+      <div
+        className="hidden bg-emerald-50 rounded-lg flex-grow max-w-xs p-2 lg:flex gap-2 items-center hover:bg-emerald-100"
+        onClick={() => setOpen(true)}
+      >
         <FontAwesomeIcon
           icon={faSearch}
           style={{
             color: "rgb(2, 44, 34)",
           }}
         />
-        <input
-          type="text"
-          className="search-bar flex-1 bg-transparent outline-none text-sm"
-          placeholder="Search"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <p className="flex-1 bg-transparent outline-none text-sm text-gray-400">
+          Search
+        </p>
       </div>
     </>
   );
