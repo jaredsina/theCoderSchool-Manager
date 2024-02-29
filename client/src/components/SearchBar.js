@@ -63,60 +63,41 @@ const SearchBar = () => {
         ...filteredFiles,
       ]);
     }
-    if (item.type === "program") {
-      return (
-        <Link
-          to={`/dashboard/programs/${item.id}`}
-          key={item.id}
-          className="search-result"
-          onClick={() => setOpen(false)}
-        >
-          <div className="flex items-center gap-4">
-            <p className="text-sm">{item.name}</p>
-          </div>
-        </Link>
-      );
+    if (!search) {
+      setSearchList([]);
     }
   }, [search, partners, programs, tasks, files]);
-  //! TODO: FINISH RENDERING THE SEARCH RESULTS
+
   // use the searchList to render the results below the search bar when it is open
   const renderedSearchList = searchList.map((item) => {
-    // if (item.resultType === "partner") {
     return (
       <Link
-        to={`/dashboard/${item.id}`}
+        to={
+          item.resultType === "file"
+            ? `/dashboard/${item.partnerId ? item.partnerId : item.programId}`
+            : `/dashboard/${item.id}`
+        }
         key={item.id}
         className="search-result"
         onClick={() => setOpen(false)}
       >
         <div className="flex items-center justify-between m-2 p-4 bg-emerald-50 hover:bg-emerald-950 rounded-lg hover:text-white">
-          <p className="text-sm">{item.name}</p>
-          <FontAwesomeIcon
-            icon={faChevronRight}
-            style={{
-              color: "rgb(236,253,245)",
-              width: ".5em",
-            }}
-          />
+          <p className="text-sm w-48">
+            {item.resultType === "file" ? item.filename : item.name}{" "}
+          </p>
+          <div className="flex gap-16">
+            <span className=" text-emerald-700 text-xs">{item.resultType}</span>
+            <FontAwesomeIcon
+              icon={faChevronRight}
+              style={{
+                color: "rgb(236,253,245)",
+                width: ".5em",
+              }}
+            />
+          </div>
         </div>
       </Link>
     );
-    // }
-    // if (item.type === "program") {
-    //   return (
-    //     <Link
-    //       to={`/dashboard/programs/${item.id}`}
-    //       key={item.id}
-    //       className="search-result"
-    //       onClick={() => setOpen(false)}
-    //     >
-    //       <div className="flex items-center gap-4">
-    //         <p className="text-sm">{item.name}</p>
-    //       </div>
-    //     </Link>
-    //   );
-    // }
-    return null;
   });
 
   if (open) {
