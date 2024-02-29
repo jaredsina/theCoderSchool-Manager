@@ -14,44 +14,54 @@ const SearchBar = () => {
   const tasks = useSelector((state) => state.tasks);
   const files = useSelector((state) => state.files);
 
-  // useEffect(() => {
-  //   // filter the entire store for matches
-  //   const filteredPartners = partners.filter((partner) =>
-  //     partner.name.toLowerCase().includes(search.toLowerCase()),
-  //   );
-  //   const filteredPrograms = programs.filter((program) =>
-  //     program.name.toLowerCase().includes(search.toLowerCase()),
-  //   );
-  //   const filteredTasks = tasks.filter((task) =>
-  //     task.name.toLowerCase().includes(search.toLowerCase()),
-  //   );
-  //   const filteredFiles = files.filter((file) =>
-  //     file.name.toLowerCase().includes(search.toLowerCase()),
-  //   );
-  //   // put the matches into an array
-  //   setSearchList([
-  //     ...filteredPartners,
-  //     ...filteredPrograms,
-  //     ...filteredTasks,
-  //     ...filteredFiles,
-  //   ]);
-  // }, [search, partners, programs, tasks, files]);
-  //! TODO: FINISH RENDERING THE SEARCH RESULTS
-  // use the searchList to render the results below the search bar when it is open
-  const renderedSearchList = searchList.map((item) => {
-    if (item.type === "partner") {
-      return (
-        <Link
-          to={`/dashboard/partners/${item.id}`}
-          key={item.id}
-          className="search-result"
-          onClick={() => setOpen(false)}
-        >
-          <div className="flex items-center gap-4">
-            <p className="text-sm">{item.name}</p>
-          </div>
-        </Link>
-      );
+  useEffect(() => {
+    if (search) {
+      // filter the entire store for matches
+      // add result types to all results so we can show it on the search results
+      const filteredPartners = partners
+        .filter((partner) =>
+          partner.name.toLowerCase().includes(search.toLowerCase()),
+        )
+        .map((p) => {
+          const modifiedPartner = { ...p };
+          modifiedPartner.resultType = "program";
+          return modifiedPartner;
+        });
+
+      const filteredPrograms = programs
+        .filter((program) =>
+          program.name.toLowerCase().includes(search.toLowerCase()),
+        )
+        .map((p) => {
+          const modifiedProgram = { ...p };
+          modifiedProgram.resultType = "program";
+          return modifiedProgram;
+        });
+      const filteredTasks = tasks
+        .filter((task) =>
+          task.name.toLowerCase().includes(search.toLowerCase()),
+        )
+        .map((p) => {
+          const modifiedTask = { ...p };
+          modifiedTask.resultType = "task";
+          return modifiedTask;
+        });
+      const filteredFiles = files
+        .filter((file) =>
+          file.filename.toLowerCase().includes(search.toLowerCase()),
+        )
+        .map((p) => {
+          const modifiedFiles = { ...p };
+          modifiedFiles.resultType = "file";
+          return modifiedFiles;
+        });
+      // put the matches into an array
+      setSearchList([
+        ...filteredPartners,
+        ...filteredPrograms,
+        ...filteredTasks,
+        ...filteredFiles,
+      ]);
     }
     if (item.type === "program") {
       return (
