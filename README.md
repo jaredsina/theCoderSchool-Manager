@@ -1,3 +1,8 @@
+<p align="center">
+    <img src="/client/src/assets/logo.png" alt="theCoderschool logo">
+</p>
+
+
 <h1 align="center">theCoderSchool Program Manager</h1>
 
 This web application aims to increase organization and effectiveness when it comes to managing numerous programs for theCoderSchool Montgomery. 
@@ -10,9 +15,10 @@ This web application aims to increase organization and effectiveness when it com
 
 
 
+
 ### Features
 
-The application features an authentication system and e// eslint-disable-next-line no-console nables users to create, read, update or delete programs, tasks, partners, and files. It also allows users to manage tasks specific to a program and set optional email reminders for each task. Additionally, users can upload pictures, pdfs, and documents to the system, which are saved on Google Cloud Storage. The system also enables users to save information specific to a Partner, such as multiple programs being run, points of contact, and invoice reminders. 
+The application features an authentication system and enables users to create, read, update or delete programs, tasks, partners, and files. It also allows users to manage tasks specific to a program and set optional email reminders for each task. Additionally, users can upload pictures, pdfs, and documents to the system, which are saved on Google Cloud Storage. The system also enables users to save information specific to a Partner, such as multiple programs being run, points of contact, and invoice reminders. 
 
 ### Tech used
 
