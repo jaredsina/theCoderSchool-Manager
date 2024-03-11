@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:3000/api/partners";
+const baseUrl = "https://camp-organizer.onrender.com/api/partners";
 
 let token = null;
 let config = {};

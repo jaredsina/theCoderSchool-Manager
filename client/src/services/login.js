@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:3000/api/login";
+const baseUrl = "https://camp-organizer.onrender.com/api/login";
 
 // The login function sends a POST request to the /api/login endpoint with the user's credentials.
 // If the login is successful, the function returns the response data.
