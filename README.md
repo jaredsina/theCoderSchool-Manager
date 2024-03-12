@@ -13,7 +13,7 @@ This web application aims to increase organization and effectiveness when managi
 </p>
 
 ### Link to Project
-<a href="https://camp-organizer-front-end.onrender.com/login">
+<a href="https://camp-organizer-front-end.onrender.com/">
 theCoderSchool Program Manager
 </a>
 
