@@ -5,22 +5,25 @@
 
 <h1 align="center">theCoderSchool Program Manager</h1>
 
-This web application aims to increase organization and effectiveness when it comes to managing numerous programs for theCoderSchool Montgomery. 
+This web application aims to increase organization and effectiveness when managing numerous programs for theCoderSchool Montgomery. 
 <p align="center">
 <img alt="GitHub License" src="https://img.shields.io/github/license/jaredsina/Camp-Organizer">
 <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/jaredsina/Camp-Organizer">
 <img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/jaredsina/Camp-Organizer/workflow">
 </p>
 
+### Link to Project
+<a href="https://camp-organizer-front-end.onrender.com/login">
+theCoderSchool Program Manager
+</a>
 
 
 
-
-### Features
+## Features
 
 The application features an authentication system and enables users to create, read, update or delete programs, tasks, partners, and files. It also allows users to manage tasks specific to a program and set optional email reminders for each task. Additionally, users can upload pictures, pdfs, and documents to the system, which are saved on Google Cloud Storage. The system also enables users to save information specific to a Partner, such as multiple programs being run, points of contact, and invoice reminders. 
 
-### Tech used
+## Tech used
 
 In developing our web application, we strategically chose a stack of technologies that collectively contribute to a robust and efficient system. The combination of Node.js, Express.js, React, and MongoDB was carefully selected for various reasons, each playing a crucial role in enhancing the performance, scalability, and user experience of our application.
 
