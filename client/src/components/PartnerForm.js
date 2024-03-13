@@ -1,8 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
 import { addPartner } from "../reducers/partnersReducer";
 
-const PartnerForm = () => {
+const PartnerForm = ({ closeModal }) => {
   const dispatch = useDispatch();
   const handlePartner = (e) => {
     e.preventDefault();
@@ -31,6 +32,8 @@ const PartnerForm = () => {
       primarycontactphone,
     };
     dispatch(addPartner(newPartner));
+
+    closeModal();
   };
 
   return (
@@ -141,3 +144,7 @@ const PartnerForm = () => {
 };
 
 export default PartnerForm;
+
+PartnerForm.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+};
