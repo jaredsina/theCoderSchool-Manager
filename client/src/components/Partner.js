@@ -90,6 +90,8 @@ const Partner = () => {
     };
     // dispatch the updated partner to the backend
     dispatch(updatePartner(updatedPartner));
+
+    setEditMode(false);
   };
   // we are going to return the partner information
   // each partner will have an edit button
