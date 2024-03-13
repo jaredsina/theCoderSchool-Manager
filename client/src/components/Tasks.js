@@ -28,7 +28,7 @@ const Tasks = () => {
         <p className="col-span-2">{task.dueDate.split("T")[0]}</p>
         <Link
           to={`/dashboard/${task.id}`}
-          className=" bg-green-400 hover:bg-green-500 text-white font-bold rounded hover:scale-105 transition-all p-1 mx-4 text-center"
+          className=" bg-green-400 hover:bg-green-500 text-white flex justify-center items-center font-bold rounded hover:scale-105 transition-all p-1 mx-4 text-center"
         >
           View
         </Link>
