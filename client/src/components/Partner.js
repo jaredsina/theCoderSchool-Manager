@@ -68,7 +68,9 @@ const Partner = () => {
     const partnerPrimaryContactEmail = document.getElementById(
       "editPrimaryContactEmail",
     ).value;
-
+    const partnerPrimaryContactPhone = document.getElementById(
+      "editPrimaryContactPhone",
+    ).value;
     if (partnerName === "") {
       return alert("Please enter a name for the partner");
     }
@@ -83,6 +85,7 @@ const Partner = () => {
       phone: partnerPhone,
       primarycontact: partnerPrimaryContact,
       primarycontactemail: partnerPrimaryContactEmail,
+      primarycontactphone: partnerPrimaryContactPhone,
       programs: partner.programs.map((program) => program.id),
     };
     // dispatch the updated partner to the backend
