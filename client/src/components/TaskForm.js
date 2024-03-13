@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { createTask } from "../reducers/taskReducer";
 
-const TaskForm = ({ type, id }) => {
+const TaskForm = ({ type, id, closeModal }) => {
   const dispatch = useDispatch();
 
   // handleDateChange is a function that disables the email checkboxes if the due date is less than the number of days away
@@ -89,6 +89,8 @@ const TaskForm = ({ type, id }) => {
 
     // createTask is an action creator that makes a POST request to the server and adds the new task to the store
     dispatch(createTask(newTask));
+
+    closeModal();
   };
   return (
     <div>
@@ -190,4 +192,5 @@ export default TaskForm;
 TaskForm.propTypes = {
   type: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
