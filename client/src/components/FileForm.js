@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { uploadFile } from "../reducers/fileReducer";
 
-const FileForm = ({ type, id }) => {
+const FileForm = ({ type, id, closeModal }) => {
   const dispatch = useDispatch();
   const createFile = async (e) => {
     e.preventDefault();
@@ -20,6 +20,8 @@ const FileForm = ({ type, id }) => {
     }
     // dispatch the uploadFile action creator
     dispatch(uploadFile(formData));
+
+    closeModal();
   };
   if (!type || !id) {
     return null;
@@ -49,6 +51,7 @@ const FileForm = ({ type, id }) => {
 FileForm.propTypes = {
   type: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default FileForm;
