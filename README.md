@@ -21,7 +21,17 @@ theCoderSchool Program Manager
 
 ## Features
 
-The application features an authentication system and enables users to create, read, update or delete programs, tasks, partners, and files. It also allows users to manage tasks specific to a program and set optional email reminders for each task. Additionally, users can upload pictures, pdfs, and documents to the system, which are saved on Google Cloud Storage. The system also enables users to save information specific to a Partner, such as multiple programs being run, points of contact, and invoice reminders. 
+<ul>
+    <li>Authentication system to protect information<br><br>
+    <img src="/assets/auth-system4.gif" alt="picture of authentication system">
+    </li>
+    <br>
+    <li>Enables users to create, read, update or delete programs, tasks, partners, and files</li>
+    <li>Allows users to manage tasks specific to a program and set optional email reminders for each task</li>
+    <li>Users can upload pictures, pdfs, and documents to the system, which are saved on Google Cloud Storage</li>
+    <li>Enables users to save information specific to a Partner, such as multiple programs being run, points of contact, and invoice reminders</li>
+
+</ul>
 
 ## Tech used
 
