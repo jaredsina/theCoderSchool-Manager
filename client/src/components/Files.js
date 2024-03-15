@@ -36,11 +36,20 @@ const Files = () => {
         >
           {file.filename}
         </a>
-        <img
-          src={file.url}
-          alt={file.filename}
-          className="mt-2 h-40 w-full object-cover rounded-md"
-        />
+        {file.contentType === "application/pdf" ? (
+          <iframe
+            src={file.url}
+            title={file.filename}
+            className="mt-2 h-40 w-full object-cover rounded-md"
+          />
+        ) : (
+          <img
+            src={file.url}
+            alt={file.filename}
+            className="mt-2 h-40 w-full object-cover rounded-md"
+          />
+        )}
+
         <button
           className=" hover:bg-red-200 w-8 h-8 mx-auto mt-2 rounded-md cursor-pointer flex justify-center items-center"
           onClick={() => deleteFileHandler(file.id)}
