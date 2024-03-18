@@ -121,15 +121,33 @@ describe("put route", () => {
     const partnerToUpdate = partnersAtStart.find(
       (partner) => partner.name === "Test Partner 2",
     );
-    // post a new program
+
+    // get partner id to update program to
+    const partnerToUpdate2 = partnersAtStart.find(
+      (partner) => partner.name === "Test Partner",
+    );
+
+    // post a new program with partner id
     const response = await api
       .post("/api/programs/")
       .set("Authorization", `bearer ${token}`)
       .send({ ...testDataList[1], partner: partnerToUpdate.id })
       .expect(200)
       .expect("Content-Type", /application\/json/);
+
     // check that the program has the correct partner
-    expect(response.body).toHaveProperty("partner", partnerToUpdate.id);
+    const programs = await dataInDb();
+    expect(programs[1].partner.toString()).toBe(partnerToUpdate.id);
+
+    // update the partner of the program
+    const response2 = await api
+      .put(`/api/programs/${programs[1].id}`)
+      .set("Authorization", `bearer ${token}`)
+      .send({ ...programs[1], partner: partnerToUpdate2.id })
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+
+    expect(response2.body.partner.id === partnerToUpdate2.id).toBe(true);
   });
 
   test("updating a programs partner should add it to the new partners programs", async () => {
