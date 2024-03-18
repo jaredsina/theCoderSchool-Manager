@@ -14,10 +14,6 @@ const testDataList = [
       coordinator: "Alice Johnson",
       instructor: "Bob Williams",
     },
-    files: {
-      syllabus: "https://example.com/math-program-syllabus.pdf",
-      schedule: "https://example.com/math-program-schedule.pdf",
-    },
   },
   {
     name: "Science Program",
@@ -31,10 +27,6 @@ const testDataList = [
     staff: {
       coordinator: "Eve Smith",
       instructor: "Michael Brown",
-    },
-    files: {
-      syllabus: "https://example.com/science-program-syllabus.pdf",
-      schedule: "https://example.com/science-program-schedule.pdf",
     },
   },
 ];
