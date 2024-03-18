@@ -337,7 +337,6 @@ describe("patch route", () => {
       .set("Authorization", `bearer ${token}`)
       .expect(200)
       .expect("Content-Type", /application\/json/);
-    console.log(updatedProgramResponse.body);
     expect(updatedProgramResponse.body.partner.name).toBe("Partner 2 Updated");
   });
 });
