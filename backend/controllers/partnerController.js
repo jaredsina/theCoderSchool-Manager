@@ -64,11 +64,10 @@ const deletePartner = async (request, response) => {
   // should return the deleted partner if successful
   if (deletedPartner) {
     // remove partner from all programs
-    const programs = await Program.find({ partner: deletedPartner.id });
-    programs.forEach(async (program) => {
-      program.partner = null;
-      await program.save();
-    });
+    await Program.updateMany(
+      { partner: deletedPartner.id },
+      { $set: { partner: null } },
+    );
 
     // if partner has files, remove the files from the files collection
     if (deletedPartner.files.length > 0) {

@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 
+// eslint-disable-next-line consistent-return
 const tokenValidator = (request, response, next) => {
   const { token } = request;
   if (!token) {

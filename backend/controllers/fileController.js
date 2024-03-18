@@ -93,20 +93,20 @@ const getParentFiles = async (request, response) => {
 const getFile = async (request, response) => {
   const { id } = request.params;
   const file = await File.findById(id);
-  if (file) {
-    // generate a signed url for the file
-    const url = await bucket.file(file.filename).getSignedUrl({
-      action: "read",
-      expires: Date.now() + 15 * 60 * 1000, // 15 minutes
-    });
-    return response.status(200).json(url[0]);
-  }
+
   if (!file) {
     response.status(404).json({ error: "File was not found" });
     const error = new Error("File does not exist");
     error.status = 404;
     throw error;
   }
+
+  // File was found return url
+  const url = await bucket.file(file.filename).getSignedUrl({
+    action: "read",
+    expires: Date.now() + 15 * 60 * 1000, // 15 minutes
+  });
+  return response.status(200).json(url[0]);
 };
 
 // post a new file
@@ -168,7 +168,6 @@ const postFile = async (request, response) => {
   });
 };
 
-// TODO:What if something happens after uploading it to google and before adding it to the program/partner?
 const deleteFile = async (request, response) => {
   const { id } = request.params;
   const deletedFile = await File.findByIdAndDelete(id);
