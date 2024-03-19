@@ -39,12 +39,13 @@ mongoose.connect(config.MONGODB_URI);
 // setup cron job to send email reminders
 const emailReminder = require("./util/emailReminder");
 
-emailReminder.start();
-
 // setup cron job to send invoice reminders
 const invoiceReminder = require("./util/invoiceReminder");
 
-invoiceReminder.start();
+if (process.env.NODE_ENV !== "test") {
+  emailReminder();
+  invoiceReminder.start();
+}
 
 // parse json data in request body and convert to js object
 app.use(express.json());
