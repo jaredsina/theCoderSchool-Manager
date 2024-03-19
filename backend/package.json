@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "NODE_ENV=development nodemon index.js",
-    "test": "NODE_ENV=test jest --verbose --runInBand",
+    "test": "NODE_ENV=test jest --runInBand",
     "lint": "eslint .",
     "format": "prettier -w",
     "start": "node index.js"
