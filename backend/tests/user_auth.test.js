@@ -179,12 +179,12 @@ describe("user authentication for program route", () => {
         .expect(200)
         .expect("Content-Type", /application\/json/);
       token = response.body.token;
-    });
-    test("should return 401 if token is expired", async () => {
       // use jest fake timers to make the token expire
       jest.useFakeTimers();
       // advance the timers by 61 minutes
       jest.advanceTimersByTime(61 * 60 * 1000);
+    });
+    test("should return 401 if token is expired", async () => {
       // try to access a protected route
       const response = await api
         .get("/api/programs/")
@@ -192,13 +192,13 @@ describe("user authentication for program route", () => {
         .expect(401)
         .expect("Content-Type", /application\/json/);
       expect(response.body).toHaveProperty("error", "token expired");
-      // reset the timers
-      jest.useRealTimers();
     });
   });
 });
 
 afterAll(async () => {
+  // reset the timers
+  jest.useRealTimers();
   // remove any open handles so jest will shutdown properly
   await mongoose.connection.close();
   server.close();
