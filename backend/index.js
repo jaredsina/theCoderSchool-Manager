@@ -44,7 +44,7 @@ const invoiceReminder = require("./util/invoiceReminder");
 
 if (process.env.NODE_ENV !== "test") {
   emailReminder();
-  invoiceReminder.start();
+  invoiceReminder();
 }
 
 // parse json data in request body and convert to js object
