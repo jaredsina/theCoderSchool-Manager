@@ -39,6 +39,13 @@ jobs:
           GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
           GMAIL_ACCESS_TOKEN: ${{ secrets.GMAIL_ACCESS_TOKEN }}
           GMAIL_EMAIL: ${{ secrets.GMAIL_EMAIL }}
+          GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
+          GCS_KEYFILE: ${{ secrets.GCS_KEYFILE }}
+          GCLOUD_PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
+          PORT: ${{ secrets.PORT }}
+          TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          SECRET: ${{ secrets.SECRET }}
 
       
         
