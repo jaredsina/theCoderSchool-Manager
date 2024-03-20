@@ -28,7 +28,6 @@ jobs:
           GCS_TYPE: ${{ secrets.GCS_TYPE }}
           GCS_PROJECT_ID: ${{ secrets.GCS_PROJECT_ID }}
           GCS_PRIVATE_KEY_ID: ${{ secrets.GCS_PRIVATE_KEY_ID }}
-          GCS_PRIVATE_KEY: ${{ secrets.GCS_PRIVATE_KEY }}
           GCS_CLIENT_EMAIL: ${{ secrets.GCS_CLIENT_EMAIL }}
           GCS_CLIENT_ID:  ${{ secrets.GCS_CLIENT_ID }}
           GCS_AUTH_URI: ${{ secrets.GCS_AUTH_URI }}
