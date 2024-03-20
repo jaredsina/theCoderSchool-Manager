@@ -2,6 +2,8 @@ name: Deployement pipeline
 
 on:
   push:
+    paths: 
+      - backend/**
     branches:
       - main
 
