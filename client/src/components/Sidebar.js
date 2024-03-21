@@ -1,11 +1,9 @@
 import React from "react";
 import {
-  faHouse,
   faHandshake,
   faDiagramProject,
   faListCheck,
   faFile,
-  faBoxArchive,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useMatch } from "react-router-dom";
