@@ -9,8 +9,7 @@ This web application aims to increase organization and effectiveness when managi
 <p align="center">
 <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/jaredsina/Camp-Organizer">
 <img alt="GitHub Actions Client Workflow Status" src="https://img.shields.io/github/actions/workflow/status/jaredsina/Camp-Organizer/client-pipeline.yaml?label=client">
-<img alt="GitHub Actions Backend Workflow Status"  src="https://img.shields.io/github/actions/workflow/status/jaredsina/Camp-Organizer/backend-pipeline.yaml?label=backend
-">
+<img alt="GitHub Actions Backend Workflow Status"  src="https://img.shields.io/github/actions/workflow/status/jaredsina/Camp-Organizer/backend-pipeline.yaml?label=backend">
 </p>
 
 ### Link to Project
