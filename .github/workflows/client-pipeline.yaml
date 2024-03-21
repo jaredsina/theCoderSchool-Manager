@@ -1,0 +1,24 @@
+name: Frontend Deployement pipeline
+
+on:
+  push:
+    paths:
+      - client/**
+    branches:
+      - main
+
+jobs:
+  client-deployement-pipeline:
+    environment: Env
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        working-directory: client
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm install
+      - name: Check style
+        run: npm run lint
+      - name: Trigger Deployment
+        run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID_CLIENT }}?key=${{ secrets.RENDER_API_KEY_CLIENT }}
