@@ -11,10 +11,7 @@ const FileList = ({ id }) => {
   }, [dispatch, id]);
   const files = useSelector((state) => state.files);
   const filesList = files
-    .filter((f) => {
-      if (f.programId === id) return f.programId === id;
-      if (f.partnerId === id) return f.partnerId === id;
-    })
+    .filter((f) => f.programId === id || f.partnerId === id)
     .map((file) => (
       <li
         key={file.id}
