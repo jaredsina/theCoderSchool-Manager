@@ -9,6 +9,7 @@ import TaskForm from "./TaskForm";
 import { getTasksByParentId } from "../reducers/taskReducer";
 import TaskList from "./TaskList";
 import Modal from "./Modal";
+import { updateProgramState } from "../reducers/programsReducer";
 
 const Partner = () => {
   const dispatch = useDispatch();
@@ -55,7 +56,22 @@ const Partner = () => {
     </div>
   ));
 
-  const savePartnerChanges = () => {
+  const handleDelete = async () => {
+    const deletedPartner = await dispatch(removePartner(partner));
+
+    // delete the partner from the programs that have it
+    if (deletedPartner && partner.programs) {
+      partner.programs.forEach((program) => {
+        dispatch(
+          updateProgramState({
+            ...program,
+            partner: null,
+          }),
+        );
+      });
+    }
+  };
+  const savePartnerChanges = async () => {
     // grab the field values from the editMode items
     const partnerName = document.getElementById("editPartnerName").value;
     const partnerSchoolName = document.getElementById("editSchoolName").value;
@@ -72,6 +88,7 @@ const Partner = () => {
       "editPrimaryContactPhone",
     ).value;
     if (partnerName === "") {
+      // eslint-disable-next-line no-alert
       return alert("Please enter a name for the partner");
     }
     // create a new partner object with the updated information
@@ -89,9 +106,26 @@ const Partner = () => {
       programs: partner.programs.map((program) => program.id),
     };
     // dispatch the updated partner to the backend
-    dispatch(updatePartner(updatedPartner));
+    const returnedPartner = await dispatch(updatePartner(updatedPartner));
+
+    // Prep updated partner for program state update
+    const updatedPartnerWithoutPrograms = { ...returnedPartner };
+    delete updatedPartnerWithoutPrograms.programs;
+
+    // Give the updated partner to the related programs
+    if (returnedPartner.programs) {
+      returnedPartner.programs.forEach((program) => {
+        dispatch(
+          updateProgramState({
+            ...program,
+            partner: updatedPartnerWithoutPrograms,
+          }),
+        );
+      });
+    }
 
     setEditMode(false);
+    return null;
   };
   // we are going to return the partner information
   // each partner will have an edit button
@@ -264,7 +298,7 @@ const Partner = () => {
             </button>
             <button
               type="button"
-              onClick={() => dispatch(removePartner(partner))}
+              onClick={() => handleDelete()}
               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded hover:scale-105 transition-all"
             >
               Delete

@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import PartnerService from "../services/partner";
 import { displayMessage } from "./notificationReducer";
-import { updateProgramState } from "./programsReducer";
 
 const partnerSlice = createSlice({
   name: "partners",
@@ -12,9 +11,6 @@ const partnerSlice = createSlice({
     },
     appendPartnerState: (state, action) => {
       return [...state, action.payload];
-    },
-    removeAllPartnersState: (state, action) => {
-      return [];
     },
     deletePartnerFromState: (state, action) => {
       return state.filter((partner) => partner.id !== action.payload);
@@ -54,7 +50,6 @@ const partnerSlice = createSlice({
 export const {
   setPartnersState,
   appendPartnerState,
-  removeAllPartnersState,
   deletePartnerFromState,
   updatePartnerState,
   removeProgramFromPartnerState,
@@ -68,7 +63,6 @@ export const initializePartners = () => async (dispatch) => {
     const partners = await PartnerService.getAll();
     dispatch(setPartnersState(partners));
   } catch (err) {
-    console.log(err);
     dispatch(displayMessage("Error loading partners", "error", 5));
   }
 };
@@ -80,7 +74,6 @@ export const addPartner = (partner) => async (dispatch) => {
     dispatch(displayMessage("Partner added", "success", 5));
   } catch (err) {
     dispatch(displayMessage("Error adding partner", "error", 5));
-    console.log(err);
   }
 };
 
@@ -91,20 +84,10 @@ export const removePartner = (partnerToBeDeleted) => async (dispatch) => {
     );
     dispatch(displayMessage("Partner deleted", "success", 5));
     dispatch(deletePartnerFromState(deletedPartner.id));
-    // delete the partner from the programs that have it
-    if (partnerToBeDeleted.programs) {
-      partnerToBeDeleted.programs.forEach((program) => {
-        dispatch(
-          updateProgramState({
-            ...program,
-            partner: null,
-          }),
-        );
-      });
-    }
+    return deletedPartner;
   } catch (err) {
     dispatch(displayMessage("Error deleting partner", "error", 5));
-    console.log(err);
+    return null;
   }
 };
 
@@ -115,21 +98,8 @@ export const updatePartner = (partner) => async (dispatch) => {
     dispatch(
       displayMessage(`Edited ${updatedPartner.name}updated`, "success", 5),
     );
-    const updatedPartnerWithoutPrograms = { ...updatedPartner };
-    delete updatedPartnerWithoutPrograms.programs;
-
-    if (updatedPartner.programs) {
-      updatedPartner.programs.forEach((program) => {
-        dispatch(
-          updateProgramState({
-            ...program,
-            partner: updatedPartnerWithoutPrograms,
-          }),
-        );
-      });
-    }
+    return updatedPartner;
   } catch (err) {
-    dispatch(displayMessage("Error updating partner", "error", 5));
-    console.log(err);
+    return { programs: [] };
   }
 };
