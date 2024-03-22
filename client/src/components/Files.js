@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
@@ -7,6 +7,7 @@ import { initializeFilesWithUrls, deleteFile } from "../reducers/fileReducer";
 const Files = () => {
   const dispatch = useDispatch();
   const deleteFileHandler = (id) => {
+    // eslint-disable-next-line no-alert
     const confirm = window.confirm(
       "Are you sure you want to delete this file?",
     );
