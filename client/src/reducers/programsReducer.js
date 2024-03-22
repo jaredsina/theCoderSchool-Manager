@@ -17,7 +17,7 @@ const programsSlice = createSlice({
     appendProgramState: (state, action) => {
       return [...state, action.payload];
     },
-    removeAllProgramsState: (state, action) => {
+    removeAllProgramsState: () => {
       return [];
     },
     deleteProgramState: (state, action) => {
