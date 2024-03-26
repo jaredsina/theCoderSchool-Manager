@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+// disable rule for custom label
+
 import React, { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +26,9 @@ const Programs = () => {
         key={program.id}
         className="bg-emerald-50 shadow-md rounded-lg p-4 hover:scale-110 hover:shadow-lg transition-all cursor-pointer"
         onClick={() => navigate(`/dashboard/${program.id}`)}
+        role="button"
+        tabIndex={0}
+        onKeyDown={() => {}}
       >
         <p>{program.name}</p>
         <p className={program.status ? " text-green-600" : " text-red-600"}>

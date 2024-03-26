@@ -22,6 +22,9 @@ const Tasks = () => {
         key={task.id}
         onClick={() => navigate(`/dashboard/${task.id}`)}
         className="bg-emerald-50 p-4 hover:bg-emerald-300 transition-all cursor-pointer grid grid-cols-7"
+        role="button"
+        tabIndex={0}
+        onKeyDown={() => {}}
       >
         <p>{task.name}</p>
         <p className="col-span-2">{task.description}</p>

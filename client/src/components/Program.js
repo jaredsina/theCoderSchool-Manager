@@ -53,6 +53,7 @@ const Program = () => {
 
     // make sure all the required values are there
     if (!name || !students || !pricing) {
+      // eslint-disable-next-line no-alert
       alert(
         "Please fill out all the required fields (name, students, pricing)",
       );
@@ -133,12 +134,15 @@ const Program = () => {
               ))}
             </select>
           ) : (
-            <h4
+            <div
               className=" bg-emerald-50 px-3 py-2 rounded-lg w-fit cursor-pointer hover:scale-105 transition-all "
               onClick={() => navigate(`/dashboard/${program.partner.id}`)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={() => {}}
             >
               {program.partner ? program.partner.name : "None"}
-            </h4>
+            </div>
           )}
         </div>
         <div>

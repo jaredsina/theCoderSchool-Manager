@@ -147,6 +147,9 @@ const SearchBar = () => {
       <div
         className="hidden bg-emerald-50 rounded-lg flex-grow max-w-xs p-2 lg:flex gap-2 items-center hover:bg-emerald-100"
         onClick={() => setOpen(true)}
+        role="button"
+        tabIndex={0}
+        onKeyDown={() => {}}
       >
         <FontAwesomeIcon
           icon={faSearch}

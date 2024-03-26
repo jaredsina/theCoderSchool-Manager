@@ -36,6 +36,7 @@ const Task = () => {
 
     // since this is not a form submission, we need to check the values manually
     if (!name || !description) {
+      // eslint-disable-next-line no-alert
       alert("Please fill out all the required fields (name)");
       return;
     }

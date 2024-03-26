@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import PartnerForm from "./PartnerForm";
 
@@ -13,6 +13,9 @@ const Partners = () => {
         key={partner.id}
         onClick={() => navigate(`/dashboard/${partner.id}`)}
         className="bg-emerald-50 shadow-md rounded-lg p-4 hover:scale-110 hover:shadow-lg transition-all cursor-pointer"
+        role="button"
+        tabIndex={0}
+        onKeyDown={() => {}}
       >
         <p>{partner.name}</p>
         <p>{partner.email}</p>

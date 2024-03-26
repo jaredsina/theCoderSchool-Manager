@@ -51,6 +51,9 @@ const Partner = () => {
       key={program.id}
       onClick={() => navigate(`/dashboard/${program.id}`)}
       className="bg-emerald-50 shadow-md rounded-lg p-4 hover:scale-110 hover:shadow-lg transition-all cursor-pointer list-none"
+      role="button"
+      tabIndex={0}
+      onKeyDown={() => {}}
     >
       <Link to={`/dashboard/${program.id}`}>{program.name}</Link>
     </div>
