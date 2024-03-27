@@ -73,6 +73,12 @@ const LoginForm = () => {
             Login
           </button>
         </form>
+        <button
+          type="button"
+          className=" bg-emerald-100 rounded-md py-2 px-8 mt-4 w-full font-bold hover:bg-emerald-200 transition duration-200 ease-in-out"
+        >
+          DEMO Login
+        </button>
         <div className="login-notification flex justify-center lg:h-8 mt-4">
           <Notification />
         </div>
