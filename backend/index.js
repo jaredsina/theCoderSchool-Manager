@@ -17,6 +17,7 @@ const userExtractor = require("./middleware/userExtractor");
 const tokenExtractor = require("./middleware/tokenExtractor");
 const tokenValidator = require("./middleware/tokenValidator");
 const fileUpload = require("./middleware/fileUpload");
+const demoHandler = require("./middleware/demoHandler");
 
 // setup routers
 const programRouter = require("./routers/programRouter");
@@ -71,6 +72,7 @@ app.use(
   tokenExtractor,
   tokenValidator,
   userExtractor,
+  demoHandler,
   fileUpload.single("file"),
   fileRouter,
 );
