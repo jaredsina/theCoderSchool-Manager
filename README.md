@@ -13,6 +13,7 @@ This web application aims to increase organization and effectiveness when managi
 </p>
 
 ### Link to Project
+<p>Notice! Both Backend and Frontend are running on free tiers. Please give services time to startup after visiting link.</p>
 <a href="https://camp-organizer-front-end.onrender.com/" target="_blank" rel="noopener noreferrer">
 theCoderSchool Program Manager
 </a>
