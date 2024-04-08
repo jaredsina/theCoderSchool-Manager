@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { attemptLogin } from "../reducers/authReducer";
 import Notification from "./Notification";
 import logo from "../assets/logo.png";
+import Spinner from "./Spinner";
 
 const LoginForm = () => {
+  const [loading, setLoading] = useState(false);
   // dispatch is a function that takes an action as an argument
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,7 +18,12 @@ const LoginForm = () => {
     const password = document.getElementById("password").value;
     dispatch(attemptLogin(username, password));
   };
-
+  const handleDemo = async () => {
+    setLoading(true);
+    dispatch(attemptLogin("demo", "1")).then(() => {
+      setLoading(false);
+    });
+  };
   // when LoginForm mounts and user changes we want to redirect to dashboard
   useEffect(() => {
     if (user) {
@@ -77,10 +84,10 @@ const LoginForm = () => {
           type="button"
           className=" bg-emerald-100 rounded-md py-2 px-8 mt-4 w-full font-bold hover:bg-emerald-200 transition duration-200 ease-in-out"
           onClick={() => {
-            dispatch(attemptLogin("demo", "1"));
+            handleDemo("demo", "1");
           }}
         >
-          DEMO Login
+          {loading ? <Spinner /> : "DEMO Login"}
         </button>
         <div className="login-notification flex justify-center lg:h-8 mt-4">
           <Notification />
